@@ -1,8 +1,5 @@
 package com.tdozo.vlp.classes;
 
-import androidx.room.Entity;
-
-@Entity
 public class Wearable extends Stuff {
     private String property;
 

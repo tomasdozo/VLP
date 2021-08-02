@@ -93,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
             view.setText(wearable.getName());
             view_wearables.addView(view);
         }
-        ;
         for (Weapon weapon : cha.getWeapons().getWeapons()) {
             TextView view = new TextView(getBaseContext());
             view.setText(weapon.getName());

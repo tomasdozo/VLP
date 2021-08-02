@@ -1,8 +1,5 @@
 package com.tdozo.vlp.classes;
 
-import androidx.room.Entity;
-import androidx.room.Ignore;
-import androidx.room.PrimaryKey;
 
 import com.tdozo.vlp.enums.Aptitude;
 import com.tdozo.vlp.enums.Energy;
@@ -12,10 +9,8 @@ import com.tdozo.vlp.enums.Race;
 import com.tdozo.vlp.enums.Sanity;
 
 import java.util.ArrayList;
-@Entity
+
 public class Character {
-    @PrimaryKey(autoGenerate = true)
-    private int id;
     private final static Character instance = new Character();
     private String name;
     private String description;
@@ -30,7 +25,6 @@ public class Character {
     private ArrayList<Attribute> skills;
     private ArrayList<Attribute> weakness;
     private int weight;
-    @Ignore
     private double actual_weight;
     private InventoryWeapons weapons;
     private InventoryWearables wearables;
@@ -51,16 +45,16 @@ public class Character {
         inventory = new Inventory();
     }
 
+    public static Character getInstance() {
+        return instance;
+    }
+
     public ArrayList<Attribute> getSkills() {
         return skills;
     }
 
     public ArrayList<Attribute> getWeakness() {
         return weakness;
-    }
-
-    public static Character getInstance() {
-        return instance;
     }
 
     public String getName() {
@@ -180,7 +174,7 @@ public class Character {
     }
 
     public void addWearable(String name, String properties, double weight, int value) {
-        wearables.addItem(new Wearable(name,weight,value,properties));
+        wearables.addItem(new Wearable(name, weight, value, properties));
     }
 
     public InventoryWearables getWearables() {

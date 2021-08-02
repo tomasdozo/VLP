@@ -1,8 +1,6 @@
 package com.tdozo.vlp.classes;
 
-import androidx.room.Entity;
 
-@Entity
 public class Item extends Stuff {
     private double quantity;
 

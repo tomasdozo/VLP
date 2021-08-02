@@ -1,16 +1,10 @@
 package com.tdozo.vlp.classes;
 
-import androidx.room.Entity;
-import androidx.room.Ignore;
-import androidx.room.PrimaryKey;
 
 import java.util.ArrayList;
 
-@Entity
+
 public class InventoryWearables {
-    @PrimaryKey(autoGenerate = true)
-    private int id;
-    @Ignore
     protected double weight;
     protected ArrayList<Wearable> wearables;
 
@@ -32,14 +26,14 @@ public class InventoryWearables {
         this.wearables.add(wearable);
     }
 
-    public void removeItem(Wearable wearable){
+    public void removeItem(Wearable wearable) {
         wearables.remove(wearable);
     }
 
-    public void calculateWeight(){
+    public void calculateWeight() {
         double aux = 0;
         for (Wearable wearable : wearables) {
-            aux=+wearable.getWeight();
+            aux = +wearable.getWeight();
         }
         weight = aux;
     }

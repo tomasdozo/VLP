@@ -1,15 +1,9 @@
 package com.tdozo.vlp.classes;
 
-import androidx.room.Entity;
-import androidx.room.Ignore;
-import androidx.room.PrimaryKey;
 
 import java.util.ArrayList;
-@Entity
+
 public class InventoryWeapons {
-    @PrimaryKey(autoGenerate = true)
-    private int id;
-    @Ignore
     protected double weight;
     protected ArrayList<Weapon> weapons;
 
@@ -31,14 +25,14 @@ public class InventoryWeapons {
         this.weapons.add(weapon);
     }
 
-    public void removeItem(Weapon weapon){
+    public void removeItem(Weapon weapon) {
         weapons.remove(weapon);
     }
 
-    public void calculateWeight(){
+    public void calculateWeight() {
         double aux = 0;
         for (Weapon weapon : weapons) {
-            aux=+weapon.getWeight();
+            aux = +weapon.getWeight();
         }
         weight = aux;
     }

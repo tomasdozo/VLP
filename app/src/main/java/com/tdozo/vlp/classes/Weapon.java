@@ -1,10 +1,9 @@
 package com.tdozo.vlp.classes;
 
-import androidx.room.Entity;
 
 import com.tdozo.vlp.enums.Aptitude;
 
-@Entity
+
 public class Weapon extends Stuff {
     private String properties;
     private String damage;
