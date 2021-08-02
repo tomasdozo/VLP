@@ -1,9 +1,10 @@
 package com.tdozo.vlp.classes;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Inventory {
+public class Inventory implements Serializable {
 
     protected double weight;
     protected ArrayList<Item> items;

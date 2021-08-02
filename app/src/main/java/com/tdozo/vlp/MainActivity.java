@@ -17,8 +17,10 @@ import com.tdozo.vlp.enums.Aptitude;
 import com.tdozo.vlp.enums.EnergyType;
 import com.tdozo.vlp.enums.Race;
 
-import java.io.FileNotFoundException;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout view_weakness;
     LinearLayout view_inventory;
 
+    boolean characterLoaded = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        cha = Character.getInstance();
         view_name = findViewById(R.id.name);
         view_race = findViewById(R.id.race);
         view_coins = findViewById(R.id.coins);
@@ -61,25 +64,42 @@ public class MainActivity extends AppCompatActivity {
         view_weakness = findViewById(R.id.weakness);
         view_inventory = findViewById(R.id.inventory);
 
-        seed();
+
         loadCharacter();
+
+        saveCharacter();
+
+        showCharacter();
 
 
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
+    private void saveCharacter() {
         try {
-            FileOutputStream fos = openFileOutput("personaje", Context.MODE_PRIVATE);
-
-        } catch (FileNotFoundException e) {
+            FileOutputStream fos = openFileOutput("Character", Context.MODE_PRIVATE);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(cha);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+
     private void loadCharacter() {
+        try {
+            FileInputStream fis = openFileInput("Character");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            cha = (Character) ois.readObject();
+            characterLoaded = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            cha = new Character();
+            seed();
+        }
+
+    }
+
+    private void showCharacter() {
         view_name.setText(cha.getName());
         view_race.setText(cha.getRace().getName());
         view_coins.setText(String.valueOf(cha.getCoins()));

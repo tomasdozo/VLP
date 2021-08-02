@@ -1,7 +1,9 @@
 package com.tdozo.vlp.classes;
 
 
-public abstract class Stuff {
+import java.io.Serializable;
+
+public abstract class Stuff implements Serializable {
 
     protected String name;
     protected double weight;

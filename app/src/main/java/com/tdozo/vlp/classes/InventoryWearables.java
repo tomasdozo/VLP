@@ -1,10 +1,11 @@
 package com.tdozo.vlp.classes;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public class InventoryWearables {
+public class InventoryWearables implements Serializable {
     protected double weight;
     protected ArrayList<Wearable> wearables;
 

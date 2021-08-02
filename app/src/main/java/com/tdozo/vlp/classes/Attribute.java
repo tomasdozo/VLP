@@ -1,7 +1,9 @@
 package com.tdozo.vlp.classes;
 
 
-public class Attribute {
+import java.io.Serializable;
+
+public class Attribute implements Serializable {
     protected final String name;
     protected final String description;
 

@@ -8,10 +8,10 @@ import com.tdozo.vlp.enums.Health;
 import com.tdozo.vlp.enums.Race;
 import com.tdozo.vlp.enums.Sanity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Character {
-    private final static Character instance = new Character();
+public class Character implements Serializable {
     private String name;
     private String description;
     private int experience;
@@ -43,10 +43,6 @@ public class Character {
         weapons = new InventoryWeapons();
         wearables = new InventoryWearables();
         inventory = new Inventory();
-    }
-
-    public static Character getInstance() {
-        return instance;
     }
 
     public ArrayList<Attribute> getSkills() {
@@ -155,6 +151,10 @@ public class Character {
 
     public void addSkill(String name, String description) {
         skills.add(new Attribute(name, description));
+    }
+
+    public void addSkill(Attribute skill) {
+        skills.add(skill);
     }
 
     public void addWeakness(String name, String description) {
