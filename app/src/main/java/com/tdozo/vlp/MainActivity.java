@@ -2,11 +2,14 @@ package com.tdozo.vlp;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.tdozo.vlp.classes.Attribute;
 import com.tdozo.vlp.classes.Character;
@@ -65,9 +68,10 @@ public class MainActivity extends AppCompatActivity {
         view_inventory = findViewById(R.id.inventory);
 
 
-        loadCharacter();
-
-        saveCharacter();
+        //loadCharacter();
+        cha = new Character();
+        seed();
+        //saveCharacter();
 
         showCharacter();
 
@@ -94,7 +98,6 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
             cha = new Character();
-            seed();
         }
 
     }
@@ -132,17 +135,38 @@ public class MainActivity extends AppCompatActivity {
         for (Item item : cha.getInventory().getItems()) {
             TableRow row = new TableRow(getBaseContext());
 
+
             TextView col0 = new TextView(getBaseContext());
             col0.setText(item.getName());
+            col0.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
+            col0.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 3.0f));
+            col0.setBackground(ContextCompat.getDrawable(this, R.drawable.border));
+
             row.addView(col0);
+
+            LinearLayout.LayoutParams param = new TableRow.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1.0f);
+
             TextView col1 = new TextView(getBaseContext());
             col1.setText(String.valueOf(item.getQuantity()));
+            col1.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            col1.setLayoutParams(param);
+            col1.setBackground(ContextCompat.getDrawable(this, R.drawable.border));
             row.addView(col1);
+
             TextView col2 = new TextView(getBaseContext());
             col2.setText(String.valueOf(item.getWeight()));
+            col2.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            col2.setLayoutParams(param);
+            col2.setBackground(ContextCompat.getDrawable(this, R.drawable.border));
+
             row.addView(col2);
+
             TextView col3 = new TextView(getBaseContext());
             col3.setText(String.valueOf(item.getValue()));
+            col3.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            col3.setLayoutParams(param);
+            col3.setBackground(ContextCompat.getDrawable(this, R.drawable.border));
+
             row.addView(col3);
 
             view_inventory.addView(row);
@@ -171,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
         //Seed inventario
         cha.addItem("Pildora", 5, 0.1);
         cha.addItem("Caja misteriosa", 1, 10, 50);
-        cha.addItem("Llave random", 1, 0.1);
+        cha.addItem("Llave random random", 1, 0.1);
         cha.addItem("Pocion de salud", 3, 0.5, 10);
         cha.addItem("Pocion de stamina", 2, 0.5, 10);
 
