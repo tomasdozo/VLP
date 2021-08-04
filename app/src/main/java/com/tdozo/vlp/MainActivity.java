@@ -2,6 +2,7 @@ package com.tdozo.vlp;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -134,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
         }
         for (Item item : cha.getInventory().getItems()) {
             TableRow row = new TableRow(getBaseContext());
+            row.setGravity(Gravity.CENTER_VERTICAL);
 
 
             TextView col0 = new TextView(getBaseContext());
@@ -141,16 +143,19 @@ public class MainActivity extends AppCompatActivity {
             col0.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
             col0.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 3.0f));
             col0.setBackground(ContextCompat.getDrawable(this, R.drawable.border));
-
+            col0.setGravity(Gravity.CENTER_VERTICAL);
+            col0.setPadding(5, 0, 5, 0);
             row.addView(col0);
 
-            LinearLayout.LayoutParams param = new TableRow.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1.0f);
+            TableRow.LayoutParams param = new TableRow.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1.0f);
 
             TextView col1 = new TextView(getBaseContext());
             col1.setText(String.valueOf(item.getQuantity()));
             col1.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             col1.setLayoutParams(param);
             col1.setBackground(ContextCompat.getDrawable(this, R.drawable.border));
+            col1.setGravity(Gravity.CENTER_VERTICAL);
+
             row.addView(col1);
 
             TextView col2 = new TextView(getBaseContext());
@@ -158,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
             col2.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             col2.setLayoutParams(param);
             col2.setBackground(ContextCompat.getDrawable(this, R.drawable.border));
-
+            col2.setGravity(Gravity.CENTER_VERTICAL);
             row.addView(col2);
 
             TextView col3 = new TextView(getBaseContext());
@@ -166,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
             col3.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             col3.setLayoutParams(param);
             col3.setBackground(ContextCompat.getDrawable(this, R.drawable.border));
-
+            col3.setGravity(Gravity.CENTER_VERTICAL);
             row.addView(col3);
 
             view_inventory.addView(row);
