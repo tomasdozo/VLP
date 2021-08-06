@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/linearLayoutGeneral"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
@@ -156,30 +156,37 @@
 
     </LinearLayout>
 
-    <ScrollView
-        android:id="@+id/scrollView2"
+    <LinearLayout
+        android:id="@+id/linearLayoutWearables"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:background="@drawable/rounded_border"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_max="72dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutGeneral">
 
-        <LinearLayout
-            android:id="@+id/wearables"
+        <TextView
+            android:id="@+id/textView16"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:text="Armadura/Vestimienta"
+            android:textColor="@color/colorPrimaryDark" />
 
-            <TextView
-                android:id="@+id/textView16"
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border">
+
+            <TableLayout
+                android:id="@+id/wearables"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Armadura/Vestimienta"
-                android:textColor="@color/colorPrimaryDark" />
-        </LinearLayout>
-    </ScrollView>
+                android:layout_height="wrap_content" />
+        </ScrollView>
+
+    </LinearLayout>
 
     <ScrollView
         android:id="@+id/scrollView3"
@@ -189,10 +196,10 @@
         android:background="@drawable/rounded_border"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutWearables">
 
         <LinearLayout
-            android:id="@+id/weapons"
+            android:id="@+id/linearLayoutWeapons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -203,6 +210,11 @@
                 android:layout_height="wrap_content"
                 android:text="Armas"
                 android:textColor="@color/colorPrimaryDark" />
+
+            <TableLayout
+                android:id="@+id/weapons"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
         </LinearLayout>
     </ScrollView>
 
@@ -233,7 +245,7 @@
 
         <TextView
             android:id="@+id/aptitude"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center" />
 

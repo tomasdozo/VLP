@@ -6,6 +6,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
@@ -37,12 +38,12 @@ public class MainActivity extends AppCompatActivity {
     TextView view_health;
     TextView view_sanity;
     TextView view_energy;
-    LinearLayout view_wearables;
-    LinearLayout view_weapons;
+    TableLayout view_wearables;
+    TableLayout view_weapons;
     TextView view_aptitude;
     LinearLayout view_skills;
     LinearLayout view_weakness;
-    LinearLayout view_inventory;
+    TableLayout view_inventory;
 
     boolean characterLoaded = false;
 
@@ -112,16 +113,8 @@ public class MainActivity extends AppCompatActivity {
         view_health.setText(cha.getHealth().getName());
         view_sanity.setText(cha.getSanity().getName());
         view_energy.setText(cha.getEnergy().getName());
-        for (Wearable wearable : cha.getWearables().getWearables()) {
-            TextView view = new TextView(getBaseContext());
-            view.setText(wearable.getName());
-            view_wearables.addView(view);
-        }
-        for (Weapon weapon : cha.getWeapons().getWeapons()) {
-            TextView view = new TextView(getBaseContext());
-            view.setText(weapon.getName());
-            view_weapons.addView(view);
-        }
+        showWearables();
+        showWeapons();
         view_aptitude.setText(cha.getAptitude().getName());
         for (Attribute skill : cha.getSkills()) {
             TextView view = new TextView(getBaseContext());
@@ -133,6 +126,72 @@ public class MainActivity extends AppCompatActivity {
             view.setText(weakness.getName());
             view_weakness.addView(view);
         }
+        showInventory();
+
+    }
+
+    private void showWearables() {
+        for (Wearable wearable : cha.getWearables().getWearables()) {
+            TableRow row = new TableRow(getBaseContext());
+            row.setBackground(ContextCompat.getDrawable(this, R.drawable.border));
+            row.setGravity(Gravity.CENTER_VERTICAL);
+
+
+            TextView col0 = new TextView(getBaseContext());
+            col0.setText(wearable.getName());
+            col0.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
+            col0.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f));
+            col0.setGravity(Gravity.CENTER_VERTICAL);
+            col0.setPadding(5, 5, 0, 5);
+            row.addView(col0);
+
+            view_wearables.addView(row);
+        }
+    }
+
+    private void showWeapons() {
+        for (Weapon weapon : cha.getWeapons().getWeapons()) {
+            TableRow row = new TableRow(getBaseContext());
+            row.setBackground(ContextCompat.getDrawable(this, R.drawable.border));
+            row.setGravity(Gravity.CENTER_VERTICAL);
+
+
+            TextView col0 = new TextView(getBaseContext());
+            col0.setText(weapon.getName());
+            col0.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
+            col0.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 3.0f));
+            col0.setGravity(Gravity.CENTER_VERTICAL);
+            col0.setPadding(5, 5, 0, 5);
+            row.addView(col0);
+
+            TableRow.LayoutParams param = new TableRow.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1.0f);
+
+            TextView col1 = new TextView(getBaseContext());
+            col1.setText(String.valueOf(weapon.getDamage()));
+            col1.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            col1.setLayoutParams(param);
+            col1.setGravity(Gravity.CENTER_VERTICAL);
+            row.addView(col1);
+
+            TextView col2 = new TextView(getBaseContext());
+            col2.setText(String.valueOf(weapon.getAptitude()));
+            col2.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            col2.setLayoutParams(param);
+            col2.setGravity(Gravity.CENTER_VERTICAL);
+            row.addView(col2);
+
+            TextView col3 = new TextView(getBaseContext());
+            col3.setText(String.valueOf(weapon.getCapacity()));
+            col3.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            col3.setLayoutParams(param);
+            col3.setGravity(Gravity.CENTER_VERTICAL);
+            row.addView(col3);
+
+            view_weapons.addView(row);
+        }
+    }
+
+    private void showInventory() {
         for (Item item : cha.getInventory().getItems()) {
             TableRow row = new TableRow(getBaseContext());
             row.setBackground(ContextCompat.getDrawable(this, R.drawable.border));
@@ -172,7 +231,6 @@ public class MainActivity extends AppCompatActivity {
 
             view_inventory.addView(row);
         }
-
     }
 
     private void seed() {
@@ -210,5 +268,9 @@ public class MainActivity extends AppCompatActivity {
         //seed armadura
         cha.addWearable("Caperusa roja", "Mision secundaria visitar el bosque", 1, 30);
         cha.addWearable("Calzas termicas", "Para aguantar el frio", 0.5, 10);
+        cha.addWearable("Caperusa Azul", "Something", 1, 30);
+        cha.addWearable("Calzas atermicas", "Para tener  frio", 0.5, 10);
+
+
     }
 }
