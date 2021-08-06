@@ -22,13 +22,13 @@ public class Character implements Serializable {
     private Sanity sanity;
     private Aptitude aptitude;
     private Race race;
-    private ArrayList<Attribute> skills;
-    private ArrayList<Attribute> weakness;
-    private int weight;
+    private final ArrayList<Attribute> skills;
+    private final ArrayList<Attribute> weakness;
+    private final InventoryWeapons weapons;
     private double actual_weight;
-    private InventoryWeapons weapons;
-    private InventoryWearables wearables;
-    private Inventory inventory;
+    private final InventoryWearables wearables;
+    private final Inventory inventory;
+    private int baseWeight;
 
     public Character() {
         skills = new ArrayList<>();
@@ -38,7 +38,7 @@ public class Character implements Serializable {
         energy = Energy.ENERGETIC;
         health = Health.HEALTHY;
         sanity = Sanity.SANE;
-        weight = 15;
+        baseWeight = 0;
         actual_weight = 0;
         weapons = new InventoryWeapons();
         wearables = new InventoryWearables();
@@ -133,12 +133,12 @@ public class Character implements Serializable {
         this.race = race;
     }
 
-    public int getWeight() {
-        return weight;
+    public int getBaseWeight() {
+        return baseWeight;
     }
 
-    public void setWeight(int weight) {
-        this.weight = weight;
+    public void setBaseWeight(int baseWeight) {
+        this.baseWeight = baseWeight;
     }
 
     public double getActual_weight() {

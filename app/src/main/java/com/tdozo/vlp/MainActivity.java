@@ -1,6 +1,7 @@
 package com.tdozo.vlp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -70,10 +71,9 @@ public class MainActivity extends AppCompatActivity {
         view_inventory = findViewById(R.id.inventory);
 
 
-        //loadCharacter();
-        cha = new Character();
-        seed();
-        //saveCharacter();
+        newCharacter();
+
+        loadCharacter();
 
         showCharacter();
 
@@ -99,9 +99,16 @@ public class MainActivity extends AppCompatActivity {
             characterLoaded = true;
         } catch (Exception e) {
             e.printStackTrace();
+            //newCharacter();
             cha = new Character();
+            seed();
         }
 
+    }
+
+    private void newCharacter() {
+        Intent intent = new Intent(MainActivity.this, CharacterActivity.class);
+        startActivity(intent);
     }
 
     private void showCharacter() {

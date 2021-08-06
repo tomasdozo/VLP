@@ -22,7 +22,7 @@
     <string name="ACUATIC_name">Esencia Acuática</string>
     <string name="ACUATIC_description">Tus energías están profúndamente conectadas con tu contacto con el agua, y tu hidratación. Los tritones y algunos magos de Agua poseen esta forma de Energía.\n-No recuperaras Energía alimentándote o durmiendo (debes seguir haciéndolo para mantenerte vivo.)\n-Recuperas 1 punto de Energía por cada 4 horas de descanso cerca de grandes cuerpos de\nagua, teniendo un momento de conexión con ella, o bebiendo una botella entera de agua\nlimpia.\n-Si te quedas sin Energía, caerás inconsciente hasta pasadas 4 horas o tu cuerpo entre en contacto con una fuente de agua. Despertarás con 1 punto de Energía.</string>
     <string name="AIR_name">Esencia Aérea</string>
-    <string name="AIR_description" >El aire y los cielos te dan la Energía necesaria para seguir adelante. Muchas razas de hombres-pájaro y magos de viento utilizan esta manera de mantenerse.\n-No recuperaras Energía alimentándote o durmiendo (debes seguir haciéndolo para mantenerte vivo.)\n-Recuperas 1 punto de Energía por cada 2 horas de descanso, y si descansas en un lugar alto o ventoso recuperas 1 adicional. O teniendo un momento de conexión con el aire.\n-Si te quedas sin Energía, caerás inconsciente hasta pasadas 4 horas. Despertarás con 1 punto de Energía.</string>
+    <string name="AIR_description">El aire y los cielos te dan la Energía necesaria para seguir adelante. Muchas razas de hombres-pájaro y magos de viento utilizan esta manera de mantenerse.\n-No recuperaras Energía alimentándote o durmiendo (debes seguir haciéndolo para mantenerte vivo.)\n-Recuperas 1 punto de Energía por cada 2 horas de descanso, y si descansas en un lugar alto o ventoso recuperas 1 adicional. O teniendo un momento de conexión con el aire.\n-Si te quedas sin Energía, caerás inconsciente hasta pasadas 4 horas. Despertarás con 1 punto de Energía.</string>
     <string name="MEDITATION_name">Meditación</string>
     <string name="MEDITATION_description">Tus energías dependen de tu balance espiritual, independientemente de tu religión o creencia. Necesitas paz y concentración.\n-No recuperaras Energía alimentándote o durmiendo (debes seguir haciéndolo para\nmantenerte vivo.)\n-Recuperas 1 punto de Energía por cada 2 horas de meditación, y si meditas en un lugar hermoso o tranquilo recuperas 1 adicional. También cada vez que superes una tirada para resistir daño mental o miedo.\n-Si te quedas sin Energía, caerás inconsciente hasta pasadas 4 horas. Despertarás con 1 punto de Energía.</string>
     <string name="HEALTHY_name">Saludable</string>
@@ -85,4 +85,13 @@
     <string name="HOBBIT_description">Cómodos, ociosos, y responsables; así los percibe el mundo a los medianos. Ellos también se perciben así. De muy buen humor, tienen fama de afortunados y de ser buena compañía.</string>
     <string name="DWARF_name">Enano</string>
     <string name="DWARF_description">Bajos y fornidos, los enanos se ganaron una reputación respetable y fuerte. Oriundos de todo lugar en Europa que presente montañas.</string>
+    <string name="Race">Raza</string>
+    <string name="Choose">Elegir</string>
+    <string name="Description">Descpripción</string>
+    <string name="Energy_Type">Tipo de Energía</string>
+    <string name="Aptitude">Aptitud</string>
+    <string name="Base_Weight">Peso Base</string>
+    <string name="Save">Guardar</string>
+    <string name="Name">Nombre</string>
+    <string name="New_Character">Nuevo Personaje</string>
 </resources>
