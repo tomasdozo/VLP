@@ -34,7 +34,7 @@ public class Inventory implements Serializable {
     public void calculateWeight() {
         double aux = 0;
         for (Item item : items) {
-            aux = +item.getWeight();
+            aux += item.getTotalWeight();
         }
         weight = aux;
     }

@@ -22,8 +22,7 @@ public class Item extends Stuff {
         this.quantity = quantity;
     }
 
-    @Override
-    public double getWeight() {
+    public double getTotalWeight() {
         return super.getWeight() * quantity;
     }
 }

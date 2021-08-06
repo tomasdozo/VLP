@@ -135,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
         }
         for (Item item : cha.getInventory().getItems()) {
             TableRow row = new TableRow(getBaseContext());
+            row.setBackground(ContextCompat.getDrawable(this, R.drawable.border));
             row.setGravity(Gravity.CENTER_VERTICAL);
 
 
@@ -142,9 +143,8 @@ public class MainActivity extends AppCompatActivity {
             col0.setText(item.getName());
             col0.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
             col0.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 3.0f));
-            col0.setBackground(ContextCompat.getDrawable(this, R.drawable.border));
             col0.setGravity(Gravity.CENTER_VERTICAL);
-            col0.setPadding(5, 0, 5, 0);
+            col0.setPadding(5, 5, 0, 5);
             row.addView(col0);
 
             TableRow.LayoutParams param = new TableRow.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1.0f);
@@ -153,16 +153,13 @@ public class MainActivity extends AppCompatActivity {
             col1.setText(String.valueOf(item.getQuantity()));
             col1.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             col1.setLayoutParams(param);
-            col1.setBackground(ContextCompat.getDrawable(this, R.drawable.border));
             col1.setGravity(Gravity.CENTER_VERTICAL);
-
             row.addView(col1);
 
             TextView col2 = new TextView(getBaseContext());
             col2.setText(String.valueOf(item.getWeight()));
             col2.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             col2.setLayoutParams(param);
-            col2.setBackground(ContextCompat.getDrawable(this, R.drawable.border));
             col2.setGravity(Gravity.CENTER_VERTICAL);
             row.addView(col2);
 
@@ -170,7 +167,6 @@ public class MainActivity extends AppCompatActivity {
             col3.setText(String.valueOf(item.getValue()));
             col3.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             col3.setLayoutParams(param);
-            col3.setBackground(ContextCompat.getDrawable(this, R.drawable.border));
             col3.setGravity(Gravity.CENTER_VERTICAL);
             row.addView(col3);
 
@@ -203,6 +199,9 @@ public class MainActivity extends AppCompatActivity {
         cha.addItem("Llave random random", 1, 0.1);
         cha.addItem("Pocion de salud", 3, 0.5, 10);
         cha.addItem("Pocion de stamina", 2, 0.5, 10);
+        for (int i = 1; i <= 20; i++) {
+            cha.addItem("Item " + i, i, i * 2, i * 5);
+        }
 
         //seed armas
         cha.addWeapon("Hacha to Pro", "1/2/3", Aptitude.VIG, "Propiedad del super hacha noob", 0, 2, 1.5, 0);
