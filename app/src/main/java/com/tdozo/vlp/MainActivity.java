@@ -14,14 +14,18 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.tdozo.vlp.classes.Attribute;
 import com.tdozo.vlp.classes.Character;
 import com.tdozo.vlp.classes.Item;
 import com.tdozo.vlp.classes.Weapon;
 import com.tdozo.vlp.classes.Wearable;
 import com.tdozo.vlp.enums.Aptitude;
+import com.tdozo.vlp.enums.Energy;
 import com.tdozo.vlp.enums.EnergyType;
+import com.tdozo.vlp.enums.Health;
 import com.tdozo.vlp.enums.Race;
+import com.tdozo.vlp.enums.Sanity;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -55,6 +59,44 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        loadViews();
+
+        loadCharacter();
+
+        setOnClickListeners();
+
+
+    }
+
+    private void setOnClickListeners() {
+        view_health.setOnClickListener(v -> new MaterialAlertDialogBuilder(this).setTitle(getString(R.string.Health)).setItems(Health.getNames(this), (dialog, which) -> {
+            Health health = Health.values()[which];
+            cha.setHealth(health);
+            view_health.setText(health.getName());
+            saveCharacter();
+        }).show());
+
+        view_sanity.setOnClickListener(v -> new MaterialAlertDialogBuilder(this).setTitle(getString(R.string.Sanity)).setItems(Sanity.getNames(this), (dialog, which) -> {
+            Sanity sanity = Sanity.values()[which];
+            cha.setSanity(sanity);
+            view_sanity.setText(sanity.getName());
+            saveCharacter();
+        }).show());
+
+        view_energy.setOnClickListener(v -> new MaterialAlertDialogBuilder(this).setTitle(getString(R.string.Energy)).setItems(Energy.getNames(this), (dialog, which) -> {
+            Energy energy = Energy.values()[which];
+            cha.setEnergy(energy);
+            view_energy.setText(energy.getName());
+            saveCharacter();
+        }).show());
+
+        view_aptitude.setOnClickListener(v -> new MaterialAlertDialogBuilder(this).setTitle(cha.getAptitude().getName()).setMessage(cha.getAptitude().getDescription())
+                .show());
+
+
+    }
+
+    private void loadViews() {
         view_name = findViewById(R.id.name);
         view_race = findViewById(R.id.race);
         view_coins = findViewById(R.id.coins);
@@ -69,11 +111,6 @@ public class MainActivity extends AppCompatActivity {
         view_skills = findViewById(R.id.skills);
         view_weakness = findViewById(R.id.weakness);
         view_inventory = findViewById(R.id.inventory);
-
-        loadCharacter();
-
-
-
     }
 
     private void saveCharacter() {
@@ -96,9 +133,11 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
             newCharacter();
-            //cha = new Character();
-            //seed();
         }
+        //cha = new Character();
+        //seed();
+        //showCharacter();
+        //saveCharacter();
 
     }
 
@@ -120,18 +159,30 @@ public class MainActivity extends AppCompatActivity {
         showWearables();
         showWeapons();
         view_aptitude.setText(cha.getAptitude().getName());
-        for (Attribute skill : cha.getSkills()) {
-            TextView view = new TextView(getBaseContext());
-            view.setText(skill.getName());
-            view_skills.addView(view);
-        }
+        showSkills();
+        showWeakness();
+        showInventory();
+
+    }
+
+    private void showWeakness() {
         for (Attribute weakness : cha.getWeakness()) {
             TextView view = new TextView(getBaseContext());
             view.setText(weakness.getName());
+            view.setOnClickListener(v -> new MaterialAlertDialogBuilder(this).setTitle(weakness.getName()).setMessage(weakness.getDescription())
+                    .show());
             view_weakness.addView(view);
         }
-        showInventory();
+    }
 
+    private void showSkills() {
+        for (Attribute skill : cha.getSkills()) {
+            TextView view = new TextView(getBaseContext());
+            view.setText(skill.getName());
+            view.setOnClickListener(v -> new MaterialAlertDialogBuilder(this).setTitle(skill.getName()).setMessage(skill.getDescription())
+                    .show());
+            view_skills.addView(view);
+        }
     }
 
     private void showWearables() {

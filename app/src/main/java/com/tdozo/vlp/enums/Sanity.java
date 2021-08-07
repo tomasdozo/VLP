@@ -1,5 +1,7 @@
 package com.tdozo.vlp.enums;
 
+import android.content.Context;
+
 import com.tdozo.vlp.R;
 
 public enum Sanity {
@@ -23,6 +25,14 @@ public enum Sanity {
 
     public int getDescription() {
         return description;
+    }
+
+    public static String[] getNames(Context r) {
+        String[] aux = new String[Sanity.values().length];
+        for (int i = 0; i < Sanity.values().length; i++) {
+            aux[i] = r.getString(Sanity.values()[i].getName());
+        }
+        return aux;
     }
 }
 

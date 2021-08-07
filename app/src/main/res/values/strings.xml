@@ -94,4 +94,17 @@
     <string name="Save">Guardar</string>
     <string name="Name">Nombre</string>
     <string name="New_Character">Nuevo Personaje</string>
+    <string name="Coins">Monedas</string>
+    <string name="Exp">Experiencia</string>
+    <string name="Health">Salud</string>
+    <string name="Sanity">Cordura</string>
+    <string name="Energy">Energia</string>
+    <string name="Wearable">Armadura/Vestimienta</string>
+    <string name="Weapon">Armas</string>
+    <string name="Skills">Habilidades</string>
+    <string name="Weaknesses">Debilidades</string>
+    <string name="Inventory">Inventario</string>
+    <string name="Quantity">Cant</string>
+    <string name="Load">Carga</string>
+    <string name="Value">Valor</string>
 </resources>

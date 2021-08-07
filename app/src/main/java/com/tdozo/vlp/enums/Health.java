@@ -1,5 +1,7 @@
 package com.tdozo.vlp.enums;
 
+import android.content.Context;
+
 import com.tdozo.vlp.R;
 
 public enum Health {
@@ -23,6 +25,14 @@ public enum Health {
 
     public int getDescription() {
         return description;
+    }
+
+    public static String[] getNames(Context r) {
+        String[] aux = new String[Health.values().length];
+        for (int i = 0; i < Health.values().length; i++) {
+            aux[i] = r.getString(Health.values()[i].getName());
+        }
+        return aux;
     }
 }
 

@@ -28,7 +28,7 @@
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nombre"
+                android:text="@string/Name"
                 android:textColor="@color/colorPrimaryDark" />
 
             <TextView
@@ -36,14 +36,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:paddingLeft="2dp"
+                android:paddingStart="2dp"
+                android:paddingEnd="2dp"
                 android:textColor="@color/colorPrimary" />
 
             <TextView
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Raza"
+                android:text="@string/Race"
                 android:textColor="@color/colorPrimaryDark" />
 
             <TextView
@@ -51,13 +52,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:paddingStart="2dp"
+                android:paddingEnd="2dp"
                 android:textColor="@color/colorPrimary" />
 
             <TextView
                 android:id="@+id/textView20"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Monedas"
+                android:text="@string/Coins"
                 android:textColor="@color/colorPrimaryDark" />
 
             <TextView
@@ -65,6 +68,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:paddingStart="2dp"
+                android:paddingEnd="2dp"
                 android:textColor="@color/colorPrimary" />
 
         </LinearLayout>
@@ -79,7 +84,7 @@
                 android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tipo de Energia"
+                android:text="@string/Energy_Type"
                 android:textColor="@color/colorPrimaryDark" />
 
             <TextView
@@ -87,13 +92,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:paddingStart="2dp"
+                android:paddingEnd="2dp"
                 android:textColor="@color/colorPrimary" />
 
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Experiencia"
+                android:text="@string/Exp"
                 android:textColor="@color/colorPrimaryDark" />
 
             <TextView
@@ -101,6 +108,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:paddingStart="2dp"
+                android:paddingEnd="2dp"
                 android:textColor="@color/colorPrimary" />
         </LinearLayout>
 
@@ -114,7 +123,7 @@
                 android:id="@+id/textView9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Salud"
+                android:text="@string/Health"
                 android:textColor="@color/colorPrimaryDark" />
 
             <TextView
@@ -122,13 +131,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:paddingStart="2dp"
+                android:paddingEnd="2dp"
                 android:textColor="@color/colorPrimary" />
 
             <TextView
                 android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cordura"
+                android:text="@string/Sanity"
                 android:textColor="@color/colorPrimaryDark" />
 
             <TextView
@@ -136,13 +147,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:paddingStart="2dp"
+                android:paddingEnd="2dp"
                 android:textColor="@color/colorPrimary" />
 
             <TextView
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Energia"
+                android:text="@string/Energy"
                 android:textColor="@color/colorPrimaryDark" />
 
             <TextView
@@ -150,6 +163,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:paddingStart="2dp"
+                android:paddingEnd="2dp"
                 android:textColor="@color/colorPrimary" />
 
         </LinearLayout>
@@ -172,7 +187,7 @@
             android:id="@+id/textView16"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Armadura/Vestimienta"
+            android:text="@string/Wearable"
             android:textColor="@color/colorPrimaryDark" />
 
         <ScrollView
@@ -208,7 +223,7 @@
                 android:id="@+id/textView17"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Armas"
+                android:text="@string/Weapon"
                 android:textColor="@color/colorPrimaryDark" />
 
             <TableLayout
@@ -238,7 +253,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/black"
-            android:text="Aptitud"
+            android:text="@string/Aptitude"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textStyle="bold" />
@@ -254,7 +269,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/black"
-            android:text="Habilidades"
+            android:text="@string/Skills"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textStyle="bold" />
@@ -276,7 +291,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/black"
-            android:text="Debilidades"
+            android:text="@string/Weaknesses"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textStyle="bold" />
@@ -318,7 +333,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:text="Inventario"
+                android:text="@string/Inventory"
                 android:textColor="@color/colorPrimaryDark" />
 
             <TextView
@@ -326,7 +341,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Cant"
+                android:text="@string/Quantity"
                 android:textAlignment="center" />
 
             <TextView
@@ -334,7 +349,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Carga"
+                android:text="@string/Load"
                 android:textAlignment="center" />
 
             <TextView
@@ -342,7 +357,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Valor"
+                android:text="@string/Value"
                 android:textAlignment="center" />
 
         </LinearLayout>

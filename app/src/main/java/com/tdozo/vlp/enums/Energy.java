@@ -1,5 +1,7 @@
 package com.tdozo.vlp.enums;
 
+import android.content.Context;
+
 import com.tdozo.vlp.R;
 
 public enum Energy {
@@ -19,5 +21,11 @@ public enum Energy {
         return name;
     }
 
-
+    public static String[] getNames(Context r) {
+        String[] aux = new String[Energy.values().length];
+        for (int i = 0; i < Energy.values().length; i++) {
+            aux[i] = r.getString(Energy.values()[i].getName());
+        }
+        return aux;
+    }
 }
