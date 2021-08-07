@@ -91,6 +91,11 @@ public class MainActivity extends AppCompatActivity {
         view_aptitude.setOnClickListener(v -> new MaterialAlertDialogBuilder(this).setTitle(cha.getAptitude().getName()).setMessage(cha.getAptitude().getDescription())
                 .show());
 
+        view_race.setOnClickListener(v -> new MaterialAlertDialogBuilder(this).setTitle(cha.getRace().getName()).setMessage(cha.getRace().getDescription())
+                .show());
+
+        view_energyType.setOnClickListener(v -> new MaterialAlertDialogBuilder(this).setTitle(cha.getEnergyType().getName()).setMessage(cha.getEnergyType().getDescription())
+                .show());
 
     }
 
@@ -127,15 +132,15 @@ public class MainActivity extends AppCompatActivity {
             FileInputStream fis = openFileInput("Character");
             ObjectInputStream ois = new ObjectInputStream(fis);
             cha = (Character) ois.readObject();
-            showCharacter();
+            //showCharacter();
         } catch (Exception e) {
             e.printStackTrace();
-            newCharacter();
+            //newCharacter();
         }
-        //cha = new Character();
-        //seed();
-        //showCharacter();
-        //saveCharacter();
+        cha = new Character();
+        seed();
+        showCharacter();
+        saveCharacter();
 
     }
 
@@ -319,6 +324,8 @@ public class MainActivity extends AppCompatActivity {
         //seed armas
         cha.addWeapon("Hacha to Pro", "1/2/3", Aptitude.VIG, "Propiedad del super hacha noob", 0, 2, 1.5, 0);
         cha.addWeapon("Baston de mago", "1/1/1", Aptitude.LOG, "Incrementa en 2 el dano de hechizos", 0, 1, 1, 100);
+        cha.addWeapon("Pala to Pro", "3/2/3", Aptitude.VIG, "Propiedad del super hacha noob", 0, 2, 1.5, 0);
+        cha.addWeapon("Bastoncito", "2/2/2", Aptitude.LOG, "Incrementa en 2 el dano de hechizos", 0, 1, 1, 100);
 
         //seed armadura
         cha.addWearable("Caperusa roja", "Mision secundaria visitar el bosque", 1, 30);
