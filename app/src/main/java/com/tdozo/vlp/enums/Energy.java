@@ -18,4 +18,6 @@ public enum Energy {
     public int getName() {
         return name;
     }
+
+
 }

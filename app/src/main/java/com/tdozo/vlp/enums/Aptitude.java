@@ -1,5 +1,7 @@
 package com.tdozo.vlp.enums;
 
+import android.content.Context;
+
 import com.tdozo.vlp.R;
 
 public enum Aptitude {
@@ -24,5 +26,13 @@ public enum Aptitude {
 
     public int getDescription() {
         return description;
+    }
+
+    public static String[] getNames(Context r) {
+        String[] aux = new String[Aptitude.values().length];
+        for (int i = 0; i < Aptitude.values().length; i++) {
+            aux[i] = r.getString(Aptitude.values()[i].getName());
+        }
+        return aux;
     }
 }

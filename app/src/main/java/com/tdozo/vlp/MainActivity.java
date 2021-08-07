@@ -70,12 +70,8 @@ public class MainActivity extends AppCompatActivity {
         view_weakness = findViewById(R.id.weakness);
         view_inventory = findViewById(R.id.inventory);
 
-
-        newCharacter();
-
         loadCharacter();
 
-        showCharacter();
 
 
     }
@@ -96,12 +92,12 @@ public class MainActivity extends AppCompatActivity {
             FileInputStream fis = openFileInput("Character");
             ObjectInputStream ois = new ObjectInputStream(fis);
             cha = (Character) ois.readObject();
-            characterLoaded = true;
+            showCharacter();
         } catch (Exception e) {
             e.printStackTrace();
-            //newCharacter();
-            cha = new Character();
-            seed();
+            newCharacter();
+            //cha = new Character();
+            //seed();
         }
 
     }
@@ -109,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
     private void newCharacter() {
         Intent intent = new Intent(MainActivity.this, CharacterActivity.class);
         startActivity(intent);
+        finish();
     }
 
     private void showCharacter() {

@@ -1,5 +1,7 @@
 package com.tdozo.vlp.enums;
 
+import android.content.Context;
+
 import com.tdozo.vlp.R;
 
 public enum EnergyType {
@@ -25,5 +27,13 @@ public enum EnergyType {
 
     public int getDescription() {
         return description;
+    }
+
+    public static String[] getNames(Context r) {
+        String[] aux = new String[EnergyType.values().length];
+        for (int i = 0; i < EnergyType.values().length; i++) {
+            aux[i] = r.getString(EnergyType.values()[i].getName());
+        }
+        return aux;
     }
 }

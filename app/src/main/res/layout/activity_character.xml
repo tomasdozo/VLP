@@ -85,6 +85,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/rounded_border"
                 android:text="@string/Choose" />
+
         </LinearLayout>
 
         <TextView

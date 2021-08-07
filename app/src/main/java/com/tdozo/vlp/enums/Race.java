@@ -1,5 +1,7 @@
 package com.tdozo.vlp.enums;
 
+import android.content.Context;
+
 import com.tdozo.vlp.R;
 
 public enum Race {
@@ -31,6 +33,14 @@ public enum Race {
     Race(int name, int description) {
         this.name = name;
         this.description = description;
+    }
+
+    public static String[] getNames(Context r) {
+        String[] aux = new String[Race.values().length];
+        for (int i = 0; i < Race.values().length; i++) {
+            aux[i] = r.getString(Race.values()[i].getName());
+        }
+        return aux;
     }
 
     public int getName() {
