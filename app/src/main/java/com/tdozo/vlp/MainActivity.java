@@ -49,9 +49,7 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout view_skills;
     LinearLayout view_weakness;
     TableLayout view_inventory;
-
-    boolean characterLoaded = false;
-
+    TextView view_load;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
         view_skills = findViewById(R.id.skills);
         view_weakness = findViewById(R.id.weakness);
         view_inventory = findViewById(R.id.inventory);
+        view_load = findViewById(R.id.load);
     }
 
     private void saveCharacter() {
@@ -122,7 +121,6 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
 
     private void loadCharacter() {
         try {
@@ -156,6 +154,7 @@ public class MainActivity extends AppCompatActivity {
         view_health.setText(cha.getHealth().getName());
         view_sanity.setText(cha.getSanity().getName());
         view_energy.setText(cha.getEnergy().getName());
+        view_load.setText(getString(R.string.load, cha.getActual_weight(), cha.getBaseWeight()));
         showWearables();
         showWeapons();
         view_aptitude.setText(cha.getAptitude().getName());
@@ -296,6 +295,7 @@ public class MainActivity extends AppCompatActivity {
         cha.setAptitude(Aptitude.LOG);
         cha.setCoins(150);
         cha.setExperience(75);
+        cha.setBaseWeight(15);
 
         //Seed debilidades
         cha.addWeakness("Feo", "No hace falta describir.");

@@ -107,4 +107,5 @@
     <string name="Quantity">Cant</string>
     <string name="Load">Carga</string>
     <string name="Value">Valor</string>
+    <string name="load">%1$.1f / %2$d</string>
 </resources>
