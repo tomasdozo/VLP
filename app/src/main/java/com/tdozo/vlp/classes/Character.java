@@ -53,6 +53,14 @@ public class Character implements Serializable {
         return weakness;
     }
 
+    public void removeSkill(Attribute skill) {
+        skills.remove(skill);
+    }
+
+    public void removeWeakness(Attribute skill) {
+        weakness.remove(skill);
+    }
+
     public String getName() {
         return name;
     }

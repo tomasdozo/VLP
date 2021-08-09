@@ -62,9 +62,18 @@ public class MainActivity extends AppCompatActivity {
         loadViews();
 
         loadCharacter();
+        //seedCharacter();
+
 
         setOnClickListeners();
 
+    }
+
+    private void seedCharacter() {
+        cha = new Character();
+        seed();
+        showCharacter();
+        saveCharacter();
     }
 
     private void setOnClickListeners() {
@@ -75,12 +84,22 @@ public class MainActivity extends AppCompatActivity {
             saveCharacter();
         }).show());
 
+        view_health.setOnLongClickListener(v -> {
+            new MaterialAlertDialogBuilder(this).setTitle(cha.getHealth().getName()).setMessage(cha.getHealth().getDescription()).show();
+            return true;
+        });
+
         view_sanity.setOnClickListener(v -> new MaterialAlertDialogBuilder(this).setTitle(getString(R.string.Sanity)).setItems(Sanity.getNames(this), (dialog, which) -> {
             Sanity sanity = Sanity.values()[which];
             cha.setSanity(sanity);
             view_sanity.setText(sanity.getName());
             saveCharacter();
         }).show());
+
+        view_sanity.setOnLongClickListener(v -> {
+            new MaterialAlertDialogBuilder(this).setTitle(cha.getSanity().getName()).setMessage(cha.getSanity().getDescription()).show();
+            return true;
+        });
 
         view_energy.setOnClickListener(v -> new MaterialAlertDialogBuilder(this).setTitle(getString(R.string.Energy)).setItems(Energy.getNames(this), (dialog, which) -> {
             Energy energy = Energy.values()[which];
@@ -163,12 +182,6 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
             newCharacter();
         }
-        /*
-        cha = new Character();
-        seed();
-        showCharacter();
-        saveCharacter();
-        */
     }
 
     private void newCharacter() {
@@ -204,7 +217,12 @@ public class MainActivity extends AppCompatActivity {
         for (Attribute weakness : cha.getWeakness()) {
             TextView view = new TextView(getBaseContext());
             view.setText(weakness.getName());
-            view.setOnClickListener(v -> new MaterialAlertDialogBuilder(this).setTitle(weakness.getName()).setMessage(weakness.getDescription())
+            view.setOnClickListener(v -> new MaterialAlertDialogBuilder(this).setTitle(weakness.getName()).setMessage(weakness.getDescription()).setNegativeButton(R.string.Remove, (dialog, which) -> {
+                cha.removeWeakness(weakness);
+                saveCharacter();
+                view_weakness.removeAllViews();
+                showWeakness();
+            })
                     .show());
             view_weakness.addView(view);
         }
@@ -214,8 +232,12 @@ public class MainActivity extends AppCompatActivity {
         for (Attribute skill : cha.getSkills()) {
             TextView view = new TextView(getBaseContext());
             view.setText(skill.getName());
-            view.setOnClickListener(v -> new MaterialAlertDialogBuilder(this).setTitle(skill.getName()).setMessage(skill.getDescription())
-                    .show());
+            view.setOnClickListener(v -> new MaterialAlertDialogBuilder(this).setTitle(skill.getName()).setMessage(skill.getDescription()).setNegativeButton(R.string.Remove, (dialog, which) -> {
+                cha.removeSkill(skill);
+                saveCharacter();
+                view_skills.removeAllViews();
+                showSkills();
+            }).show());
             view_skills.addView(view);
         }
     }
@@ -275,6 +297,7 @@ public class MainActivity extends AppCompatActivity {
             col3.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             col3.setLayoutParams(param);
             col3.setGravity(Gravity.CENTER_VERTICAL);
+            if (weapon.getCapacity() == 0) col3.setVisibility(View.INVISIBLE);
             row.addView(col3);
 
             view_weapons.addView(row);
