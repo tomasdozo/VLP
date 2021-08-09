@@ -3,9 +3,11 @@ package com.tdozo.vlp;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -63,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
 
         setOnClickListeners();
 
-
     }
 
     private void setOnClickListeners() {
@@ -96,6 +97,31 @@ public class MainActivity extends AppCompatActivity {
 
         view_energyType.setOnClickListener(v -> new MaterialAlertDialogBuilder(this).setTitle(cha.getEnergyType().getName()).setMessage(cha.getEnergyType().getDescription())
                 .show());
+
+        view_coins.setOnClickListener(v -> {
+            EditText text = new EditText(this);
+            text.setText(String.valueOf(cha.getCoins()));
+            text.setInputType(InputType.TYPE_CLASS_NUMBER);
+            text.setGravity(Gravity.CENTER);
+            new MaterialAlertDialogBuilder(this).setTitle(getString(R.string.Coins)).setView(text).setPositiveButton(R.string.Save, (dialog, which) -> {
+                cha.setCoins(Integer.parseInt(text.getText().toString()));
+                saveCharacter();
+                showCoinsXpLoad();
+            }).show();
+        });
+
+        view_xp.setOnClickListener(v -> {
+            EditText text = new EditText(this);
+            text.setText(String.valueOf(cha.getExperience()));
+            text.setInputType(InputType.TYPE_CLASS_NUMBER);
+            text.setGravity(Gravity.CENTER);
+            new MaterialAlertDialogBuilder(this).setTitle(getString(R.string.Exp)).setView(text).setPositiveButton(R.string.Save, (dialog, which) -> {
+                cha.setExperience(Integer.parseInt(text.getText().toString()));
+                saveCharacter();
+                showCoinsXpLoad();
+            }).show();
+        });
+
 
     }
 
@@ -132,16 +158,17 @@ public class MainActivity extends AppCompatActivity {
             FileInputStream fis = openFileInput("Character");
             ObjectInputStream ois = new ObjectInputStream(fis);
             cha = (Character) ois.readObject();
-            //showCharacter();
+            showCharacter();
         } catch (Exception e) {
             e.printStackTrace();
-            //newCharacter();
+            newCharacter();
         }
+        /*
         cha = new Character();
         seed();
         showCharacter();
         saveCharacter();
-
+        */
     }
 
     private void newCharacter() {
@@ -153,13 +180,11 @@ public class MainActivity extends AppCompatActivity {
     private void showCharacter() {
         view_name.setText(cha.getName());
         view_race.setText(cha.getRace().getName());
-        view_coins.setText(String.valueOf(cha.getCoins()));
         view_energyType.setText(cha.getEnergyType().getName());
-        view_xp.setText(String.valueOf(cha.getExperience()));
+        showCoinsXpLoad();
         view_health.setText(cha.getHealth().getName());
         view_sanity.setText(cha.getSanity().getName());
         view_energy.setText(cha.getEnergy().getName());
-        view_load.setText(getString(R.string.load, cha.getActual_weight(), cha.getBaseWeight()));
         showWearables();
         showWeapons();
         view_aptitude.setText(cha.getAptitude().getName());
@@ -167,6 +192,12 @@ public class MainActivity extends AppCompatActivity {
         showWeakness();
         showInventory();
 
+    }
+
+    private void showCoinsXpLoad() {
+        view_xp.setText(String.valueOf(cha.getExperience()));
+        view_coins.setText(String.valueOf(cha.getCoins()));
+        view_load.setText(getString(R.string.load, cha.getActual_weight(), cha.getBaseWeight()));
     }
 
     private void showWeakness() {
