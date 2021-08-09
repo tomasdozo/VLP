@@ -24,7 +24,7 @@
             android:textColor="@color/primaryText"
             android:textSize="34sp"
             android:textStyle="bold|italic"
-            app:drawableBottomCompat="@drawable/underline" />
+            />
 
         <View
             android:layout_width="match_parent"
