@@ -170,8 +170,8 @@ public class Character implements Serializable {
         inventory.addItem(new Item(name, quantity, weight, value));
     }
 
-    public void addWeapon(String name, String damage, Aptitude apt, String properties, int capacity, int defense, double weight, int value) {
-        weapons.addItem(new Weapon(name, weight, value, properties, damage, apt, capacity, defense));
+    public void addWeapon(String name, String damage, Aptitude apt, String properties, int capacity, int hardness, double weight, int value) {
+        weapons.addItem(new Weapon(name, weight, value, properties, damage, apt, capacity, hardness));
     }
 
     public void addWearable(String name, String properties, double weight, int value) {

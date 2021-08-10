@@ -5,19 +5,19 @@ import com.tdozo.vlp.enums.Aptitude;
 
 
 public class Weapon extends Stuff {
-    private String properties;
-    private String damage;
-    private Aptitude aptitude;
-    private int capacity;
-    private int defense;
+    private final String properties;
+    private final String damage;
+    private final Aptitude aptitude;
+    private final int capacity;
+    private int hardness;
 
-    public Weapon(String name, double weight, int value, String properties, String damage, Aptitude aptitude, int capacity, int defense) {
+    public Weapon(String name, double weight, int value, String properties, String damage, Aptitude aptitude, int capacity, int hardness) {
         super(name, weight, value);
         this.properties = properties;
         this.damage = damage;
         this.aptitude = aptitude;
         this.capacity = capacity;
-        this.defense = defense;
+        this.hardness = hardness;
     }
 
     public String getProperties() {
@@ -36,11 +36,11 @@ public class Weapon extends Stuff {
         return capacity;
     }
 
-    public int getDefense() {
-        return defense;
+    public int getHardness() {
+        return hardness;
     }
 
-    public void setDefense(int defense) {
-        this.defense = defense;
+    public void setHardness(int hardness) {
+        this.hardness = hardness;
     }
 }

@@ -119,4 +119,8 @@
     <string name="New_Wearable">Nueva Armadura/Vestimenta</string>
     <string name="Fields_Incomplete">Llene todos los campos</string>
     <string name="New_Item">Nuevo Item</string>
+    <string name="Hardness">Dureza</string>
+    <string name="Capacity">Capacidad</string>
+    <string name="Damage">Daño</string>
+    <string name="New_Weapon">Nueva Arma</string>
 </resources>

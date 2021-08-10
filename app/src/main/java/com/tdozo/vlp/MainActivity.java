@@ -7,6 +7,7 @@ import android.text.InputType;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
@@ -215,6 +216,42 @@ public class MainActivity extends AppCompatActivity {
             }).show();
         });
 
+        findViewById(R.id.weapons_text).setOnClickListener(v -> {
+            View view = getLayoutInflater().inflate(R.layout.dialog_new_weapon, null);
+            Button aptitude = view.findViewById(R.id.new_weapon_aptitude);
+            final Aptitude[] apt = new Aptitude[1];
+            aptitude.setOnClickListener(h -> new MaterialAlertDialogBuilder(this).setTitle(getString(R.string.Aptitude)).setItems(Aptitude.getNames(this), (dialog, which) -> {
+                aptitude.setText(Aptitude.values()[which].getName());
+                apt[0] = Aptitude.values()[which];
+            }).show());
+            new MaterialAlertDialogBuilder(this).setTitle(R.string.New_Weapon).setView(view).setPositiveButton(R.string.Save, (dialog, which) -> {
+                EditText name = view.findViewById(R.id.new_weapon_name);
+                EditText damage = view.findViewById(R.id.new_weapon_damage);
+                EditText property = view.findViewById(R.id.new_weapon_property);
+                EditText capacity = view.findViewById(R.id.new_weapon_capacity);
+                EditText hardness = view.findViewById(R.id.new_weapon_hardness);
+                EditText weight = view.findViewById(R.id.new_weapon_weight);
+                EditText value = view.findViewById(R.id.new_weapon_value);
+                if (!name.getText().toString().equals("") && !damage.getText().toString().equals("") && apt[0] != null && !capacity.getText().toString().equals("") && !hardness.getText().toString().equals("") && !weight.getText().toString().equals("") && !value.getText().toString().equals("")) {
+                    cha.addWeapon(name.getText().toString(),
+                            damage.getText().toString(),
+                            apt[0],
+                            property.getText().toString(),
+                            Integer.parseInt(capacity.getText().toString()),
+                            Integer.parseInt(hardness.getText().toString()),
+                            Double.parseDouble(weight.getText().toString()),
+                            Integer.parseInt(value.getText().toString()));
+                    saveCharacter();
+                    view_weapons.removeAllViews();
+                    showCoinsXpLoad();
+                    showWeapons();
+                } else {
+                    Toast.makeText(this, getString(R.string.Fields_Incomplete), Toast.LENGTH_SHORT).show();
+                }
+            }).show();
+        });
+
+
     }
 
     private void loadViews() {
@@ -335,19 +372,9 @@ public class MainActivity extends AppCompatActivity {
                 View view = getLayoutInflater().inflate(R.layout.dialog_view_wearable, null);
                 ((TextView) view.findViewById(R.id.view_wearable_property)).setText(wearable.getProperty());
                 ((TextView) view.findViewById(R.id.view_wearable_weight)).setText(String.valueOf(wearable.getWeight()));
-                ((EditText) view.findViewById(R.id.view_wearable_value)).setText(String.valueOf(wearable.getValue()));
+                ((TextView) view.findViewById(R.id.view_wearable_value)).setText(String.valueOf(wearable.getValue()));
 
-                new MaterialAlertDialogBuilder(this).setTitle(wearable.getName()).setView(view).setPositiveButton(R.string.Save, (dialog, which) -> {
-                    EditText value = view.findViewById(R.id.view_wearable_value);
-                    if (!value.getText().toString().equals("")) {
-                        wearable.setValue(Integer.parseInt(value.getText().toString()));
-                        saveCharacter();
-                        view_wearables.removeAllViews();
-                        showWearables();
-                    } else {
-                        Toast.makeText(this, getString(R.string.Fields_Incomplete), Toast.LENGTH_SHORT).show();
-                    }
-                }).setNegativeButton(R.string.Remove, (dialog, which) -> {
+                new MaterialAlertDialogBuilder(this).setTitle(wearable.getName()).setView(view).setNegativeButton(R.string.Remove, (dialog, which) -> {
                     cha.removeWearable(wearable);
                     saveCharacter();
                     view_wearables.removeAllViews();
@@ -393,12 +420,33 @@ public class MainActivity extends AppCompatActivity {
             row.addView(col2);
 
             TextView col3 = new TextView(getBaseContext());
-            col3.setText(String.valueOf(weapon.getCapacity()));
+            if (weapon.getCapacity() == 0) col3.setText("-");
+            else col3.setText(String.valueOf(weapon.getCapacity()));
             col3.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             col3.setLayoutParams(param);
             col3.setGravity(Gravity.CENTER_VERTICAL);
-            if (weapon.getCapacity() == 0) col3.setVisibility(View.INVISIBLE);
+
             row.addView(col3);
+
+            row.setOnClickListener(v -> {
+                View view = getLayoutInflater().inflate(R.layout.dialog_view_weapon, null);
+                ((TextView) view.findViewById(R.id.view_weapon_damage)).setText(weapon.getDamage());
+                ((TextView) view.findViewById(R.id.view_weapon_aptitude)).setText(weapon.getAptitude().getName());
+                ((TextView) view.findViewById(R.id.view_weapon_property)).setText(weapon.getProperties());
+                ((TextView) view.findViewById(R.id.view_weapon_capacity)).setText(String.valueOf(weapon.getCapacity()));
+                ((TextView) view.findViewById(R.id.view_weapon_hardness)).setText(String.valueOf(weapon.getHardness()));
+                ((TextView) view.findViewById(R.id.view_weapon_weight)).setText(String.valueOf(weapon.getWeight()));
+                ((TextView) view.findViewById(R.id.view_weapon_value)).setText(String.valueOf(weapon.getValue()));
+
+                new MaterialAlertDialogBuilder(this).setTitle(weapon.getName()).setView(view).setNegativeButton(R.string.Remove, (dialog, which) -> {
+                    cha.removeWeapon(weapon);
+                    saveCharacter();
+                    view_weapons.removeAllViews();
+                    showCoinsXpLoad();
+                    showWeapons();
+                }).show();
+
+            });
 
             view_weapons.addView(row);
         }
@@ -456,7 +504,6 @@ public class MainActivity extends AppCompatActivity {
                 }).show();
 
             });
-
 
             view_inventory.addView(row);
         }

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:isScrollContainer="false"
@@ -55,7 +54,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:text=""
                 android:textColor="@color/colorAccent"
                 android:textSize="16sp" />
 
@@ -75,17 +73,13 @@
                 android:textColor="@color/primaryText"
                 android:textSize="16sp" />
 
-            <EditText
+            <TextView
                 android:id="@+id/view_wearable_value"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
-                android:ems="10"
-                android:importantForAutofill="no"
-                android:inputType="number"
                 android:textColor="@color/colorAccent"
-                android:textSize="16sp"
-                tools:ignore="SpeakableTextPresentCheck" />
+                android:textSize="16sp" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

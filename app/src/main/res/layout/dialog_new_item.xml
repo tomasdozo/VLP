@@ -88,7 +88,7 @@
                 android:layout_weight="3"
                 android:ems="10"
                 android:importantForAutofill="no"
-                android:inputType="numberDecimal"
+                android:inputType="numberSigned|numberDecimal"
                 android:textColor="@color/colorAccent"
                 android:textSize="16sp"
                 tools:ignore="SpeakableTextPresentCheck" />
