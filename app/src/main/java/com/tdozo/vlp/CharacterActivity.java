@@ -59,18 +59,41 @@ public class CharacterActivity extends AppCompatActivity {
             cha.setEnergyType(EnergyType.values()[which]);
             energyType.setText(EnergyType.values()[which].getName());
         }).show());
+        energyType.setOnLongClickListener(v -> {
+            if (cha.getEnergyType() != null) {
+                new MaterialAlertDialogBuilder(this).setTitle(cha.getEnergyType().getName()).setMessage(cha.getEnergyType().getDescription()).show();
+                return true;
+            }
+            return false;
+        });
 
         aptitude.setOnClickListener(v -> new MaterialAlertDialogBuilder(this).setTitle(getString(R.string.Aptitude)).setItems(Aptitude.getNames(this), (dialog, which) -> {
             cha.setAptitude(Aptitude.values()[which]);
             aptitude.setText(Aptitude.values()[which].getName());
-            if (cha.getAptitude() == Aptitude.VIG) baseWeight.setText("17");
-            else baseWeight.setText("15");
+            if (cha.getAptitude() == Aptitude.VIG) baseWeight.setText(String.valueOf(17));
+            else baseWeight.setText(String.valueOf(15));
         }).show());
+
+        aptitude.setOnLongClickListener(v -> {
+            if (cha.getAptitude() != null) {
+                new MaterialAlertDialogBuilder(this).setTitle(cha.getAptitude().getName()).setMessage(cha.getAptitude().getDescription()).show();
+                return true;
+            }
+            return false;
+        });
 
         race.setOnClickListener(v -> new MaterialAlertDialogBuilder(this).setTitle(getString(R.string.Race)).setItems(Race.getNames(this), (dialog, which) -> {
             cha.setRace(Race.values()[which]);
             race.setText(Race.values()[which].getName());
         }).show());
+
+        race.setOnLongClickListener(v -> {
+            if (cha.getRace() != null) {
+                new MaterialAlertDialogBuilder(this).setTitle(cha.getRace().getName()).setMessage(cha.getRace().getDescription()).show();
+                return true;
+            }
+            return false;
+        });
 
 
     }

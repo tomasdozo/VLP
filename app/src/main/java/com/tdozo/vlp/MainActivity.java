@@ -79,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setOnClickListeners() {
+        view_name.setOnClickListener(v -> new MaterialAlertDialogBuilder(this).setTitle(cha.getName()).setMessage(cha.getDescription()).show());
 
         view_health.setOnClickListener(v -> new MaterialAlertDialogBuilder(this).setTitle(getString(R.string.Health)).setItems(Health.getNames(this), (dialog, which) -> {
             Health health = Health.values()[which];
