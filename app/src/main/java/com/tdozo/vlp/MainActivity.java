@@ -65,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
         loadCharacter();
         //seedCharacter();
 
-
         setOnClickListeners();
 
     }
@@ -483,27 +482,19 @@ public class MainActivity extends AppCompatActivity {
         cha.addSkill("Domador de pugs", "Gastando 0 de energia puedes invocar a un ejercito de pugs para vencer al enemigo de cuteness.");
 
         //Seed inventario
-        cha.addItem("Pildora", 5, 0.1);
+        cha.addItem("Pildora", 5, 0.1, 0);
         cha.addItem("Caja misteriosa", 1, 10, 50);
-        cha.addItem("Llave random random", 1, 0.1);
+        cha.addItem("Llave random random", 1, 0.1, 0);
         cha.addItem("Pocion de salud", 3, 0.5, 10);
         cha.addItem("Pocion de stamina", 2, 0.5, 10);
-        for (int i = 1; i <= 20; i++) {
-            cha.addItem("Item " + i, i, i * 2, i * 5);
-        }
 
         //seed armas
         cha.addWeapon("Hacha to Pro", "1/2/3", Aptitude.VIG, "Propiedad del super hacha noob", 0, 2, 1.5, 0);
         cha.addWeapon("Baston de mago", "1/1/1", Aptitude.LOG, "Incrementa en 2 el dano de hechizos", 0, 1, 1, 100);
-        cha.addWeapon("Pala to Pro", "3/2/3", Aptitude.VIG, "Propiedad del super hacha noob", 0, 2, 1.5, 0);
-        cha.addWeapon("Bastoncito", "2/2/2", Aptitude.LOG, "Incrementa en 2 el dano de hechizos", 0, 1, 1, 100);
 
         //seed armadura
         cha.addWearable("Caperusa roja", "Mision secundaria visitar el bosque", 1, 30);
         cha.addWearable("Calzas termicas", "Para aguantar el frio", 0.5, 10);
-        cha.addWearable("Caperusa Azul", "Something", 1, 30);
-        cha.addWearable("Calzas atermicas", "Para tener  frio", 0.5, 10);
-
 
     }
 }
