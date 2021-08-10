@@ -313,7 +313,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayoutWearable">
 
         <TextView
-            android:id="@+id/textView17"
+            android:id="@+id/weapons_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/Weapon"
@@ -346,7 +346,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline2">
 
         <TextView
-            android:id="@+id/textView16"
+            android:id="@+id/wearables_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/Wearable"
@@ -396,7 +396,7 @@
             android:textAlignment="center" />
 
         <TextView
-            android:id="@+id/textView18"
+            android:id="@+id/skills_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
@@ -419,7 +419,7 @@
         </ScrollView>
 
         <TextView
-            android:id="@+id/textView23"
+            android:id="@+id/weaknesses_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"

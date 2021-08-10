@@ -196,4 +196,8 @@ public class Character implements Serializable {
     public Inventory getInventory() {
         return inventory;
     }
+
+    public void removeWearable(Wearable wearable) {
+        wearables.removeItem(wearable);
+    }
 }

@@ -12,7 +12,7 @@
     <string name="FATIGATED">Fatigado</string>
     <string name="EXHAUSTED">Agotado</string>
     <string name="VITAL_name">Energía Vital</string>
-    <string name="VITAL_description">Representa la confluencia de tus energías físicas y mentales, las cuales tienen diferentes\n orígenes, pero la misma función y utilidad.\n-Recuperaras Energía alimentándote, o descansando plácidamente (1 cada 4 horas).</string>
+    <string name="VITAL_description">Representa la confluencia de tus energías físicas y mentales, las cuales tienen diferentes orígenes, pero la misma función y utilidad.\n-Recuperaras Energía alimentándote, o descansando plácidamente (1 cada 4 horas).</string>
     <string name="FURY_name">Furia</string>
     <string name="FURY_description">Obtienes fuerzas de la pasión y la rabia, incluso a veces del dolor o el rencor. Común entre guerreros barbáricos, demonios, y magos de fuego.\n-No recuperaras Energía alimentándote, descansando o durmiendo (debes seguir haciéndolo para mantenerte vivo.)\n-Recuperas 1 punto de Energía bebiendo alcohol (botella entera), y recuperarás 1 cada vez que aciertes un ataque o cada vez que recibas daño (más de un daño a la vez cuenta como uno, debe ser al menos 1 punto de daño). Cada ronda que termine sin que tú hayas acertado en un ataque o recibido daño, te hace perder 1 punto de Energía, pero no a menos de 1.\n-Si te quedas sin Energía, caerás inconsciente hasta pasadas 4 horas o hasta que alguien te de alcohol. Despertarás con 1 punto de Energía.</string>
     <string name="DIVINE_name">Favor Divino</string>
@@ -20,11 +20,11 @@
     <string name="BLOOD_name">Sed de Sangre</string>
     <string name="BLOOD_description">Te alimentas de la sangre de los vivos. Los vampiros son un buen ejemplo.\n-Recuperaras Energía alimentándote de seres vivos (no puedes comer alimento regular),descansando (1 cada 4 horas).\n-Para alimentarte de sangre, debes hacerlo de una presa viva (Debe ser Capturada o debe estar Inconsciente, en caso contrario, no puede ser consumida. La alimentación es casi instantánea.), los objetivos te proveen Puntos de Energía iguales a su RES o iguales a su cantidad de Puntos de Salud. Puedes alimentarte sin matarlos, pero reducirás su RES o Puntos de Salud en la cantidad de Puntos de Energía que has Recuperado.\n-Si te quedas sin Energía, caes inconsciente hasta que huelas sangre. Despertarás con 1 punto de Energía.</string>
     <string name="ACUATIC_name">Esencia Acuática</string>
-    <string name="ACUATIC_description">Tus energías están profúndamente conectadas con tu contacto con el agua, y tu hidratación. Los tritones y algunos magos de Agua poseen esta forma de Energía.\n-No recuperaras Energía alimentándote o durmiendo (debes seguir haciéndolo para mantenerte vivo.)\n-Recuperas 1 punto de Energía por cada 4 horas de descanso cerca de grandes cuerpos de\nagua, teniendo un momento de conexión con ella, o bebiendo una botella entera de agua\nlimpia.\n-Si te quedas sin Energía, caerás inconsciente hasta pasadas 4 horas o tu cuerpo entre en contacto con una fuente de agua. Despertarás con 1 punto de Energía.</string>
+    <string name="ACUATIC_description">Tus energías están profúndamente conectadas con tu contacto con el agua, y tu hidratación. Los tritones y algunos magos de Agua poseen esta forma de Energía.\n-No recuperaras Energía alimentándote o durmiendo (debes seguir haciéndolo para mantenerte vivo.)\n-Recuperas 1 punto de Energía por cada 4 horas de descanso cerca de grandes cuerpos de agua, teniendo un momento de conexión con ella, o bebiendo una botella entera de agua limpia.\n-Si te quedas sin Energía, caerás inconsciente hasta pasadas 4 horas o tu cuerpo entre en contacto con una fuente de agua. Despertarás con 1 punto de Energía.</string>
     <string name="AIR_name">Esencia Aérea</string>
     <string name="AIR_description">El aire y los cielos te dan la Energía necesaria para seguir adelante. Muchas razas de hombres-pájaro y magos de viento utilizan esta manera de mantenerse.\n-No recuperaras Energía alimentándote o durmiendo (debes seguir haciéndolo para mantenerte vivo.)\n-Recuperas 1 punto de Energía por cada 2 horas de descanso, y si descansas en un lugar alto o ventoso recuperas 1 adicional. O teniendo un momento de conexión con el aire.\n-Si te quedas sin Energía, caerás inconsciente hasta pasadas 4 horas. Despertarás con 1 punto de Energía.</string>
     <string name="MEDITATION_name">Meditación</string>
-    <string name="MEDITATION_description">Tus energías dependen de tu balance espiritual, independientemente de tu religión o creencia. Necesitas paz y concentración.\n-No recuperaras Energía alimentándote o durmiendo (debes seguir haciéndolo para\nmantenerte vivo.)\n-Recuperas 1 punto de Energía por cada 2 horas de meditación, y si meditas en un lugar hermoso o tranquilo recuperas 1 adicional. También cada vez que superes una tirada para resistir daño mental o miedo.\n-Si te quedas sin Energía, caerás inconsciente hasta pasadas 4 horas. Despertarás con 1 punto de Energía.</string>
+    <string name="MEDITATION_description">Tus energías dependen de tu balance espiritual, independientemente de tu religión o creencia. Necesitas paz y concentración.\n-No recuperaras Energía alimentándote o durmiendo (debes seguir haciéndolo para mantenerte vivo.)\n-Recuperas 1 punto de Energía por cada 2 horas de meditación, y si meditas en un lugar hermoso o tranquilo recuperas 1 adicional. También cada vez que superes una tirada para resistir daño mental o miedo.\n-Si te quedas sin Energía, caerás inconsciente hasta pasadas 4 horas. Despertarás con 1 punto de Energía.</string>
     <string name="HEALTHY_name">Saludable</string>
     <string name="HEALTHY_description">Ileso, tal vez algunos rasguños.\n-Dificultad para tratar: 0.</string>
     <string name="INJURED_name">Herido</string>
@@ -112,4 +112,10 @@
     <string name="Value">Valor</string>
     <string name="load">%1$.1f/%2$d</string>
     <string name="Remove">Remover</string>
+    <string name="New_Weakness">Nueva Debilidad</string>
+    <string name="New_Skill">Nueva Habilidad</string>
+    <string name="Properties">Propiedades</string>
+    <string name="Weight">Peso</string>
+    <string name="New_Wearable">Nueva Armadura/Vestimenta</string>
+    <string name="Fields_Incomplete">Llene todos los campos</string>
 </resources>

@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -69,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @SuppressWarnings("unused")
     private void seedCharacter() {
         cha = new Character();
         seed();
@@ -77,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setOnClickListeners() {
+
         view_health.setOnClickListener(v -> new MaterialAlertDialogBuilder(this).setTitle(getString(R.string.Health)).setItems(Health.getNames(this), (dialog, which) -> {
             Health health = Health.values()[which];
             cha.setHealth(health);
@@ -141,6 +144,59 @@ public class MainActivity extends AppCompatActivity {
             }).show();
         });
 
+        findViewById(R.id.skills_text).setOnClickListener(v -> {
+            View view = getLayoutInflater().inflate(R.layout.dialog_new_attribute, null);
+            new MaterialAlertDialogBuilder(this).setTitle(R.string.New_Skill).setView(view).setPositiveButton(R.string.Save, (dialog, which) -> {
+                EditText name = view.findViewById(R.id.new_attribute_name);
+                EditText description = view.findViewById(R.id.new_attribute_description);
+                if (!name.getText().toString().equals("") && !description.getText().toString().equals("")) {
+                    cha.addSkill(name.getText().toString(), description.getText().toString());
+                    saveCharacter();
+                    view_skills.removeAllViews();
+                    showSkills();
+                } else {
+                    Toast.makeText(this, getString(R.string.Fields_Incomplete), Toast.LENGTH_SHORT).show();
+                }
+            }).show();
+
+        });
+
+        findViewById(R.id.weaknesses_text).setOnClickListener(v -> {
+            View view = getLayoutInflater().inflate(R.layout.dialog_new_attribute, null);
+            new MaterialAlertDialogBuilder(this).setTitle(R.string.New_Weakness).setView(view).setPositiveButton(R.string.Save, (dialog, which) -> {
+                EditText name = view.findViewById(R.id.new_attribute_name);
+                EditText description = view.findViewById(R.id.new_attribute_description);
+                if (!name.getText().toString().equals("") && !description.getText().toString().equals("")) {
+                    cha.addWeakness(name.getText().toString(), description.getText().toString());
+                    saveCharacter();
+                    view_weakness.removeAllViews();
+                    showWeaknesses();
+                } else {
+                    Toast.makeText(this, getString(R.string.Fields_Incomplete), Toast.LENGTH_SHORT).show();
+                }
+            }).show();
+
+        });
+
+        findViewById(R.id.wearables_text).setOnClickListener(v -> {
+            View view = getLayoutInflater().inflate(R.layout.dialog_new_wearable, null);
+            new MaterialAlertDialogBuilder(this).setTitle(R.string.New_Wearable).setView(view).setPositiveButton(R.string.Save, (dialog, which) -> {
+                EditText name = view.findViewById(R.id.new_wearable_name);
+                EditText property = view.findViewById(R.id.new_wearable_property);
+                EditText weight = view.findViewById(R.id.new_wearable_weight);
+                EditText value = view.findViewById(R.id.new_wearable_value);
+                if (!name.getText().toString().equals("") && !property.getText().toString().equals("") && !weight.getText().toString().equals("") && !value.getText().toString().equals("")) {
+                    cha.addWearable(name.getText().toString(), property.getText().toString(), Double.parseDouble(weight.getText().toString()), Integer.parseInt(value.getText().toString()));
+                    saveCharacter();
+                    view_wearables.removeAllViews();
+                    showWearables();
+                } else {
+                    Toast.makeText(this, getString(R.string.Fields_Incomplete), Toast.LENGTH_SHORT).show();
+                }
+            }).show();
+
+        });
+
 
     }
 
@@ -160,6 +216,7 @@ public class MainActivity extends AppCompatActivity {
         view_weakness = findViewById(R.id.weakness);
         view_inventory = findViewById(R.id.inventory);
         view_load = findViewById(R.id.load);
+
     }
 
     private void saveCharacter() {
@@ -202,7 +259,7 @@ public class MainActivity extends AppCompatActivity {
         showWeapons();
         view_aptitude.setText(cha.getAptitude().getName());
         showSkills();
-        showWeakness();
+        showWeaknesses();
         showInventory();
 
     }
@@ -213,7 +270,7 @@ public class MainActivity extends AppCompatActivity {
         view_load.setText(getString(R.string.load, cha.getActual_weight(), cha.getBaseWeight()));
     }
 
-    private void showWeakness() {
+    private void showWeaknesses() {
         for (Attribute weakness : cha.getWeakness()) {
             TextView view = new TextView(getBaseContext());
             view.setText(weakness.getName());
@@ -221,7 +278,7 @@ public class MainActivity extends AppCompatActivity {
                 cha.removeWeakness(weakness);
                 saveCharacter();
                 view_weakness.removeAllViews();
-                showWeakness();
+                showWeaknesses();
             })
                     .show());
             view_weakness.addView(view);
@@ -256,6 +313,27 @@ public class MainActivity extends AppCompatActivity {
             col0.setGravity(Gravity.CENTER_VERTICAL);
             col0.setPadding(5, 5, 0, 5);
             row.addView(col0);
+
+            row.setOnClickListener(v -> {
+                View view = getLayoutInflater().inflate(R.layout.dialog_view_wearable, null);
+                ((TextView) view.findViewById(R.id.view_wearable_property)).setText(wearable.getProperty());
+                ((TextView) view.findViewById(R.id.view_wearable_weight)).setText(String.valueOf(wearable.getWeight()));
+                ((EditText) view.findViewById(R.id.view_wearable_value)).setText(String.valueOf(wearable.getValue()));
+
+                new MaterialAlertDialogBuilder(this).setTitle(wearable.getName()).setView(view).setPositiveButton(R.string.Save, (dialog, which) -> {
+                    EditText value = view.findViewById(R.id.view_wearable_value);
+                    wearable.setValue(Integer.parseInt(value.getText().toString()));
+                    saveCharacter();
+                    view_wearables.removeAllViews();
+                    showWearables();
+                }).setNegativeButton(R.string.Remove, (dialog, which) -> {
+                    cha.removeWearable(wearable);
+                    saveCharacter();
+                    view_wearables.removeAllViews();
+                    showWearables();
+                }).show();
+
+            });
 
             view_wearables.addView(row);
         }
