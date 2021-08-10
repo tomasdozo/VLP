@@ -169,7 +169,7 @@ public class Character implements Serializable {
         inventory.addItem(new Item(name, quantity, weight));
     }
 
-    public void addItem(String name, int quantity, double weight, int value) {
+    public void addItem(String name, double quantity, double weight, int value) {
         inventory.addItem(new Item(name, quantity, weight, value));
     }
 

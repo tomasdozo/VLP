@@ -118,4 +118,5 @@
     <string name="Weight">Peso</string>
     <string name="New_Wearable">Nueva Armadura/Vestimenta</string>
     <string name="Fields_Incomplete">Llene todos los campos</string>
+    <string name="New_Item">Nuevo Item</string>
 </resources>

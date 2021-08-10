@@ -197,6 +197,24 @@ public class MainActivity extends AppCompatActivity {
             }).show();
         });
 
+        findViewById(R.id.inventory_text).setOnClickListener(v -> {
+            View view = getLayoutInflater().inflate(R.layout.dialog_new_item, null);
+            new MaterialAlertDialogBuilder(this).setTitle(R.string.New_Item).setView(view).setPositiveButton(R.string.Save, (dialog, which) -> {
+                EditText name = view.findViewById(R.id.new_item_name);
+                EditText quantity = view.findViewById(R.id.new_item_quantity);
+                EditText weight = view.findViewById(R.id.new_item_weight);
+                EditText value = view.findViewById(R.id.new_item_value);
+                if (!name.getText().toString().equals("") && !weight.getText().toString().equals("") && !value.getText().toString().equals("") && !quantity.getText().toString().equals("")) {
+                    cha.addItem(name.getText().toString(), Double.parseDouble(quantity.getText().toString()), Double.parseDouble(weight.getText().toString()), Integer.parseInt(value.getText().toString()));
+                    saveCharacter();
+                    view_inventory.removeAllViews();
+                    showCoinsXpLoad();
+                    showInventory();
+                } else {
+                    Toast.makeText(this, getString(R.string.Fields_Incomplete), Toast.LENGTH_SHORT).show();
+                }
+            }).show();
+        });
 
     }
 
