@@ -185,16 +185,16 @@ public class MainActivity extends AppCompatActivity {
                 EditText property = view.findViewById(R.id.new_wearable_property);
                 EditText weight = view.findViewById(R.id.new_wearable_weight);
                 EditText value = view.findViewById(R.id.new_wearable_value);
-                if (!name.getText().toString().equals("") && !property.getText().toString().equals("") && !weight.getText().toString().equals("") && !value.getText().toString().equals("")) {
+                if (!name.getText().toString().equals("") && !weight.getText().toString().equals("") && !value.getText().toString().equals("")) {
                     cha.addWearable(name.getText().toString(), property.getText().toString(), Double.parseDouble(weight.getText().toString()), Integer.parseInt(value.getText().toString()));
                     saveCharacter();
                     view_wearables.removeAllViews();
+                    showCoinsXpLoad();
                     showWearables();
                 } else {
                     Toast.makeText(this, getString(R.string.Fields_Incomplete), Toast.LENGTH_SHORT).show();
                 }
             }).show();
-
         });
 
 
@@ -322,14 +322,19 @@ public class MainActivity extends AppCompatActivity {
 
                 new MaterialAlertDialogBuilder(this).setTitle(wearable.getName()).setView(view).setPositiveButton(R.string.Save, (dialog, which) -> {
                     EditText value = view.findViewById(R.id.view_wearable_value);
-                    wearable.setValue(Integer.parseInt(value.getText().toString()));
-                    saveCharacter();
-                    view_wearables.removeAllViews();
-                    showWearables();
+                    if (!value.getText().toString().equals("")) {
+                        wearable.setValue(Integer.parseInt(value.getText().toString()));
+                        saveCharacter();
+                        view_wearables.removeAllViews();
+                        showWearables();
+                    } else {
+                        Toast.makeText(this, getString(R.string.Fields_Incomplete), Toast.LENGTH_SHORT).show();
+                    }
                 }).setNegativeButton(R.string.Remove, (dialog, which) -> {
                     cha.removeWearable(wearable);
                     saveCharacter();
                     view_wearables.removeAllViews();
+                    showCoinsXpLoad();
                     showWearables();
                 }).show();
 
@@ -406,19 +411,35 @@ public class MainActivity extends AppCompatActivity {
             col1.setGravity(Gravity.CENTER_VERTICAL);
             row.addView(col1);
 
-            TextView col2 = new TextView(getBaseContext());
-            col2.setText(String.valueOf(item.getWeight()));
-            col2.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-            col2.setLayoutParams(param);
-            col2.setGravity(Gravity.CENTER_VERTICAL);
-            row.addView(col2);
+            row.setOnClickListener(v -> {
+                View view = getLayoutInflater().inflate(R.layout.dialog_view_item, null);
+                ((EditText) view.findViewById(R.id.view_item_quantity)).setText(String.valueOf(item.getQuantity()));
+                ((EditText) view.findViewById(R.id.view_item_value)).setText(String.valueOf(item.getValue()));
+                ((TextView) view.findViewById(R.id.view_item_weight)).setText(String.valueOf(item.getWeight()));
 
-            TextView col3 = new TextView(getBaseContext());
-            col3.setText(String.valueOf(item.getValue()));
-            col3.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-            col3.setLayoutParams(param);
-            col3.setGravity(Gravity.CENTER_VERTICAL);
-            row.addView(col3);
+                new MaterialAlertDialogBuilder(this).setTitle(item.getName()).setView(view).setPositiveButton(R.string.Save, (dialog, which) -> {
+                    EditText value = view.findViewById(R.id.view_item_value);
+                    EditText quantity = view.findViewById(R.id.view_item_quantity);
+                    if (!value.getText().toString().equals("") && !quantity.getText().toString().equals("")) {
+                        item.setValue(Integer.parseInt(value.getText().toString()));
+                        item.setQuantity(Double.parseDouble(quantity.getText().toString()));
+                        saveCharacter();
+                        view_inventory.removeAllViews();
+                        showInventory();
+                    } else {
+                        Toast.makeText(this, getString(R.string.Fields_Incomplete), Toast.LENGTH_SHORT).show();
+
+                    }
+                }).setNegativeButton(R.string.Remove, (dialog, which) -> {
+                    cha.removeItem(item);
+                    saveCharacter();
+                    view_inventory.removeAllViews();
+                    showCoinsXpLoad();
+                    showInventory();
+                }).show();
+
+            });
+
 
             view_inventory.addView(row);
         }

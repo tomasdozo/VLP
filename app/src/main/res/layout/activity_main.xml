@@ -482,26 +482,6 @@
                 android:textAlignment="center"
                 android:textColor="@color/primaryText" />
 
-            <TextView
-                android:id="@+id/textView12"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@color/colorPrimary"
-                android:text="@string/Load"
-                android:textAlignment="center"
-                android:textColor="@color/primaryText" />
-
-            <TextView
-                android:id="@+id/textView13"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@color/colorPrimary"
-                android:text="@string/Value"
-                android:textAlignment="center"
-                android:textColor="@color/primaryText" />
-
         </LinearLayout>
 
         <ScrollView

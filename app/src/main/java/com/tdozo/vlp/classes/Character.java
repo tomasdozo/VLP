@@ -161,10 +161,6 @@ public class Character implements Serializable {
         skills.add(new Attribute(name, description));
     }
 
-    public void addSkill(Attribute skill) {
-        skills.add(skill);
-    }
-
     public void addWeakness(String name, String description) {
         weakness.add(new Attribute(name, description));
     }
@@ -199,5 +195,9 @@ public class Character implements Serializable {
 
     public void removeWearable(Wearable wearable) {
         wearables.removeItem(wearable);
+    }
+
+    public void removeItem(Item item) {
+        inventory.removeItem(item);
     }
 }
