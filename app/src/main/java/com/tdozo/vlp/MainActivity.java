@@ -491,6 +491,7 @@ public class MainActivity extends AppCompatActivity {
                         item.setQuantity(Double.parseDouble(quantity.getText().toString()));
                         saveCharacter();
                         view_inventory.removeAllViews();
+                        showCoinsXpLoad();
                         showInventory();
                     } else {
                         Toast.makeText(this, getString(R.string.Fields_Incomplete), Toast.LENGTH_SHORT).show();
