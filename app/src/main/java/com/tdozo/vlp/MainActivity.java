@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
 
     Character cha;
     TextView view_name;
-    TextView view_race;
     TextView view_coins;
     TextView view_energyType;
     TextView view_xp;
@@ -64,8 +63,8 @@ public class MainActivity extends AppCompatActivity {
 
         loadViews();
 
-        loadCharacter();
-        //seedCharacter();
+        //loadCharacter();
+        seedCharacter();
 
         setOnClickListeners();
 
@@ -114,9 +113,6 @@ public class MainActivity extends AppCompatActivity {
         }).show());
 
         view_aptitude.setOnClickListener(v -> new MaterialAlertDialogBuilder(this).setTitle(cha.getAptitude().getName()).setMessage(cha.getAptitude().getDescription())
-                .show());
-
-        view_race.setOnClickListener(v -> new MaterialAlertDialogBuilder(this).setTitle(cha.getRace().getName()).setMessage(cha.getRace().getDescription())
                 .show());
 
         view_energyType.setOnClickListener(v -> new MaterialAlertDialogBuilder(this).setTitle(cha.getEnergyType().getName()).setMessage(cha.getEnergyType().getDescription())
@@ -258,7 +254,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void loadViews() {
         view_name = findViewById(R.id.name);
-        view_race = findViewById(R.id.race);
         view_coins = findViewById(R.id.coins);
         view_energyType = findViewById(R.id.energy_type);
         view_xp = findViewById(R.id.xp);
@@ -305,7 +300,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void showCharacter() {
         view_name.setText(cha.getName());
-        view_race.setText(cha.getRace().getName());
         view_energyType.setText(cha.getEnergyType().getName());
         showCoinsXpLoad();
         view_health.setText(cha.getHealth().getName());
