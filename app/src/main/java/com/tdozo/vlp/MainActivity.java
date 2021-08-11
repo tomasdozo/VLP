@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -329,6 +330,12 @@ public class MainActivity extends AppCompatActivity {
         for (Attribute weakness : cha.getWeakness()) {
             TextView view = new TextView(getBaseContext());
             view.setText(weakness.getName());
+            view.setGravity(Gravity.CENTER);
+            view.setTextColor(getColor(R.color.primaryText));
+            view.setTextSize(16);
+            view.setPadding(5, 5, 5, 5);
+            view.setBackground(AppCompatResources.getDrawable(this, R.drawable.border_thin));
+
             view.setOnClickListener(v -> new MaterialAlertDialogBuilder(this).setTitle(weakness.getName()).setMessage(weakness.getDescription()).setNegativeButton(R.string.Remove, (dialog, which) -> {
                 cha.removeWeakness(weakness);
                 saveCharacter();
@@ -344,6 +351,12 @@ public class MainActivity extends AppCompatActivity {
         for (Attribute skill : cha.getSkills()) {
             TextView view = new TextView(getBaseContext());
             view.setText(skill.getName());
+            view.setGravity(Gravity.CENTER);
+            view.setTextColor(getColor(R.color.primaryText));
+            view.setTextSize(16);
+            view.setPadding(5, 5, 5, 5);
+            view.setBackground(AppCompatResources.getDrawable(this, R.drawable.border_thin));
+
             view.setOnClickListener(v -> new MaterialAlertDialogBuilder(this).setTitle(skill.getName()).setMessage(skill.getDescription()).setNegativeButton(R.string.Remove, (dialog, which) -> {
                 cha.removeSkill(skill);
                 saveCharacter();
