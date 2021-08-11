@@ -102,7 +102,7 @@
     <string name="HEALTH">SALUD</string>
     <string name="SANITY">CORDURA</string>
     <string name="ENERGY">ENERGÍA</string>
-    <string name="Wearable">Armadura/Vestimienta</string>
+    <string name="Wearable">Equipamiento</string>
     <string name="Weapon">Armas</string>
     <string name="Skills">Habilidades</string>
     <string name="Weaknesses">Debilidades</string>
@@ -123,4 +123,9 @@
     <string name="Capacity">Capacidad</string>
     <string name="Damage">Daño</string>
     <string name="New_Weapon">Nueva Arma</string>
+    <string name="APTITUDE">APTITUD</string>
+    <string name="SKILLS">HABILIDADES</string>
+    <string name="WEAKNESSES">DEBILIDADES</string>
+    <string name="INVENTORY">INVENTARIO</string>
+    <string name="QUANTITY">CANT</string>
 </resources>

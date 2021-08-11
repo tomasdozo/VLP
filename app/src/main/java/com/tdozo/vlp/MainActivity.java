@@ -364,7 +364,7 @@ public class MainActivity extends AppCompatActivity {
     private void showWearables() {
         for (Wearable wearable : cha.getWearables().getWearables()) {
             TableRow row = new TableRow(getBaseContext());
-            row.setBackground(ContextCompat.getDrawable(this, R.drawable.border));
+            row.setBackground(ContextCompat.getDrawable(this, R.drawable.border_thin));
             row.setGravity(Gravity.CENTER_VERTICAL);
 
 
@@ -373,7 +373,9 @@ public class MainActivity extends AppCompatActivity {
             col0.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
             col0.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f));
             col0.setGravity(Gravity.CENTER_VERTICAL);
-            col0.setPadding(5, 5, 0, 5);
+            col0.setPadding(10, 5, 5, 5);
+            col0.setTextColor(getColor(R.color.black));
+            col0.setTextSize(16);
             row.addView(col0);
 
             row.setOnClickListener(v -> {
@@ -399,7 +401,7 @@ public class MainActivity extends AppCompatActivity {
     private void showWeapons() {
         for (Weapon weapon : cha.getWeapons().getWeapons()) {
             TableRow row = new TableRow(getBaseContext());
-            row.setBackground(ContextCompat.getDrawable(this, R.drawable.border));
+            row.setBackground(ContextCompat.getDrawable(this, R.drawable.border_thin));
             row.setGravity(Gravity.CENTER_VERTICAL);
 
 
@@ -408,7 +410,9 @@ public class MainActivity extends AppCompatActivity {
             col0.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
             col0.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 3.0f));
             col0.setGravity(Gravity.CENTER_VERTICAL);
-            col0.setPadding(5, 5, 0, 5);
+            col0.setPadding(10, 5, 5, 5);
+            col0.setTextColor(getColor(R.color.black));
+            col0.setTextSize(16);
             row.addView(col0);
 
             TableRow.LayoutParams param = new TableRow.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1.0f);
@@ -418,6 +422,8 @@ public class MainActivity extends AppCompatActivity {
             col1.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             col1.setLayoutParams(param);
             col1.setGravity(Gravity.CENTER_VERTICAL);
+            col1.setTextColor(getColor(R.color.black));
+            col1.setTextSize(16);
             row.addView(col1);
 
             TextView col2 = new TextView(getBaseContext());
@@ -425,6 +431,8 @@ public class MainActivity extends AppCompatActivity {
             col2.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             col2.setLayoutParams(param);
             col2.setGravity(Gravity.CENTER_VERTICAL);
+            col2.setTextColor(getColor(R.color.black));
+            col2.setTextSize(16);
             row.addView(col2);
 
             TextView col3 = new TextView(getBaseContext());
@@ -433,6 +441,8 @@ public class MainActivity extends AppCompatActivity {
             col3.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             col3.setLayoutParams(param);
             col3.setGravity(Gravity.CENTER_VERTICAL);
+            col3.setTextColor(getColor(R.color.black));
+            col3.setTextSize(16);
 
             row.addView(col3);
 
@@ -463,25 +473,27 @@ public class MainActivity extends AppCompatActivity {
     private void showInventory() {
         for (Item item : cha.getInventory().getItems()) {
             TableRow row = new TableRow(getBaseContext());
-            row.setBackground(ContextCompat.getDrawable(this, R.drawable.border));
             row.setGravity(Gravity.CENTER_VERTICAL);
-
 
             TextView col0 = new TextView(getBaseContext());
             col0.setText(item.getName());
-            col0.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
             col0.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 3.0f));
-            col0.setGravity(Gravity.CENTER_VERTICAL);
-            col0.setPadding(5, 5, 0, 5);
+            col0.setGravity(Gravity.CENTER);
+            col0.setPadding(5, 5, 5, 5);
+            col0.setTextColor(getColor(R.color.primaryText));
+            col0.setTextSize(16);
+            col0.setBackground(AppCompatResources.getDrawable(this, R.drawable.border_thin));
             row.addView(col0);
 
             TableRow.LayoutParams param = new TableRow.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1.0f);
 
             TextView col1 = new TextView(getBaseContext());
             col1.setText(String.valueOf(item.getQuantity()));
-            col1.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             col1.setLayoutParams(param);
-            col1.setGravity(Gravity.CENTER_VERTICAL);
+            col1.setGravity(Gravity.CENTER);
+            col1.setTextColor(getColor(R.color.primaryText));
+            col1.setTextSize(16);
+            col1.setBackground(AppCompatResources.getDrawable(this, R.drawable.border_thin));
             row.addView(col1);
 
             row.setOnClickListener(v -> {
