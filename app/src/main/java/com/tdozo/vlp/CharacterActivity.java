@@ -3,6 +3,7 @@ package com.tdozo.vlp;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -26,21 +27,54 @@ public class CharacterActivity extends AppCompatActivity {
     Button aptitude;
     EditText baseWeight;
     Button save;
-    Character cha = new Character();
+    Button delete;
+    Character cha;
+
+    Toast toast;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_character);
 
-        name = findViewById(R.id.name);
-        race = findViewById(R.id.race);
-        description = findViewById(R.id.description);
-        energyType = findViewById(R.id.energyType);
-        aptitude = findViewById(R.id.aptitude);
-        baseWeight = findViewById(R.id.baseWeight);
-        save = findViewById(R.id.save);
-        Toast toast = Toast.makeText(this, "Llene todos los campos", Toast.LENGTH_SHORT);
+        loadViews();
+        toast = Toast.makeText(this, "Llene todos los campos", Toast.LENGTH_SHORT);
+
+        Character character = (Character) getIntent().getSerializableExtra("Character");
+
+        if (character != null) {
+            cha = character;
+            name.setText(cha.getName());
+            race.setText(cha.getRace().getName());
+            description.setText(cha.getDescription());
+            energyType.setText(cha.getEnergyType().getName());
+            aptitude.setText(cha.getAptitude().getName());
+            baseWeight.setText(String.valueOf(cha.getBaseWeight()));
+        } else {
+            cha = new Character();
+            delete.setVisibility(View.GONE);
+        }
+
+        setOnClickListeners();
+
+    }
+
+    private void deleteCharacter() {
+        deleteFile("Character");
+        startActivity(new Intent(CharacterActivity.this, MainActivity.class));
+        finish();
+    }
+
+    private void setOnClickListeners() {
+
+        delete.setOnClickListener(v -> new MaterialAlertDialogBuilder(this)
+                .setTitle(getString(R.string.Remove))
+                .setMessage("¿Esta seguro que desea eliminar su personaje?")
+                .setNegativeButton(R.string.Remove, (dialog, which) ->
+                        deleteCharacter()
+                ).show());
+
 
         save.setOnClickListener(v -> {
             if (isComplete()) {
@@ -94,8 +128,17 @@ public class CharacterActivity extends AppCompatActivity {
             }
             return false;
         });
+    }
 
-
+    private void loadViews() {
+        name = findViewById(R.id.name);
+        race = findViewById(R.id.race);
+        description = findViewById(R.id.description);
+        energyType = findViewById(R.id.energyType);
+        aptitude = findViewById(R.id.aptitude);
+        baseWeight = findViewById(R.id.baseWeight);
+        save = findViewById(R.id.save);
+        delete = findViewById(R.id.delete);
     }
 
     private boolean isComplete() {

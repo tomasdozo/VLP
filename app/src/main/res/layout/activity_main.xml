@@ -289,41 +289,6 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayoutWeapons"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_max="72dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayoutWearable">
-
-        <TextView
-            android:id="@+id/weapons_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryDark"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:text="@string/Weapon"
-            android:textColor="@color/white" />
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/border"
-            android:isScrollContainer="false">
-
-            <TableLayout
-                android:id="@+id/weapons"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </ScrollView>
-
-    </LinearLayout>
-
-    <LinearLayout
         android:id="@+id/linearLayoutWearable"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -344,6 +309,11 @@
             android:text="@string/Wearable"
             android:textColor="@color/white" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/colorPrimaryDark" />
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -352,6 +322,46 @@
 
             <TableLayout
                 android:id="@+id/wearables"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </ScrollView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutWeapons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_max="72dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutWearable">
+
+        <TextView
+            android:id="@+id/weapons_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:text="@string/Weapon"
+            android:textColor="@color/white" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/colorPrimaryDark" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border"
+            android:isScrollContainer="false">
+
+            <TableLayout
+                android:id="@+id/weapons"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </ScrollView>
@@ -377,7 +387,7 @@
             android:background="@color/colorPrimaryDark"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
-            android:text="@string/APTITUDE"
+            android:text="@string/Aptitude"
             android:textAlignment="center"
             android:textColor="@color/white" />
 
@@ -399,7 +409,7 @@
             android:background="@color/colorPrimaryDark"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
-            android:text="@string/SKILLS"
+            android:text="@string/Skills"
             android:textAlignment="center"
             android:textColor="@color/white" />
 
@@ -426,7 +436,7 @@
             android:background="@color/colorPrimaryDark"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
-            android:text="@string/WEAKNESSES"
+            android:text="@string/Weaknesses"
             android:textAlignment="center"
             android:textColor="@color/white" />
 
@@ -472,7 +482,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:background="@color/colorPrimaryDark"
-                android:text="@string/INVENTORY"
+                android:text="@string/Inventory"
                 android:textAlignment="center"
                 android:textColor="@color/white" />
 
@@ -489,7 +499,7 @@
                 android:background="@color/colorPrimaryDark"
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
-                android:text="@string/QUANTITY"
+                android:text="@string/Quantity"
                 android:textAlignment="center"
                 android:textColor="@color/white" />
 

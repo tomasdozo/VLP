@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -54,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout view_weakness;
     TableLayout view_inventory;
     TextView view_load;
+    private static final boolean seed = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +66,8 @@ public class MainActivity extends AppCompatActivity {
 
         loadViews();
 
-        //loadCharacter();
-        seedCharacter();
+        if (!seed) loadCharacter();
+        else seedCharacter();
 
         setOnClickListeners();
 
@@ -80,6 +83,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void setOnClickListeners() {
         view_name.setOnClickListener(v -> new MaterialAlertDialogBuilder(this).setTitle(cha.getName()).setMessage(cha.getDescription()).show());
+
+        view_name.setOnLongClickListener(v -> {
+            modifyCharacter();
+            return true;
+        });
 
         view_health.setOnClickListener(v -> new MaterialAlertDialogBuilder(this).setTitle(getString(R.string.Health)).setItems(Health.getNames(this), (dialog, which) -> {
             Health health = Health.values()[which];
@@ -176,24 +184,7 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-        findViewById(R.id.wearables_text).setOnClickListener(v -> {
-            View view = getLayoutInflater().inflate(R.layout.dialog_new_wearable, null);
-            new MaterialAlertDialogBuilder(this).setTitle(R.string.New_Wearable).setView(view).setPositiveButton(R.string.Save, (dialog, which) -> {
-                EditText name = view.findViewById(R.id.new_wearable_name);
-                EditText property = view.findViewById(R.id.new_wearable_property);
-                EditText weight = view.findViewById(R.id.new_wearable_weight);
-                EditText value = view.findViewById(R.id.new_wearable_value);
-                if (!name.getText().toString().equals("") && !weight.getText().toString().equals("") && !value.getText().toString().equals("")) {
-                    cha.addWearable(name.getText().toString(), property.getText().toString(), Double.parseDouble(weight.getText().toString()), Integer.parseInt(value.getText().toString()));
-                    saveCharacter();
-                    view_wearables.removeAllViews();
-                    showCoinsXpLoad();
-                    showWearables();
-                } else {
-                    Toast.makeText(this, getString(R.string.Fields_Incomplete), Toast.LENGTH_SHORT).show();
-                }
-            }).show();
-        });
+        newWearableClicListener(findViewById(R.id.wearables_text));
 
         findViewById(R.id.inventory_text).setOnClickListener(v -> {
             View view = getLayoutInflater().inflate(R.layout.dialog_new_item, null);
@@ -214,7 +205,34 @@ public class MainActivity extends AppCompatActivity {
             }).show();
         });
 
-        findViewById(R.id.weapons_text).setOnClickListener(v -> {
+        newWeaponClicListener(findViewById(R.id.weapons_text));
+
+
+    }
+
+    private void newWearableClicListener(View view1) {
+        view1.setOnClickListener(v -> {
+            View view = getLayoutInflater().inflate(R.layout.dialog_new_wearable, null);
+            new MaterialAlertDialogBuilder(this).setTitle(R.string.New_Wearable).setView(view).setPositiveButton(R.string.Save, (dialog, which) -> {
+                EditText name = view.findViewById(R.id.new_wearable_name);
+                EditText property = view.findViewById(R.id.new_wearable_property);
+                EditText weight = view.findViewById(R.id.new_wearable_weight);
+                EditText value = view.findViewById(R.id.new_wearable_value);
+                if (!name.getText().toString().equals("") && !weight.getText().toString().equals("") && !value.getText().toString().equals("")) {
+                    cha.addWearable(name.getText().toString(), property.getText().toString(), Double.parseDouble(weight.getText().toString()), Integer.parseInt(value.getText().toString()));
+                    saveCharacter();
+                    view_wearables.removeAllViews();
+                    showCoinsXpLoad();
+                    showWearables();
+                } else {
+                    Toast.makeText(this, getString(R.string.Fields_Incomplete), Toast.LENGTH_SHORT).show();
+                }
+            }).show();
+        });
+    }
+
+    private void newWeaponClicListener(View view1) {
+        view1.setOnClickListener(v -> {
             View view = getLayoutInflater().inflate(R.layout.dialog_new_weapon, null);
             Button aptitude = view.findViewById(R.id.new_weapon_aptitude);
             final Aptitude[] apt = new Aptitude[1];
@@ -248,8 +266,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }).show();
         });
-
-
     }
 
     private void loadViews() {
@@ -297,6 +313,14 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    private void modifyCharacter() {
+        Intent intent = new Intent(MainActivity.this, CharacterActivity.class);
+        intent.putExtra("Character", cha);
+        startActivity(intent);
+        finish();
+    }
+
 
     private void showCharacter() {
         view_name.setText(cha.getName());
@@ -362,40 +386,57 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showWearables() {
-        for (Wearable wearable : cha.getWearables().getWearables()) {
+        if (cha.getWearables().getWearables().isEmpty()) {
+
             TableRow row = new TableRow(getBaseContext());
-            row.setBackground(ContextCompat.getDrawable(this, R.drawable.border_thin));
-            row.setGravity(Gravity.CENTER_VERTICAL);
+            row.setBackgroundColor(getColor(R.color.grey));
+            row.setPadding(10, 5, 50, 5);
+            row.setForeground(AppCompatResources.getDrawable(this, R.drawable.border_thin));
+            row.setGravity(Gravity.END);
+            newWearableClicListener(row);
 
+            ImageView btn = new ImageButton(this);
+            btn.setLayoutParams(new TableRow.LayoutParams(50, 50));
+            btn.setBackground(AppCompatResources.getDrawable(this, R.drawable.add_btn));
+            btn.setScaleType(ImageView.ScaleType.FIT_XY);
 
-            TextView col0 = new TextView(getBaseContext());
-            col0.setText(wearable.getName());
-            col0.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
-            col0.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f));
-            col0.setGravity(Gravity.CENTER_VERTICAL);
-            col0.setPadding(10, 5, 5, 5);
-            col0.setTextColor(getColor(R.color.black));
-            col0.setTextSize(16);
-            row.addView(col0);
-
-            row.setOnClickListener(v -> {
-                View view = getLayoutInflater().inflate(R.layout.dialog_view_wearable, null);
-                ((TextView) view.findViewById(R.id.view_wearable_property)).setText(wearable.getProperty());
-                ((TextView) view.findViewById(R.id.view_wearable_weight)).setText(String.valueOf(wearable.getWeight()));
-                ((TextView) view.findViewById(R.id.view_wearable_value)).setText(String.valueOf(wearable.getValue()));
-
-                new MaterialAlertDialogBuilder(this).setTitle(wearable.getName()).setView(view).setNegativeButton(R.string.Remove, (dialog, which) -> {
-                    cha.removeWearable(wearable);
-                    saveCharacter();
-                    view_wearables.removeAllViews();
-                    showCoinsXpLoad();
-                    showWearables();
-                }).show();
-
-            });
-
+            row.addView(btn);
             view_wearables.addView(row);
-        }
+        } else
+            for (Wearable wearable : cha.getWearables().getWearables()) {
+                TableRow row = new TableRow(getBaseContext());
+                row.setBackground(ContextCompat.getDrawable(this, R.drawable.border_thin));
+                row.setGravity(Gravity.CENTER_VERTICAL);
+
+
+                TextView col0 = new TextView(getBaseContext());
+                col0.setText(wearable.getName());
+                col0.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
+                col0.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f));
+                col0.setGravity(Gravity.CENTER_VERTICAL);
+                col0.setPadding(10, 5, 5, 5);
+                col0.setTextColor(getColor(R.color.black));
+                col0.setTextSize(16);
+                row.addView(col0);
+
+                row.setOnClickListener(v -> {
+                    View view = getLayoutInflater().inflate(R.layout.dialog_view_wearable, null);
+                    ((TextView) view.findViewById(R.id.view_wearable_property)).setText(wearable.getProperty());
+                    ((TextView) view.findViewById(R.id.view_wearable_weight)).setText(String.valueOf(wearable.getWeight()));
+                    ((TextView) view.findViewById(R.id.view_wearable_value)).setText(String.valueOf(wearable.getValue()));
+
+                    new MaterialAlertDialogBuilder(this).setTitle(wearable.getName()).setView(view).setNegativeButton(R.string.Remove, (dialog, which) -> {
+                        cha.removeWearable(wearable);
+                        saveCharacter();
+                        view_wearables.removeAllViews();
+                        showCoinsXpLoad();
+                        showWearables();
+                    }).show();
+
+                });
+
+                view_wearables.addView(row);
+            }
     }
 
     private void showWeapons() {

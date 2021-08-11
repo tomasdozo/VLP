@@ -189,14 +189,38 @@
                 android:textColor="@color/colorAccent"
                 android:textSize="24sp"
                 tools:ignore="SpeakableTextPresentCheck" />
+
         </LinearLayout>
 
-        <Button
-            android:id="@+id/save"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/Save" />
+            android:gravity="center_vertical|end"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/design_default_color_error"
+                android:text="@string/Remove"
+                android:textSize="24sp" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:text="@string/Save"
+                android:textSize="24sp" />
+
+        </LinearLayout>
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
