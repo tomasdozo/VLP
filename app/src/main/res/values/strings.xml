@@ -50,7 +50,7 @@
     <string name="GOBLIN_description">La plaga del mundo. Amigos de las ratas y los lobos. No entiendo por que alguien querría rolear un goblin, la verdad. Seguro necesitás llamar la atención.</string>
     <string name="GOBLIN_name">Goblin</string>
     <string name="PRETORIAN_name">Pretoriano</string>
-    <string name="PRETORIAN_desciption">Famosos por todo el Mundo Viejo por gobernar un imperio que solo es igualado por por los centauros mongoles, se hacen llamar la base de la civilización. La conquista, la guerra, la intriga política, y el tributo son todo para ellos. Viven para expandirse, batallar, y deleitarse con el botín de sus colonias.</string>
+    <string name="PRETORIAN_desciption">Famosos por todo el Mundo Viejo por gobernar un imperio que solo es igualado por los centauros mongoles, se hacen llamar la base de la civilización. La conquista, la guerra, la intriga política, y el tributo son todo para ellos. Viven para expandirse, batallar, y deleitarse con el botín de sus colonias.</string>
     <string name="BUGBEAR_name">Bugbear</string>
     <string name="BUGBEAR_description">Presentes en los bosques de Europa y en las selvas de Oceanía, estos expertos emboscadores veneran a dioses salvajes y sanguinarios. Son civilizados, pero agresivos.</string>
     <string name="TRITON_name">Tritón</string>
@@ -58,7 +58,7 @@
     <string name="CAT_MAN_name">Hombre-Gato</string>
     <string name="CAT_MAN_description">No hay un nombre específico para esta raza, pues hay diferentes hombres y mujeres gato repartidos por todo el Mundo. Los del centro africano suelen llevar melena, mientras que los del Nuevo Mundo llevan manchas, y los faraones egipcios son completamente lampiños. Las gentes les llaman, simplemente, Hombres-Gato.</string>
     <string name="REPTILIAN_name">Reptiliano</string>
-    <string name="REPTILIAN_description">Habitantes de los pantanos más peligrosos del Mundo, esta raza extraña y sanguinaria viven para sobrevivir y nada más. Son racionales, pero fríos, y son exclusivamente carnívoros.</string>
+    <string name="REPTILIAN_description">Habitantes de los pantanos más peligrosos del Mundo, esta raza extraña y sanguinaria vive para sobrevivir y nada más. Son racionales, pero fríos, y son exclusivamente carnívoros.</string>
     <string name="YARA_name">Yara</string>
     <string name="YARA_description">Los emperadores de la Jungla Eterna solían ser humanos, hasta que una pretensión divina les llevó a cambiar sus cuerpos para asemejarse más a sus dioses ofidios. Un punto entre humanos y serpientes, estos seres son todos fanáticos religiosos obsesionados con el estatus. Implacables, sanguinarios, y protectores con su Jungla.</string>
     <string name="TEZCA_name">Tezca</string>
@@ -87,7 +87,7 @@
     <string name="DWARF_description">Bajos y fornidos, los enanos se ganaron una reputación respetable y fuerte. Oriundos de todo lugar en Europa que presente montañas.</string>
     <string name="Race">Raza</string>
     <string name="Choose">Elegir</string>
-    <string name="Description">Descpripción</string>
+    <string name="Description">Descripción</string>
     <string name="Energy_Type">Tipo de Energía</string>
     <string name="Aptitude">Aptitud</string>
     <string name="Base_Weight">Peso Base</string>

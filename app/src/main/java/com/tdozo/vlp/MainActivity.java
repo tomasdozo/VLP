@@ -73,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @SuppressWarnings("unused")
     private void seedCharacter() {
         cha = new Character();
         seed();
