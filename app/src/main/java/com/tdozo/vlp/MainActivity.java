@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout view_weakness;
     TableLayout view_inventory;
     TextView view_load;
-    private static final boolean seed = true;
+    private static final boolean seed = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
