@@ -314,17 +314,22 @@
             android:layout_height="2dp"
             android:background="@color/colorPrimaryDark" />
 
-        <ScrollView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/border"
-            android:isScrollContainer="false">
+            android:foreground="@drawable/border">
 
-            <TableLayout
-                android:id="@+id/wearables"
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </ScrollView>
+                android:layout_height="match_parent"
+                android:isScrollContainer="false">
+
+                <TableLayout
+                    android:id="@+id/wearables"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </ScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
 
@@ -354,17 +359,22 @@
             android:layout_height="2dp"
             android:background="@color/colorPrimaryDark" />
 
-        <ScrollView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/border"
-            android:isScrollContainer="false">
+            android:foreground="@drawable/border">
 
-            <TableLayout
-                android:id="@+id/weapons"
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </ScrollView>
+                android:layout_height="match_parent"
+                android:isScrollContainer="false">
+
+                <TableLayout
+                    android:id="@+id/weapons"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </ScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
 
@@ -391,6 +401,11 @@
             android:textAlignment="center"
             android:textColor="@color/white" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/colorPrimaryDark" />
+
         <TextView
             android:id="@+id/aptitude"
             android:layout_width="match_parent"
@@ -413,20 +428,31 @@
             android:textAlignment="center"
             android:textColor="@color/white" />
 
-        <ScrollView
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/colorPrimaryDark" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="3"
-            android:background="@drawable/border"
-            android:isScrollContainer="false"
-            tools:ignore="SpeakableTextPresentCheck">
+            android:foreground="@drawable/border">
 
-            <LinearLayout
-                android:id="@+id/skills"
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" />
-        </ScrollView>
+                android:layout_height="match_parent"
+                android:isScrollContainer="false"
+                tools:ignore="SpeakableTextPresentCheck">
+
+                <LinearLayout
+                    android:id="@+id/skills"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+            </ScrollView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/weaknesses_text"
@@ -440,20 +466,31 @@
             android:textAlignment="center"
             android:textColor="@color/white" />
 
-        <ScrollView
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/colorPrimaryDark" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="@drawable/border"
-            android:isScrollContainer="false"
-            tools:ignore="SpeakableTextPresentCheck">
+            android:foreground="@drawable/border">
 
-            <LinearLayout
-                android:id="@+id/weakness"
+            <ScrollView
+                android:id="@+id/scrollView2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" />
-        </ScrollView>
+                android:layout_height="match_parent"
+                android:isScrollContainer="false"
+                tools:ignore="SpeakableTextPresentCheck">
+
+                <LinearLayout
+                    android:id="@+id/weakness"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+            </ScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
 
@@ -505,17 +542,27 @@
 
         </LinearLayout>
 
-        <ScrollView
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/colorPrimaryDark" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/border"
-            android:isScrollContainer="false">
+            android:foreground="@drawable/border">
 
-            <TableLayout
-                android:id="@+id/inventory"
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </ScrollView>
+                android:layout_height="match_parent"
+                android:isScrollContainer="false">
+
+                <TableLayout
+                    android:id="@+id/inventory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </ScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
 

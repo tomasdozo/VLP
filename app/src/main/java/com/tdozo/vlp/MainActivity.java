@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
@@ -17,6 +16,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout view_weakness;
     TableLayout view_inventory;
     TextView view_load;
-    private static final boolean seed = false;
+    private static final boolean seed = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -150,7 +150,22 @@ public class MainActivity extends AppCompatActivity {
             }).show();
         });
 
-        findViewById(R.id.skills_text).setOnClickListener(v -> {
+
+        newSkillClicListener(findViewById(R.id.skills_text));
+
+        newWeaknessClicListener(findViewById(R.id.weaknesses_text));
+
+        newWearableClicListener(findViewById(R.id.wearables_text));
+
+        newItemClicListener(findViewById(R.id.inventory_text));
+
+        newWeaponClicListener(findViewById(R.id.weapons_text));
+
+
+    }
+
+    private void newSkillClicListener(View viewById) {
+        viewById.setOnClickListener(v -> {
             View view = getLayoutInflater().inflate(R.layout.dialog_new_attribute, null);
             new MaterialAlertDialogBuilder(this).setTitle(R.string.New_Skill).setView(view).setPositiveButton(R.string.Save, (dialog, which) -> {
                 EditText name = view.findViewById(R.id.new_attribute_name);
@@ -166,8 +181,10 @@ public class MainActivity extends AppCompatActivity {
             }).show();
 
         });
+    }
 
-        findViewById(R.id.weaknesses_text).setOnClickListener(v -> {
+    private void newWeaknessClicListener(View viewById) {
+        viewById.setOnClickListener(v -> {
             View view = getLayoutInflater().inflate(R.layout.dialog_new_attribute, null);
             new MaterialAlertDialogBuilder(this).setTitle(R.string.New_Weakness).setView(view).setPositiveButton(R.string.Save, (dialog, which) -> {
                 EditText name = view.findViewById(R.id.new_attribute_name);
@@ -183,10 +200,10 @@ public class MainActivity extends AppCompatActivity {
             }).show();
 
         });
+    }
 
-        newWearableClicListener(findViewById(R.id.wearables_text));
-
-        findViewById(R.id.inventory_text).setOnClickListener(v -> {
+    private void newItemClicListener(View vu) {
+        vu.setOnClickListener(v -> {
             View view = getLayoutInflater().inflate(R.layout.dialog_new_item, null);
             new MaterialAlertDialogBuilder(this).setTitle(R.string.New_Item).setView(view).setPositiveButton(R.string.Save, (dialog, which) -> {
                 EditText name = view.findViewById(R.id.new_item_name);
@@ -204,10 +221,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }).show();
         });
-
-        newWeaponClicListener(findViewById(R.id.weapons_text));
-
-
     }
 
     private void newWearableClicListener(View view1) {
@@ -363,6 +376,10 @@ public class MainActivity extends AppCompatActivity {
                     .show());
             view_weakness.addView(view);
         }
+
+        TableRow row = generateAddRow();
+        newWeaknessClicListener(row);
+        view_weakness.addView(row);
     }
 
     private void showSkills() {
@@ -383,60 +400,69 @@ public class MainActivity extends AppCompatActivity {
             }).show());
             view_skills.addView(view);
         }
+
+        TableRow row = generateAddRow();
+        newSkillClicListener(row);
+        view_skills.addView(row);
     }
 
     private void showWearables() {
-        if (cha.getWearables().getWearables().isEmpty()) {
 
+        for (Wearable wearable : cha.getWearables().getWearables()) {
             TableRow row = new TableRow(getBaseContext());
-            row.setBackgroundColor(getColor(R.color.grey));
-            row.setPadding(10, 5, 50, 5);
-            row.setForeground(AppCompatResources.getDrawable(this, R.drawable.border_thin));
-            row.setGravity(Gravity.END);
-            newWearableClicListener(row);
+            row.setBackground(ContextCompat.getDrawable(this, R.drawable.border_thin));
+            row.setGravity(Gravity.CENTER_VERTICAL);
 
-            ImageView btn = new ImageButton(this);
-            btn.setLayoutParams(new TableRow.LayoutParams(50, 50));
-            btn.setBackground(AppCompatResources.getDrawable(this, R.drawable.add_btn));
-            btn.setScaleType(ImageView.ScaleType.FIT_XY);
 
-            row.addView(btn);
+            TextView col0 = new TextView(getBaseContext());
+            col0.setText(wearable.getName());
+            col0.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
+            col0.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f));
+            col0.setGravity(Gravity.CENTER_VERTICAL);
+            col0.setPadding(10, 5, 5, 5);
+            col0.setTextColor(getColor(R.color.black));
+            col0.setTextSize(16);
+            row.addView(col0);
+
+            row.setOnClickListener(v -> {
+                View view = getLayoutInflater().inflate(R.layout.dialog_view_wearable, null);
+                ((TextView) view.findViewById(R.id.view_wearable_property)).setText(wearable.getProperty());
+                ((TextView) view.findViewById(R.id.view_wearable_weight)).setText(String.valueOf(wearable.getWeight()));
+                ((TextView) view.findViewById(R.id.view_wearable_value)).setText(String.valueOf(wearable.getValue()));
+
+                new MaterialAlertDialogBuilder(this).setTitle(wearable.getName()).setView(view).setNegativeButton(R.string.Remove, (dialog, which) -> {
+                    cha.removeWearable(wearable);
+                    saveCharacter();
+                    view_wearables.removeAllViews();
+                    showCoinsXpLoad();
+                    showWearables();
+                }).show();
+
+            });
+
             view_wearables.addView(row);
-        } else
-            for (Wearable wearable : cha.getWearables().getWearables()) {
-                TableRow row = new TableRow(getBaseContext());
-                row.setBackground(ContextCompat.getDrawable(this, R.drawable.border_thin));
-                row.setGravity(Gravity.CENTER_VERTICAL);
+        }
+
+        TableRow row = generateAddRow();
+        newWearableClicListener(row);
+        view_wearables.addView(row);
+    }
+
+    @NonNull
+    private TableRow generateAddRow() {
+        TableRow row = new TableRow(getBaseContext());
+        row.setBackground(AppCompatResources.getDrawable(this, R.drawable.border_thin_grey));
+        row.setPadding(10, 5, 50, 5);
+        row.setGravity(Gravity.END);
 
 
-                TextView col0 = new TextView(getBaseContext());
-                col0.setText(wearable.getName());
-                col0.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
-                col0.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f));
-                col0.setGravity(Gravity.CENTER_VERTICAL);
-                col0.setPadding(10, 5, 5, 5);
-                col0.setTextColor(getColor(R.color.black));
-                col0.setTextSize(16);
-                row.addView(col0);
+        ImageView btn = new ImageView(this);
+        btn.setLayoutParams(new TableRow.LayoutParams(60, 60));
+        btn.setBackground(AppCompatResources.getDrawable(this, R.drawable.add_btn));
+        btn.setScaleType(ImageView.ScaleType.FIT_XY);
 
-                row.setOnClickListener(v -> {
-                    View view = getLayoutInflater().inflate(R.layout.dialog_view_wearable, null);
-                    ((TextView) view.findViewById(R.id.view_wearable_property)).setText(wearable.getProperty());
-                    ((TextView) view.findViewById(R.id.view_wearable_weight)).setText(String.valueOf(wearable.getWeight()));
-                    ((TextView) view.findViewById(R.id.view_wearable_value)).setText(String.valueOf(wearable.getValue()));
-
-                    new MaterialAlertDialogBuilder(this).setTitle(wearable.getName()).setView(view).setNegativeButton(R.string.Remove, (dialog, which) -> {
-                        cha.removeWearable(wearable);
-                        saveCharacter();
-                        view_wearables.removeAllViews();
-                        showCoinsXpLoad();
-                        showWearables();
-                    }).show();
-
-                });
-
-                view_wearables.addView(row);
-            }
+        row.addView(btn);
+        return row;
     }
 
     private void showWeapons() {
@@ -509,6 +535,9 @@ public class MainActivity extends AppCompatActivity {
 
             view_weapons.addView(row);
         }
+        TableRow row = generateAddRow();
+        newWeaponClicListener(row);
+        view_weapons.addView(row);
     }
 
     private void showInventory() {
@@ -569,6 +598,10 @@ public class MainActivity extends AppCompatActivity {
 
             view_inventory.addView(row);
         }
+
+        TableRow row = generateAddRow();
+        newItemClicListener(row);
+        view_inventory.addView(row);
     }
 
     private void seed() {
@@ -584,11 +617,18 @@ public class MainActivity extends AppCompatActivity {
         //Seed debilidades
         cha.addWeakness("Feo", "No hace falta describir.");
         cha.addWeakness("Cleptomano", "Tienes que robar to lo que veas.");
+        for (int i = 0; i < 3; i++) {
+            cha.addWeakness("Weak" + i, "Descr" + i);
+        }
+
 
         //Seed habilidades
         cha.addSkill("Volar", "Gastando 2 energias volas por todo el mundi.");
         cha.addSkill("Persuasion", "Si tenes a alguien medio gilipollas adelante lo podes engañar.");
         cha.addSkill("Domador de pugs", "Gastando 0 de energia puedes invocar a un ejercito de pugs para vencer al enemigo de cuteness.");
+        for (int i = 0; i < 10; i++) {
+            cha.addSkill("Skill" + i, "Descr" + i);
+        }
 
         //Seed inventario
         cha.addItem("Pildora", 5, 0.1, 0);
@@ -596,6 +636,9 @@ public class MainActivity extends AppCompatActivity {
         cha.addItem("Llave random random", 1, 0.1, 0);
         cha.addItem("Pocion de salud", 3, 0.5, 10);
         cha.addItem("Pocion de stamina", 2, 0.5, 10);
+        for (int i = 0; i < 10; i++) {
+            cha.addItem("Item" + i, i, i, i);
+        }
 
         //seed armas
         cha.addWeapon("Hacha to Pro", "1/2/3", Aptitude.VIG, "Propiedad del super hacha noob", 0, 2, 1.5, 0);
