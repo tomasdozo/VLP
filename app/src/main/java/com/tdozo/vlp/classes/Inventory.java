@@ -6,8 +6,8 @@ import java.util.ArrayList;
 
 public class Inventory implements Serializable {
 
-    protected double weight;
-    protected ArrayList<Item> items;
+    private final ArrayList<Item> items;
+    private double weight;
 
     public Inventory() {
         weight = 0;
@@ -15,7 +15,6 @@ public class Inventory implements Serializable {
     }
 
     public double getWeight() {
-        calculateWeight();
         return weight;
     }
 
@@ -24,10 +23,12 @@ public class Inventory implements Serializable {
     }
 
     public void addItem(Item item) {
+        weight += item.getTotalWeight();
         this.items.add(item);
     }
 
     public void removeItem(Item item) {
+        weight -= item.getTotalWeight();
         items.remove(item);
     }
 

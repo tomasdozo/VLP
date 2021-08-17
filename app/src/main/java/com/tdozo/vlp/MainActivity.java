@@ -16,7 +16,6 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
@@ -356,6 +355,30 @@ public class MainActivity extends AppCompatActivity {
         view_load.setText(getString(R.string.load, cha.getActual_weight(), cha.getBaseWeight()));
     }
 
+    private void showSkills() {
+        for (Attribute skill : cha.getSkills()) {
+            TextView view = new TextView(getBaseContext());
+            view.setText(skill.getName());
+            view.setGravity(Gravity.CENTER);
+            view.setTextColor(getColor(R.color.primaryText));
+            view.setTextSize(16);
+            view.setPadding(5, 5, 5, 5);
+            view.setBackground(AppCompatResources.getDrawable(this, R.drawable.border_thin));
+
+            view.setOnClickListener(v -> new MaterialAlertDialogBuilder(this).setTitle(skill.getName()).setMessage(skill.getDescription()).setNegativeButton(R.string.Remove, (dialog, which) -> {
+                cha.removeSkill(skill);
+                saveCharacter();
+                view_skills.removeAllViews();
+                showSkills();
+            }).show());
+            view_skills.addView(view);
+        }
+
+        TableRow row = generateAddRow();
+        newSkillClicListener(row);
+        view_skills.addView(row);
+    }
+
     private void showWeaknesses() {
         for (Attribute weakness : cha.getWeakness()) {
             TextView view = new TextView(getBaseContext());
@@ -379,30 +402,6 @@ public class MainActivity extends AppCompatActivity {
         TableRow row = generateAddRow();
         newWeaknessClicListener(row);
         view_weakness.addView(row);
-    }
-
-    private void showSkills() {
-        for (Attribute skill : cha.getSkills()) {
-            TextView view = new TextView(getBaseContext());
-            view.setText(skill.getName());
-            view.setGravity(Gravity.CENTER);
-            view.setTextColor(getColor(R.color.primaryText));
-            view.setTextSize(16);
-            view.setPadding(5, 5, 5, 5);
-            view.setBackground(AppCompatResources.getDrawable(this, R.drawable.border_thin));
-
-            view.setOnClickListener(v -> new MaterialAlertDialogBuilder(this).setTitle(skill.getName()).setMessage(skill.getDescription()).setNegativeButton(R.string.Remove, (dialog, which) -> {
-                cha.removeSkill(skill);
-                saveCharacter();
-                view_skills.removeAllViews();
-                showSkills();
-            }).show());
-            view_skills.addView(view);
-        }
-
-        TableRow row = generateAddRow();
-        newSkillClicListener(row);
-        view_skills.addView(row);
     }
 
     private void showWearables() {
@@ -445,23 +444,6 @@ public class MainActivity extends AppCompatActivity {
         TableRow row = generateAddRow();
         newWearableClicListener(row);
         view_wearables.addView(row);
-    }
-
-    @NonNull
-    private TableRow generateAddRow() {
-        TableRow row = new TableRow(getBaseContext());
-        row.setBackground(AppCompatResources.getDrawable(this, R.drawable.border_thin_grey));
-        row.setPadding(10, 10, 50, 10);
-        row.setGravity(Gravity.END);
-
-
-        ImageView btn = new ImageView(this);
-        btn.setLayoutParams(new TableRow.LayoutParams(60, 60));
-        btn.setBackground(AppCompatResources.getDrawable(this, R.drawable.add_btn));
-        btn.setScaleType(ImageView.ScaleType.FIT_XY);
-
-        row.addView(btn);
-        return row;
     }
 
     private void showWeapons() {
@@ -577,6 +559,7 @@ public class MainActivity extends AppCompatActivity {
                     if (!value.getText().toString().equals("") && !quantity.getText().toString().equals("")) {
                         item.setValue(Integer.parseInt(value.getText().toString()));
                         item.setQuantity(Double.parseDouble(quantity.getText().toString()));
+                        cha.getInventory().calculateWeight();
                         saveCharacter();
                         view_inventory.removeAllViews();
                         showCoinsXpLoad();
@@ -603,12 +586,28 @@ public class MainActivity extends AppCompatActivity {
         view_inventory.addView(row);
     }
 
+    private TableRow generateAddRow() {
+        TableRow row = new TableRow(getBaseContext());
+        row.setBackground(AppCompatResources.getDrawable(this, R.drawable.border_thin_grey));
+        row.setPadding(10, 10, 50, 10);
+        row.setGravity(Gravity.END);
+
+
+        ImageView btn = new ImageView(this);
+        btn.setLayoutParams(new TableRow.LayoutParams(60, 60));
+        btn.setBackground(AppCompatResources.getDrawable(this, R.drawable.add_btn));
+        btn.setScaleType(ImageView.ScaleType.FIT_XY);
+
+        row.addView(btn);
+        return row;
+    }
+
     private void seed() {
-        cha.setName("Pitito");
-        cha.setRace(Race.HUMAN);
-        cha.setDescription("Un humano muy respetado por todos y todas. Unico y especial. Frase inspiracional, el tamaño no lo es todo.");
-        cha.setEnergyType(EnergyType.VITAL);
-        cha.setAptitude(Aptitude.LOG);
+        cha.setName("Mani");
+        cha.setRace(Race.DWARF);
+        cha.setDescription("Frase inspiracional, el tamaño no lo es todo.");
+        cha.setEnergyType(EnergyType.MEDITATION);
+        cha.setAptitude(Aptitude.VIG);
         cha.setCoins(150);
         cha.setExperience(75);
         cha.setBaseWeight(15);
@@ -626,7 +625,7 @@ public class MainActivity extends AppCompatActivity {
         cha.addSkill("Persuasion", "Si tenes a alguien medio gilipollas adelante lo podes engañar.");
         cha.addSkill("Domador de pugs", "Gastando 0 de energia puedes invocar a un ejercito de pugs para vencer al enemigo de cuteness.");
         for (int i = 0; i < 10; i++) {
-            cha.addSkill("Skill" + i, "Descr" + i);
+            cha.addSkill("Skill " + i, "Descr " + i);
         }
 
         //Seed inventario
@@ -636,7 +635,7 @@ public class MainActivity extends AppCompatActivity {
         cha.addItem("Pocion de salud", 3, 0.5, 10);
         cha.addItem("Pocion de stamina", 2, 0.5, 10);
         for (int i = 0; i < 10; i++) {
-            cha.addItem("Item" + i, i, i, i);
+            cha.addItem("Item " + i, i, i, i);
         }
 
         //seed armas

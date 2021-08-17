@@ -27,7 +27,6 @@ public class Character implements Serializable {
     private Sanity sanity;
     private Aptitude aptitude;
     private Race race;
-    private double actual_weight;
     private int baseWeight;
 
     public Character() {
@@ -39,7 +38,6 @@ public class Character implements Serializable {
         health = Health.HEALTHY;
         sanity = Sanity.SANE;
         baseWeight = 0;
-        actual_weight = 0;
         weapons = new InventoryWeapons();
         wearables = new InventoryWearables();
         inventory = new Inventory();
@@ -106,8 +104,7 @@ public class Character implements Serializable {
     }
 
     public double getActual_weight() {
-        actual_weight = weapons.getWeight() + wearables.getWeight() + inventory.getWeight();
-        return actual_weight;
+        return weapons.getWeight() + wearables.getWeight() + inventory.getWeight();
     }
 
     public int getBaseWeight() {

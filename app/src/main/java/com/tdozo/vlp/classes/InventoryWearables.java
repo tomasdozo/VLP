@@ -6,8 +6,8 @@ import java.util.ArrayList;
 
 
 public class InventoryWearables implements Serializable {
-    protected double weight;
-    protected ArrayList<Wearable> wearables;
+    private final ArrayList<Wearable> wearables;
+    private double weight;
 
     public InventoryWearables() {
         weight = 0;
@@ -15,7 +15,6 @@ public class InventoryWearables implements Serializable {
     }
 
     public double getWeight() {
-        calculateWeight();
         return weight;
     }
 
@@ -24,10 +23,12 @@ public class InventoryWearables implements Serializable {
     }
 
     public void addItem(Wearable wearable) {
+        weight += wearable.getWeight();
         this.wearables.add(wearable);
     }
 
     public void removeItem(Wearable wearable) {
+        weight -= wearable.getWeight();
         wearables.remove(wearable);
     }
 

@@ -9,11 +9,6 @@ public class Item extends Stuff {
         this.quantity = quantity;
     }
 
-    public Item(String name, double quantity, double weight) {
-        super(name, weight, 0);
-        this.quantity = quantity;
-    }
-
     public double getQuantity() {
         return quantity;
     }
