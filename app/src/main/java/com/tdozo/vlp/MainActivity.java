@@ -451,7 +451,7 @@ public class MainActivity extends AppCompatActivity {
     private TableRow generateAddRow() {
         TableRow row = new TableRow(getBaseContext());
         row.setBackground(AppCompatResources.getDrawable(this, R.drawable.border_thin_grey));
-        row.setPadding(10, 5, 50, 5);
+        row.setPadding(10, 10, 50, 10);
         row.setGravity(Gravity.END);
 
 
