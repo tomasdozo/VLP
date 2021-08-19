@@ -1,5 +1,9 @@
-package com.tdozo.vlp.classes;
+package com.tdozo.vlp.entities;
 
+
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
 
 import com.tdozo.vlp.enums.Aptitude;
 import com.tdozo.vlp.enums.Energy;
@@ -11,12 +15,15 @@ import com.tdozo.vlp.enums.Sanity;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+@Entity
 public class Character implements Serializable {
+    @Ignore
     private final ArrayList<Attribute> skills;
+    @Ignore
     private final ArrayList<Attribute> weakness;
+    @Ignore
     private final InventoryWeapons weapons;
-    private final InventoryWearables wearables;
-    private final Inventory inventory;
+
     private String name;
     private String description;
     private int experience;
@@ -28,6 +35,12 @@ public class Character implements Serializable {
     private Aptitude aptitude;
     private Race race;
     private int baseWeight;
+    @Ignore
+    private final InventoryWearables wearables;
+    @Ignore
+    private final Inventory inventory;
+    @PrimaryKey(autoGenerate = true)
+    private int id;
 
     public Character() {
         skills = new ArrayList<>();
@@ -38,9 +51,17 @@ public class Character implements Serializable {
         health = Health.HEALTHY;
         sanity = Sanity.SANE;
         baseWeight = 0;
-        weapons = new InventoryWeapons();
-        wearables = new InventoryWearables();
-        inventory = new Inventory();
+        weapons = new InventoryWeapons(id);
+        wearables = new InventoryWearables(id);
+        inventory = new Inventory(id);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -156,23 +177,25 @@ public class Character implements Serializable {
     }
 
     public void addSkill(String name, String description) {
-        skills.add(new Attribute(name, description));
+        skills.add(new Attribute(name, description, true, id));
+        //todo persist
     }
 
     public void addWeakness(String name, String description) {
-        weakness.add(new Attribute(name, description));
+        weakness.add(new Attribute(name, description, false, id));
+        //todo persist
     }
 
     public void addItem(String name, double quantity, double weight, int value) {
-        inventory.addItem(new Item(name, quantity, weight, value));
+        inventory.addItem(name, quantity, weight, value);
     }
 
     public void addWeapon(String name, String damage, Aptitude apt, String properties, int capacity, int hardness, double weight, int value) {
-        weapons.addItem(new Weapon(name, weight, value, properties, damage, apt, capacity, hardness));
+        weapons.addItem(name, weight, value, properties, damage, apt, capacity, hardness);
     }
 
     public void addWearable(String name, String properties, double weight, int value) {
-        wearables.addItem(new Wearable(name, weight, value, properties));
+        wearables.addItem(name, weight, value, properties);
     }
 
     public void removeWeapon(Weapon weapon) {

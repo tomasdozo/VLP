@@ -11,7 +11,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.tdozo.vlp.classes.Character;
+import com.tdozo.vlp.entities.Character;
 import com.tdozo.vlp.enums.Aptitude;
 import com.tdozo.vlp.enums.EnergyType;
 import com.tdozo.vlp.enums.Race;

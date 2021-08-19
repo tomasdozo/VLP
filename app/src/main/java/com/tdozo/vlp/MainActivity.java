@@ -21,11 +21,12 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.tdozo.vlp.classes.Attribute;
-import com.tdozo.vlp.classes.Character;
-import com.tdozo.vlp.classes.Item;
-import com.tdozo.vlp.classes.Weapon;
-import com.tdozo.vlp.classes.Wearable;
+import com.tdozo.vlp.database.ViewModel;
+import com.tdozo.vlp.entities.Attribute;
+import com.tdozo.vlp.entities.Character;
+import com.tdozo.vlp.entities.Item;
+import com.tdozo.vlp.entities.Weapon;
+import com.tdozo.vlp.entities.Wearable;
 import com.tdozo.vlp.enums.Aptitude;
 import com.tdozo.vlp.enums.Energy;
 import com.tdozo.vlp.enums.EnergyType;
@@ -55,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout view_weakness;
     TableLayout view_inventory;
     TextView view_load;
+    ViewModel viewModel;
     private static final boolean seed = false;
 
     @Override
@@ -65,11 +67,20 @@ public class MainActivity extends AppCompatActivity {
 
         loadViews();
 
-        if (!seed) loadCharacter();
-        else seedCharacter();
+        loadDatabase();
 
         setOnClickListeners();
 
+    }
+
+    private void loadDatabase() {
+        viewModel = new ViewModel(this);
+        cha = viewModel.getCha();
+        if (cha == null) {
+            newCharacter();
+        } else {
+            showCharacter();
+        }
     }
 
     private void seedCharacter() {
@@ -319,7 +330,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void newCharacter() {
+    public void newCharacter() {
         Intent intent = new Intent(MainActivity.this, CharacterActivity.class);
         startActivity(intent);
         finish();
@@ -646,5 +657,10 @@ public class MainActivity extends AppCompatActivity {
         cha.addWearable("Caperusa roja", "Mision secundaria visitar el bosque", 1, 30);
         cha.addWearable("Calzas termicas", "Para aguantar el frio", 0.5, 10);
 
+    }
+
+    public void setCha(Character cha) {
+        this.cha = cha;
+        showCharacter();
     }
 }

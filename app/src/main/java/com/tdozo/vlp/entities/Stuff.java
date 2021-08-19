@@ -1,13 +1,16 @@
-package com.tdozo.vlp.classes;
+package com.tdozo.vlp.entities;
 
+
+import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 
 public abstract class Stuff implements Serializable {
-
-    protected String name;
-    protected double weight;
-    protected int value;
+    private final String name;
+    private final double weight;
+    @PrimaryKey(autoGenerate = true)
+    private int id;
+    private int value;
 
     public Stuff(String name, double weight, int value) {
         this.name = name;
@@ -29,5 +32,13 @@ public abstract class Stuff implements Serializable {
 
     public void setValue(int value) {
         this.value = value;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
 }

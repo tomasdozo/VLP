@@ -1,9 +1,16 @@
-package com.tdozo.vlp.classes;
+package com.tdozo.vlp.entities;
 
+
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
 
 import com.tdozo.vlp.enums.Aptitude;
 
-
+@Entity(foreignKeys = {@ForeignKey(entity = InventoryWeapons.class,
+        parentColumns = "char_id",
+        childColumns = "weapons_id",
+        onDelete = ForeignKey.CASCADE)
+})
 public class Weapon extends Stuff {
     private final String properties;
     private final String damage;
@@ -11,13 +18,24 @@ public class Weapon extends Stuff {
     private final int capacity;
     private int hardness;
 
-    public Weapon(String name, double weight, int value, String properties, String damage, Aptitude aptitude, int capacity, int hardness) {
+    private int weapons_id;
+
+    public Weapon(String name, double weight, int value, String properties, String damage, Aptitude aptitude, int capacity, int hardness, int weapons_id) {
         super(name, weight, value);
         this.properties = properties;
         this.damage = damage;
         this.aptitude = aptitude;
         this.capacity = capacity;
         this.hardness = hardness;
+        this.weapons_id = weapons_id;
+    }
+
+    public int getWeapons_id() {
+        return weapons_id;
+    }
+
+    public void setWeapons_id(int weapons_id) {
+        this.weapons_id = weapons_id;
     }
 
     public String getProperties() {
@@ -42,5 +60,14 @@ public class Weapon extends Stuff {
 
     public void setHardness(int hardness) {
         this.hardness = hardness;
+    }
+
+    public void createOrUpdate() { //todo
+        if (getId() == 0) { //Crear
+
+        } else //Actualizar
+        {
+
+        }
     }
 }

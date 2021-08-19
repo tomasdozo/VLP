@@ -1,0 +1,17 @@
+
+
+
+
+Character (id(pk),name,description,experience,coins,base_weight,energyType,energy,health,sanity,aptitude,race)
+
+Attribute (char_id(fk),name(pk),description,isSkill)
+
+Inventory(char_id (fk))
+InventoryWearables(char_id (fk))
+InventoryWeapons(char_id (fk))
+
+Item(inv_id (fk), name(pk),weight,value)
+Wearable(inv_id (fk), name(pk),weight,value,properties)
+Weapon(inv_id (fk), name(pk),weight,value,properties,damage,capacity,defense)
+
+
