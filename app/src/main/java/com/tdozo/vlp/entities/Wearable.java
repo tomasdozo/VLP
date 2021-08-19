@@ -45,4 +45,8 @@ public class Wearable extends Stuff {
             }
         });
     }
+
+    public void delete(Context context) {
+        DatabaseVLP.databaseWriteExecutor.execute(() -> DatabaseVLP.getDatabase(context).characterDao().deleteWearable(this));
+    }
 }

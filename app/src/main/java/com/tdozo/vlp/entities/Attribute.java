@@ -75,4 +75,8 @@ public class Attribute implements Serializable {
             }
         });
     }
+
+    public void delete(Context context) {
+        DatabaseVLP.databaseWriteExecutor.execute(() -> DatabaseVLP.getDatabase(context).characterDao().deleteAttribute(this));
+    }
 }

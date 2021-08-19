@@ -79,4 +79,8 @@ public class Weapon extends Stuff {
             }
         });
     }
+
+    public void delete(Context context) {
+        DatabaseVLP.databaseWriteExecutor.execute(() -> DatabaseVLP.getDatabase(context).characterDao().deleteWeapon(this));
+    }
 }

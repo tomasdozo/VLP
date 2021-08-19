@@ -41,7 +41,7 @@ public class CharacterViewModel {
     }
 
     private void loadWeaknesses() {
-        cha.setWeakness(db.characterDao().loadWeaknessesByCharacterId(cha.getId()));
+        cha.setWeaknesses(db.characterDao().loadWeaknessesByCharacterId(cha.getId()));
     }
 
     private void loadInventory() {

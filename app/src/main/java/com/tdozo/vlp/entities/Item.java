@@ -58,4 +58,8 @@ public class Item extends Stuff {
             }
         });
     }
+
+    public void delete(Context context) {
+        DatabaseVLP.databaseWriteExecutor.execute(() -> DatabaseVLP.getDatabase(context).characterDao().deleteItem(this));
+    }
 }

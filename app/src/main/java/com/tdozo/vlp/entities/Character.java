@@ -41,7 +41,7 @@ public class Character implements Serializable {
     @Ignore
     private List<Attribute> skills;
     @Ignore
-    private List<Attribute> weakness;
+    private List<Attribute> weaknesses;
     @Ignore
     private InventoryWeapons weapons;
     @Ignore
@@ -51,7 +51,7 @@ public class Character implements Serializable {
 
     public Character() {
         skills = new ArrayList<>();
-        weakness = new ArrayList<>();
+        weaknesses = new ArrayList<>();
         coins = 0;
         experience = 100;
         energy = Energy.ENERGETIC;
@@ -112,8 +112,8 @@ public class Character implements Serializable {
         return skills;
     }
 
-    public List<Attribute> getWeakness() {
-        return weakness;
+    public List<Attribute> getWeaknesses() {
+        return weaknesses;
     }
 
     public InventoryWearables getWearables() {
@@ -140,8 +140,8 @@ public class Character implements Serializable {
         this.skills = skills;
     }
 
-    public void setWeakness(List<Attribute> weakness) {
-        this.weakness = weakness;
+    public void setWeaknesses(List<Attribute> weaknesses) {
+        this.weaknesses = weaknesses;
     }
 
     public void setWeapons(InventoryWeapons weapons) {
@@ -208,7 +208,7 @@ public class Character implements Serializable {
 
     public void addWeakness(String name, String description, Context context) {
         Attribute attribute = new Attribute(name, description, false, id);
-        weakness.add(attribute);
+        weaknesses.add(attribute);
         attribute.createOrUpdate(context);
     }
 
@@ -224,29 +224,29 @@ public class Character implements Serializable {
         wearables.addWearable(name, weight, value, properties, context);
     }
 
-    public void removeWeapon(Weapon weapon) {
+    public void removeWeapon(Weapon weapon, Context context) {
+        weapon.delete(context);
         weapons.removeItem(weapon);
-        //todo persist
     }
 
-    public void removeWearable(Wearable wearable) {
+    public void removeWearable(Wearable wearable, Context context) {
+        wearable.delete(context);
         wearables.removeItem(wearable);
-        //todo persist
     }
 
-    public void removeItem(Item item) {
+    public void removeItem(Item item, Context context) {
+        item.delete(context);
         inventory.removeItem(item);
-        //todo persist
     }
 
-    public void removeSkill(Attribute skill) {
+    public void removeSkill(Attribute skill, Context context) {
+        skill.delete(context);
         skills.remove(skill);
-        //todo persist
     }
 
-    public void removeWeakness(Attribute skill) {
-        weakness.remove(skill);
-        //todo persist
+    public void removeWeakness(Attribute weakness, Context context) {
+        weaknesses.remove(weakness);
+        weakness.delete(context);
     }
 
     public void update(Context context) {
@@ -259,7 +259,14 @@ public class Character implements Serializable {
         });
     }
 
-    public void create(CharacterActivity activity) {
+    public void updateAndClose(CharacterActivity activity) {
+        DatabaseVLP.databaseWriteExecutor.execute(() -> {
+            DatabaseVLP.getDatabase(activity).characterDao().updateCharacter(this);
+            activity.finishActivity();
+        });
+    }
+
+    public void createAndClose(CharacterActivity activity) {
         DatabaseVLP.databaseWriteExecutor.execute(() -> {
             CharacterDao characterDao = DatabaseVLP.getDatabase(activity).characterDao();
 
@@ -271,7 +278,15 @@ public class Character implements Serializable {
             weapons.create(activity);
             wearables.create(activity);
 
-            activity.saved();
+            activity.finishActivity();
+        });
+    }
+
+    public void delete(CharacterActivity activity) {
+        DatabaseVLP.databaseWriteExecutor.execute(() -> {
+            CharacterDao characterDao = DatabaseVLP.getDatabase(activity).characterDao();
+            characterDao.deleteCharacter(this);
+            activity.finishActivity();
         });
     }
 }

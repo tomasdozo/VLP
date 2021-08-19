@@ -55,21 +55,13 @@ public class CharacterActivity extends AppCompatActivity {
 
     }
 
-    private void deleteCharacter() {
-        //Todo
-        deleteFile("Character");
-        startActivity(new Intent(CharacterActivity.this, MainActivity.class));
-        finish();
-    }
-
     private void setOnClickListeners() {
 
         delete.setOnClickListener(v -> new MaterialAlertDialogBuilder(this)
                 .setTitle(getString(R.string.Remove))
                 .setMessage("¿Esta seguro que desea eliminar su personaje?")
                 .setNegativeButton(R.string.Remove, (dialog, which) ->
-                        deleteCharacter()
-                ).show());
+                        cha.delete(this)).show());
 
 
         save.setOnClickListener(v -> {
@@ -77,7 +69,8 @@ public class CharacterActivity extends AppCompatActivity {
                 cha.setName(name.getText().toString().trim());
                 cha.setBaseWeight(Integer.parseInt(baseWeight.getText().toString()));
                 cha.setDescription(description.getText().toString().trim());
-                cha.create(this);
+                if (cha.getId() == 0) cha.createAndClose(this);
+                else cha.updateAndClose(this);
             } else {
                 toast.show();
             }
@@ -124,7 +117,7 @@ public class CharacterActivity extends AppCompatActivity {
         });
     }
 
-    public void saved() {
+    public void finishActivity() {
         finish();
         startActivity(new Intent(CharacterActivity.this, MainActivity.class));
     }
@@ -167,7 +160,4 @@ public class CharacterActivity extends AppCompatActivity {
         return aux;
     }
 
-    private void saveCharacter() {
-        //Todo
-    }
 }

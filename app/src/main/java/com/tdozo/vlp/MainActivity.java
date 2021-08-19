@@ -1,6 +1,5 @@
 package com.tdozo.vlp;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
@@ -29,15 +28,8 @@ import com.tdozo.vlp.entities.Weapon;
 import com.tdozo.vlp.entities.Wearable;
 import com.tdozo.vlp.enums.Aptitude;
 import com.tdozo.vlp.enums.Energy;
-import com.tdozo.vlp.enums.EnergyType;
 import com.tdozo.vlp.enums.Health;
-import com.tdozo.vlp.enums.Race;
 import com.tdozo.vlp.enums.Sanity;
-
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -57,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
     TableLayout view_inventory;
     TextView view_load;
     CharacterViewModel characterViewModel;
-    private static final boolean seed = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,14 +67,6 @@ public class MainActivity extends AppCompatActivity {
     private void loadDatabase() {
         characterViewModel = new CharacterViewModel(this);
         characterViewModel.getCharacter(this);
-
-    }
-
-    private void seedCharacter() {
-        cha = new Character();
-        seed();
-        showCharacter();
-        saveCharacter();
     }
 
     private void setOnClickListeners() {
@@ -98,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
             Health health = Health.values()[which];
             cha.setHealth(health);
             view_health.setText(health.getName());
-            saveCharacter();
+            cha.update(this);
         }).show());
 
         view_health.setOnLongClickListener(v -> {
@@ -110,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
             Sanity sanity = Sanity.values()[which];
             cha.setSanity(sanity);
             view_sanity.setText(sanity.getName());
-            saveCharacter();
+            cha.update(this);
         }).show());
 
         view_sanity.setOnLongClickListener(v -> {
@@ -122,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
             Energy energy = Energy.values()[which];
             cha.setEnergy(energy);
             view_energy.setText(energy.getName());
-            saveCharacter();
+            cha.update(this);
         }).show());
 
         view_aptitude.setOnClickListener(v -> new MaterialAlertDialogBuilder(this).setTitle(cha.getAptitude().getName()).setMessage(cha.getAptitude().getDescription())
@@ -138,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
             text.setGravity(Gravity.CENTER);
             new MaterialAlertDialogBuilder(this).setTitle(getString(R.string.Coins)).setView(text).setPositiveButton(R.string.Save, (dialog, which) -> {
                 cha.setCoins(Integer.parseInt(text.getText().toString()));
-                saveCharacter();
+                cha.update(this);
                 showCoinsXpLoad();
             }).show();
         });
@@ -150,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
             text.setGravity(Gravity.CENTER);
             new MaterialAlertDialogBuilder(this).setTitle(getString(R.string.Exp)).setView(text).setPositiveButton(R.string.Save, (dialog, which) -> {
                 cha.setExperience(Integer.parseInt(text.getText().toString()));
-                saveCharacter();
+                cha.update(this);
                 showCoinsXpLoad();
             }).show();
         });
@@ -177,8 +160,6 @@ public class MainActivity extends AppCompatActivity {
                 EditText description = view.findViewById(R.id.new_attribute_description);
                 if (!name.getText().toString().equals("") && !description.getText().toString().equals("")) {
                     cha.addSkill(name.getText().toString(), description.getText().toString(), this);
-                    saveCharacter();
-                    view_skills.removeAllViews();
                     showSkills();
                 } else {
                     Toast.makeText(this, getString(R.string.Fields_Incomplete), Toast.LENGTH_SHORT).show();
@@ -196,8 +177,6 @@ public class MainActivity extends AppCompatActivity {
                 EditText description = view.findViewById(R.id.new_attribute_description);
                 if (!name.getText().toString().equals("") && !description.getText().toString().equals("")) {
                     cha.addWeakness(name.getText().toString(), description.getText().toString(), this);
-                    saveCharacter();
-                    view_weakness.removeAllViews();
                     showWeaknesses();
                 } else {
                     Toast.makeText(this, getString(R.string.Fields_Incomplete), Toast.LENGTH_SHORT).show();
@@ -217,8 +196,6 @@ public class MainActivity extends AppCompatActivity {
                 EditText value = view.findViewById(R.id.new_item_value);
                 if (!name.getText().toString().equals("") && !weight.getText().toString().equals("") && !value.getText().toString().equals("") && !quantity.getText().toString().equals("")) {
                     cha.addItem(name.getText().toString(), Double.parseDouble(quantity.getText().toString()), Double.parseDouble(weight.getText().toString()), Integer.parseInt(value.getText().toString()), this);
-                    saveCharacter();
-                    view_inventory.removeAllViews();
                     showCoinsXpLoad();
                     showInventory();
                 } else {
@@ -238,8 +215,6 @@ public class MainActivity extends AppCompatActivity {
                 EditText value = view.findViewById(R.id.new_wearable_value);
                 if (!name.getText().toString().equals("") && !weight.getText().toString().equals("") && !value.getText().toString().equals("")) {
                     cha.addWearable(name.getText().toString(), property.getText().toString(), Double.parseDouble(weight.getText().toString()), Integer.parseInt(value.getText().toString()), this);
-                    saveCharacter();
-                    view_wearables.removeAllViews();
                     showCoinsXpLoad();
                     showWearables();
                 } else {
@@ -275,8 +250,6 @@ public class MainActivity extends AppCompatActivity {
                             Integer.parseInt(hardness.getText().toString()),
                             Double.parseDouble(weight.getText().toString()),
                             Integer.parseInt(value.getText().toString()), this);
-                    saveCharacter();
-                    view_weapons.removeAllViews();
                     showCoinsXpLoad();
                     showWeapons();
                 } else {
@@ -305,25 +278,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void saveCharacter() {
-        try {
-            FileOutputStream fos = openFileOutput("Character", Context.MODE_PRIVATE);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(cha);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
-    private void loadCharacter() {
-        try {
-            FileInputStream fis = openFileInput("Character");
-            ObjectInputStream ois = new ObjectInputStream(fis);
-            cha = (Character) ois.readObject();
-            showCharacter();
-        } catch (Exception e) {
-            e.printStackTrace();
-            newCharacter();
-        }
     }
 
     public void newCharacter() {
@@ -374,9 +329,7 @@ public class MainActivity extends AppCompatActivity {
             view.setBackground(AppCompatResources.getDrawable(this, R.drawable.border_thin));
 
             view.setOnClickListener(v -> new MaterialAlertDialogBuilder(this).setTitle(skill.getName()).setMessage(skill.getDescription()).setNegativeButton(R.string.Remove, (dialog, which) -> {
-                cha.removeSkill(skill);
-                saveCharacter();
-                view_skills.removeAllViews();
+                cha.removeSkill(skill, this);
                 showSkills();
             }).show());
             view_skills.addView(view);
@@ -390,7 +343,7 @@ public class MainActivity extends AppCompatActivity {
     private void showWeaknesses() {
         view_weakness.removeAllViews();
 
-        for (Attribute weakness : cha.getWeakness()) {
+        for (Attribute weakness : cha.getWeaknesses()) {
             TextView view = new TextView(getBaseContext());
             view.setText(weakness.getName());
             view.setGravity(Gravity.CENTER);
@@ -400,9 +353,7 @@ public class MainActivity extends AppCompatActivity {
             view.setBackground(AppCompatResources.getDrawable(this, R.drawable.border_thin));
 
             view.setOnClickListener(v -> new MaterialAlertDialogBuilder(this).setTitle(weakness.getName()).setMessage(weakness.getDescription()).setNegativeButton(R.string.Remove, (dialog, which) -> {
-                cha.removeWeakness(weakness);
-                saveCharacter();
-                view_weakness.removeAllViews();
+                cha.removeWeakness(weakness, this);
                 showWeaknesses();
             })
                     .show());
@@ -439,9 +390,7 @@ public class MainActivity extends AppCompatActivity {
                 ((TextView) view.findViewById(R.id.view_wearable_value)).setText(String.valueOf(wearable.getValue()));
 
                 new MaterialAlertDialogBuilder(this).setTitle(wearable.getName()).setView(view).setNegativeButton(R.string.Remove, (dialog, which) -> {
-                    cha.removeWearable(wearable);
-                    saveCharacter();
-                    view_wearables.removeAllViews();
+                    cha.removeWearable(wearable, this);
                     showCoinsXpLoad();
                     showWearables();
                 }).show();
@@ -517,9 +466,7 @@ public class MainActivity extends AppCompatActivity {
                 ((TextView) view.findViewById(R.id.view_weapon_value)).setText(String.valueOf(weapon.getValue()));
 
                 new MaterialAlertDialogBuilder(this).setTitle(weapon.getName()).setView(view).setNegativeButton(R.string.Remove, (dialog, which) -> {
-                    cha.removeWeapon(weapon);
-                    saveCharacter();
-                    view_weapons.removeAllViews();
+                    cha.removeWeapon(weapon, this);
                     showCoinsXpLoad();
                     showWeapons();
                 }).show();
@@ -574,8 +521,7 @@ public class MainActivity extends AppCompatActivity {
                         item.setValue(Integer.parseInt(value.getText().toString()));
                         item.setQuantity(Double.parseDouble(quantity.getText().toString()));
                         cha.getInventory().calculateWeight();
-                        saveCharacter();
-                        view_inventory.removeAllViews();
+                        item.createOrUpdate(this);
                         showCoinsXpLoad();
                         showInventory();
                     } else {
@@ -583,9 +529,7 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 }).setNegativeButton(R.string.Remove, (dialog, which) -> {
-                    cha.removeItem(item);
-                    saveCharacter();
-                    view_inventory.removeAllViews();
+                    cha.removeItem(item, this);
                     showCoinsXpLoad();
                     showInventory();
                 }).show();
@@ -614,52 +558,6 @@ public class MainActivity extends AppCompatActivity {
 
         row.addView(btn);
         return row;
-    }
-
-    private void seed() {
-        cha.setName("Mani");
-        cha.setRace(Race.DWARF);
-        cha.setDescription("Frase inspiracional, el tamaño no lo es todo.");
-        cha.setEnergyType(EnergyType.MEDITATION);
-        cha.setAptitude(Aptitude.VIG);
-        cha.setCoins(150);
-        cha.setExperience(75);
-        cha.setBaseWeight(15);
-
-        //Seed debilidades
-        cha.addWeakness("Feo", "No hace falta describir.", this);
-        cha.addWeakness("Cleptomano", "Tienes que robar to lo que veas.", this);
-        for (int i = 0; i < 3; i++) {
-            cha.addWeakness("Weak" + i, "Descr" + i, this);
-        }
-
-
-        //Seed habilidades
-        cha.addSkill("Volar", "Gastando 2 energias volas por todo el mundi.", this);
-        cha.addSkill("Persuasion", "Si tenes a alguien medio gilipollas adelante lo podes engañar.", this);
-        cha.addSkill("Domador de pugs", "Gastando 0 de energia puedes invocar a un ejercito de pugs para vencer al enemigo de cuteness.", this);
-        for (int i = 0; i < 10; i++) {
-            cha.addSkill("Skill " + i, "Descr " + i, this);
-        }
-
-        //Seed inventario
-        cha.addItem("Pildora", 5, 0.1, 0, this);
-        cha.addItem("Caja misteriosa", 1, 10, 50, this);
-        cha.addItem("Llave random random", 1, 0.1, 0, this);
-        cha.addItem("Pocion de salud", 3, 0.5, 10, this);
-        cha.addItem("Pocion de stamina", 2, 0.5, 10, this);
-        for (int i = 0; i < 10; i++) {
-            cha.addItem("Item " + i, i, i, i, this);
-        }
-
-        //seed armas
-        cha.addWeapon("Hacha to Pro", "1/2/3", Aptitude.VIG, "Propiedad del super hacha noob", 0, 2, 1.5, 0, this);
-        cha.addWeapon("Baston de mago", "1/1/1", Aptitude.LOG, "Incrementa en 2 el dano de hechizos", 0, 1, 1, 100, this);
-
-        //seed armadura
-        cha.addWearable("Caperusa roja", "Mision secundaria visitar el bosque", 1, 30, this);
-        cha.addWearable("Calzas termicas", "Para aguantar el frio", 0.5, 10, this);
-
     }
 
     public void setCha(Character cha) {
