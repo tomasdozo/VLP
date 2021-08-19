@@ -8,6 +8,7 @@ import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity(foreignKeys = {@ForeignKey(entity = Character.class,
         parentColumns = "id",
@@ -16,7 +17,12 @@ import java.util.ArrayList;
 })
 public class Inventory implements Serializable {
     @Ignore
-    private final ArrayList<Item> items;
+    private List<Item> items;
+
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
+
     @PrimaryKey
     private int char_id;
 
@@ -44,7 +50,7 @@ public class Inventory implements Serializable {
         return weight;
     }
 
-    public ArrayList<Item> getItems() {
+    public List<Item> getItems() {
         return items;
     }
 

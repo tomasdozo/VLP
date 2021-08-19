@@ -3,10 +3,12 @@ package com.tdozo.vlp.entities;
 
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 
 import com.tdozo.vlp.enums.Aptitude;
 
-@Entity(foreignKeys = {@ForeignKey(entity = InventoryWeapons.class,
+@Entity(indices = {@Index("weapons_id"),
+}, foreignKeys = {@ForeignKey(entity = InventoryWeapons.class,
         parentColumns = "char_id",
         childColumns = "weapons_id",
         onDelete = ForeignKey.CASCADE)

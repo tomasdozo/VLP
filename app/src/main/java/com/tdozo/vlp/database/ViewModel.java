@@ -2,10 +2,12 @@ package com.tdozo.vlp.database;
 
 import android.content.Context;
 
+import com.tdozo.vlp.MainActivity;
 import com.tdozo.vlp.entities.Character;
-import com.tdozo.vlp.entities.Wearable;
+import com.tdozo.vlp.entities.Inventory;
+import com.tdozo.vlp.entities.InventoryWeapons;
+import com.tdozo.vlp.entities.InventoryWearables;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ViewModel {
@@ -16,30 +18,47 @@ public class ViewModel {
         db = DatabaseVLP.getDatabase(context);
     }
 
-    public Character getCha() {
-        List<Character> characters = new ArrayList<Character>();
+    public void getCha(MainActivity mainActivity) {
         DatabaseVLP.databaseWriteExecutor.execute(() -> {
-            characters.addAll(db.characterDao().loadCharacters());
+            List<Character> characters = db.characterDao().loadCharacters();
+            if (characters.size() > 0) {
+                cha = characters.get(0);
+                loadSkills();
+                loadWeaknesses();
+                loadInventory();
+                loadWeapons();
+                loadWearables();
+                mainActivity.setCha(cha);
+                mainActivity.showCharacter();
+            } else {
+                mainActivity.newCharacter();
+            }
         });
-        return characters.get(0);
     }
 
-    public void setCha(Character cha) {
-        this.cha = cha;
+    private void loadSkills() {
+        cha.setSkills(db.characterDao().loadSkillsByCharacterId(cha.getId()));
     }
 
-
-    public void insertCharacter() {
-        DatabaseVLP.databaseWriteExecutor.execute(() -> {
-            db.characterDao().insertWearable(new Wearable("Cosa", 1, 1, "orio", 10));
-        });
+    private void loadWeaknesses() {
+        cha.setWeakness(db.characterDao().loadWeaknessesByCharacterId(cha.getId()));
     }
 
-    public List<Wearable> loadCharacter() {
-        List<Wearable> wearables = new ArrayList<Wearable>();
-        DatabaseVLP.databaseWriteExecutor.execute(() -> {
-            wearables.addAll(db.characterDao().loadWearables());
-        });
-        return wearables;
+    private void loadInventory() {
+        Inventory inventory = db.characterDao().loadInventoryByCharacterId(cha.getId());
+        inventory.setItems(db.characterDao().loadItemsByCharacterId(cha.getId()));
+        cha.setInventory(db.characterDao().loadInventoryByCharacterId(cha.getId()));
+    }
+
+    private void loadWeapons() {
+        InventoryWeapons inventory = db.characterDao().loadInventoryWeaponsByCharacterId(cha.getId());
+        inventory.setWeapons(db.characterDao().loadWeaponsByCharacterId(cha.getId()));
+        cha.setInventory(db.characterDao().loadInventoryByCharacterId(cha.getId()));
+    }
+
+    private void loadWearables() {
+        InventoryWearables inventory = db.characterDao().loadInventoryWearablesByCharacterId(cha.getId());
+        inventory.setWearables(db.characterDao().loadWearablesByCharacterId(cha.getId()));
+        cha.setInventory(db.characterDao().loadInventoryByCharacterId(cha.getId()));
     }
 }

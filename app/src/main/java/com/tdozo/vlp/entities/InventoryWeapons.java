@@ -10,6 +10,7 @@ import com.tdozo.vlp.enums.Aptitude;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity(foreignKeys = {@ForeignKey(entity = Character.class,
         parentColumns = "id",
@@ -18,7 +19,12 @@ import java.util.ArrayList;
 })
 public class InventoryWeapons implements Serializable {
     @Ignore
-    private final ArrayList<Weapon> weapons;
+    private List<Weapon> weapons;
+
+    public void setWeapons(List<Weapon> weapons) {
+        this.weapons = weapons;
+    }
+
     @PrimaryKey
     private int char_id;
 
@@ -46,7 +52,7 @@ public class InventoryWeapons implements Serializable {
         return weight;
     }
 
-    public ArrayList<Weapon> getWeapons() {
+    public List<Weapon> getWeapons() {
         return weapons;
     }
 

@@ -2,8 +2,10 @@ package com.tdozo.vlp.entities;
 
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 
-@Entity(foreignKeys = {@ForeignKey(entity = Inventory.class,
+@Entity(indices = {@Index("inventory_id"),
+}, foreignKeys = {@ForeignKey(entity = Inventory.class,
         parentColumns = "char_id",
         childColumns = "inventory_id",
         onDelete = ForeignKey.CASCADE)

@@ -3,11 +3,13 @@ package com.tdozo.vlp.entities;
 
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 
-@Entity(foreignKeys = {@ForeignKey(entity = Character.class,
+@Entity(indices = {@Index("char_id"),
+}, foreignKeys = {@ForeignKey(entity = Character.class,
         parentColumns = "id",
         childColumns = "char_id",
         onDelete = ForeignKey.CASCADE)
@@ -18,6 +20,7 @@ public class Attribute implements Serializable {
     private final boolean isSkill;
     @PrimaryKey(autoGenerate = true)
     private int id;
+
     private int char_id;
 
     public Attribute(String name, String description, boolean isSkill, int char_id) {

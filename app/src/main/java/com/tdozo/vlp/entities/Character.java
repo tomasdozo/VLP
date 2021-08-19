@@ -14,16 +14,19 @@ import com.tdozo.vlp.enums.Sanity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Character implements Serializable {
     @Ignore
-    private final ArrayList<Attribute> skills;
+    private List<Attribute> skills;
     @Ignore
-    private final ArrayList<Attribute> weakness;
+    private List<Attribute> weakness;
     @Ignore
-    private final InventoryWeapons weapons;
+    private InventoryWeapons weapons;
 
+    @PrimaryKey(autoGenerate = true)
+    private int id;
     private String name;
     private String description;
     private int experience;
@@ -36,11 +39,9 @@ public class Character implements Serializable {
     private Race race;
     private int baseWeight;
     @Ignore
-    private final InventoryWearables wearables;
+    private InventoryWearables wearables;
     @Ignore
-    private final Inventory inventory;
-    @PrimaryKey(autoGenerate = true)
-    private int id;
+    private Inventory inventory;
 
     public Character() {
         skills = new ArrayList<>();
@@ -104,11 +105,11 @@ public class Character implements Serializable {
         return race;
     }
 
-    public ArrayList<Attribute> getSkills() {
+    public List<Attribute> getSkills() {
         return skills;
     }
 
-    public ArrayList<Attribute> getWeakness() {
+    public List<Attribute> getWeakness() {
         return weakness;
     }
 
@@ -130,6 +131,26 @@ public class Character implements Serializable {
 
     public int getBaseWeight() {
         return baseWeight;
+    }
+
+    public void setSkills(List<Attribute> skills) {
+        this.skills = skills;
+    }
+
+    public void setWeakness(List<Attribute> weakness) {
+        this.weakness = weakness;
+    }
+
+    public void setWeapons(InventoryWeapons weapons) {
+        this.weapons = weapons;
+    }
+
+    public void setWearables(InventoryWearables wearables) {
+        this.wearables = wearables;
+    }
+
+    public void setInventory(Inventory inventory) {
+        this.inventory = inventory;
     }
 
     public void setName(String name) {
@@ -188,33 +209,41 @@ public class Character implements Serializable {
 
     public void addItem(String name, double quantity, double weight, int value) {
         inventory.addItem(name, quantity, weight, value);
+        //todo persist
     }
 
     public void addWeapon(String name, String damage, Aptitude apt, String properties, int capacity, int hardness, double weight, int value) {
         weapons.addItem(name, weight, value, properties, damage, apt, capacity, hardness);
+        //todo persist
     }
 
     public void addWearable(String name, String properties, double weight, int value) {
         wearables.addItem(name, weight, value, properties);
+        //todo persist
     }
 
     public void removeWeapon(Weapon weapon) {
         weapons.removeItem(weapon);
+        //todo persist
     }
 
     public void removeWearable(Wearable wearable) {
         wearables.removeItem(wearable);
+        //todo persist
     }
 
     public void removeItem(Item item) {
         inventory.removeItem(item);
+        //todo persist
     }
 
     public void removeSkill(Attribute skill) {
         skills.remove(skill);
+        //todo persist
     }
 
     public void removeWeakness(Attribute skill) {
         weakness.remove(skill);
+        //todo persist
     }
 }

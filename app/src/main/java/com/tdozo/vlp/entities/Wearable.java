@@ -2,8 +2,10 @@ package com.tdozo.vlp.entities;
 
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 
-@Entity(foreignKeys = {@ForeignKey(entity = InventoryWearables.class,
+@Entity(indices = {@Index("wearables_id"),
+}, foreignKeys = {@ForeignKey(entity = InventoryWearables.class,
         parentColumns = "char_id",
         childColumns = "wearables_id",
         onDelete = ForeignKey.CASCADE)

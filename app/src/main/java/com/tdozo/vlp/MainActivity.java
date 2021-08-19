@@ -75,12 +75,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void loadDatabase() {
         viewModel = new ViewModel(this);
-        cha = viewModel.getCha();
-        if (cha == null) {
-            newCharacter();
-        } else {
-            showCharacter();
-        }
+        viewModel.getCha(this);
+
     }
 
     private void seedCharacter() {
@@ -344,7 +340,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void showCharacter() {
+    public void showCharacter() {
         view_name.setText(cha.getName());
         view_energyType.setText(cha.getEnergyType().getName());
         showCoinsXpLoad();
@@ -367,6 +363,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showSkills() {
+        view_skills.removeAllViews();
         for (Attribute skill : cha.getSkills()) {
             TextView view = new TextView(getBaseContext());
             view.setText(skill.getName());
@@ -391,6 +388,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showWeaknesses() {
+        view_weakness.removeAllViews();
+
         for (Attribute weakness : cha.getWeakness()) {
             TextView view = new TextView(getBaseContext());
             view.setText(weakness.getName());
@@ -416,7 +415,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showWearables() {
-
+        view_wearables.removeAllViews();
         for (Wearable wearable : cha.getWearables().getWearables()) {
             TableRow row = new TableRow(getBaseContext());
             row.setBackground(ContextCompat.getDrawable(this, R.drawable.border_thin));
@@ -458,6 +457,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showWeapons() {
+        view_weapons.removeAllViews();
+
         for (Weapon weapon : cha.getWeapons().getWeapons()) {
             TableRow row = new TableRow(getBaseContext());
             row.setBackground(ContextCompat.getDrawable(this, R.drawable.border_thin));
@@ -533,6 +534,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showInventory() {
+        view_inventory.removeAllViews();
+
         for (Item item : cha.getInventory().getItems()) {
             TableRow row = new TableRow(getBaseContext());
             row.setGravity(Gravity.CENTER_VERTICAL);

@@ -1,6 +1,5 @@
 package com.tdozo.vlp;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,13 +10,11 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.tdozo.vlp.database.ViewModel;
 import com.tdozo.vlp.entities.Character;
 import com.tdozo.vlp.enums.Aptitude;
 import com.tdozo.vlp.enums.EnergyType;
 import com.tdozo.vlp.enums.Race;
-
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
 
 public class CharacterActivity extends AppCompatActivity {
     EditText name;
@@ -31,6 +28,7 @@ public class CharacterActivity extends AppCompatActivity {
     Character cha;
 
     Toast toast;
+    private ViewModel viewModel;
 
 
     @Override
@@ -42,6 +40,8 @@ public class CharacterActivity extends AppCompatActivity {
         toast = Toast.makeText(this, "Llene todos los campos", Toast.LENGTH_SHORT);
 
         Character character = (Character) getIntent().getSerializableExtra("Character");
+
+        loadDatabase();
 
         if (character != null) {
             cha = character;
@@ -58,6 +58,10 @@ public class CharacterActivity extends AppCompatActivity {
 
         setOnClickListeners();
 
+    }
+
+    private void loadDatabase() {
+        viewModel = new ViewModel(this);
     }
 
     private void deleteCharacter() {
@@ -169,6 +173,7 @@ public class CharacterActivity extends AppCompatActivity {
     }
 
     private void saveCharacter() {
+        /*
         try {
             FileOutputStream fos = openFileOutput("Character", Context.MODE_PRIVATE);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -176,5 +181,7 @@ public class CharacterActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        */
+
     }
 }

@@ -8,6 +8,7 @@ import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity(foreignKeys = {@ForeignKey(entity = Character.class,
         parentColumns = "id",
@@ -16,7 +17,12 @@ import java.util.ArrayList;
 })
 public class InventoryWearables implements Serializable {
     @Ignore
-    private final ArrayList<Wearable> wearables;
+    private List<Wearable> wearables;
+
+    public void setWearables(List<Wearable> wearables) {
+        this.wearables = wearables;
+    }
+
     @PrimaryKey
     private int char_id;
 
@@ -44,7 +50,7 @@ public class InventoryWearables implements Serializable {
         return weight;
     }
 
-    public ArrayList<Wearable> getWearables() {
+    public List<Wearable> getWearables() {
         return wearables;
     }
 
