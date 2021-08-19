@@ -22,7 +22,7 @@ import java.util.List;
 public interface CharacterDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertCharacter(Character character);
+    long insertCharacter(Character character);
 
     @Update
     void updateCharacter(Character character);
@@ -87,11 +87,39 @@ public interface CharacterDao {
     @Query("SELECT * FROM attribute WHERE char_id = :id and isSkill = 0")
     List<Attribute> loadWeaknessesByCharacterId(int id);
 
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertInventory(Inventory inventory);
+
+    @Update
+    void updateInventory(Inventory inventory);
+
+    @Delete
+    void deleteInventory(Inventory inventory);
+
     @Query("SELECT * FROM inventory where char_id = :id")
     Inventory loadInventoryByCharacterId(int id);
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertInventoryWearables(InventoryWearables inventoryWearables);
+
+    @Update
+    void updateInventoryWearables(InventoryWearables inventoryWearables);
+
+    @Delete
+    void deleteInventoryWearables(InventoryWearables inventoryWearables);
+
     @Query("SELECT * FROM inventoryWearables where char_id = :id")
     InventoryWearables loadInventoryWearablesByCharacterId(int id);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertInventoryWeapons(InventoryWeapons inventoryWeapons);
+
+    @Update
+    void updateInventoryWeapons(InventoryWeapons inventoryWeapons);
+
+    @Delete
+    void deleteInventoryWeapons(InventoryWeapons inventoryWeapons);
 
     @Query("SELECT * FROM inventoryWeapons where char_id = :id")
     InventoryWeapons loadInventoryWeaponsByCharacterId(int id);

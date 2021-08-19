@@ -21,7 +21,7 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.tdozo.vlp.database.ViewModel;
+import com.tdozo.vlp.database.CharacterViewModel;
 import com.tdozo.vlp.entities.Attribute;
 import com.tdozo.vlp.entities.Character;
 import com.tdozo.vlp.entities.Item;
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout view_weakness;
     TableLayout view_inventory;
     TextView view_load;
-    ViewModel viewModel;
+    CharacterViewModel characterViewModel;
     private static final boolean seed = false;
 
     @Override
@@ -74,8 +74,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadDatabase() {
-        viewModel = new ViewModel(this);
-        viewModel.getCha(this);
+        characterViewModel = new CharacterViewModel(this);
+        characterViewModel.getCharacter(this);
 
     }
 
@@ -176,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
                 EditText name = view.findViewById(R.id.new_attribute_name);
                 EditText description = view.findViewById(R.id.new_attribute_description);
                 if (!name.getText().toString().equals("") && !description.getText().toString().equals("")) {
-                    cha.addSkill(name.getText().toString(), description.getText().toString());
+                    cha.addSkill(name.getText().toString(), description.getText().toString(), this);
                     saveCharacter();
                     view_skills.removeAllViews();
                     showSkills();
@@ -195,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
                 EditText name = view.findViewById(R.id.new_attribute_name);
                 EditText description = view.findViewById(R.id.new_attribute_description);
                 if (!name.getText().toString().equals("") && !description.getText().toString().equals("")) {
-                    cha.addWeakness(name.getText().toString(), description.getText().toString());
+                    cha.addWeakness(name.getText().toString(), description.getText().toString(), this);
                     saveCharacter();
                     view_weakness.removeAllViews();
                     showWeaknesses();
@@ -216,7 +216,7 @@ public class MainActivity extends AppCompatActivity {
                 EditText weight = view.findViewById(R.id.new_item_weight);
                 EditText value = view.findViewById(R.id.new_item_value);
                 if (!name.getText().toString().equals("") && !weight.getText().toString().equals("") && !value.getText().toString().equals("") && !quantity.getText().toString().equals("")) {
-                    cha.addItem(name.getText().toString(), Double.parseDouble(quantity.getText().toString()), Double.parseDouble(weight.getText().toString()), Integer.parseInt(value.getText().toString()));
+                    cha.addItem(name.getText().toString(), Double.parseDouble(quantity.getText().toString()), Double.parseDouble(weight.getText().toString()), Integer.parseInt(value.getText().toString()), this);
                     saveCharacter();
                     view_inventory.removeAllViews();
                     showCoinsXpLoad();
@@ -237,7 +237,7 @@ public class MainActivity extends AppCompatActivity {
                 EditText weight = view.findViewById(R.id.new_wearable_weight);
                 EditText value = view.findViewById(R.id.new_wearable_value);
                 if (!name.getText().toString().equals("") && !weight.getText().toString().equals("") && !value.getText().toString().equals("")) {
-                    cha.addWearable(name.getText().toString(), property.getText().toString(), Double.parseDouble(weight.getText().toString()), Integer.parseInt(value.getText().toString()));
+                    cha.addWearable(name.getText().toString(), property.getText().toString(), Double.parseDouble(weight.getText().toString()), Integer.parseInt(value.getText().toString()), this);
                     saveCharacter();
                     view_wearables.removeAllViews();
                     showCoinsXpLoad();
@@ -274,7 +274,7 @@ public class MainActivity extends AppCompatActivity {
                             Integer.parseInt(capacity.getText().toString()),
                             Integer.parseInt(hardness.getText().toString()),
                             Double.parseDouble(weight.getText().toString()),
-                            Integer.parseInt(value.getText().toString()));
+                            Integer.parseInt(value.getText().toString()), this);
                     saveCharacter();
                     view_weapons.removeAllViews();
                     showCoinsXpLoad();
@@ -627,43 +627,42 @@ public class MainActivity extends AppCompatActivity {
         cha.setBaseWeight(15);
 
         //Seed debilidades
-        cha.addWeakness("Feo", "No hace falta describir.");
-        cha.addWeakness("Cleptomano", "Tienes que robar to lo que veas.");
+        cha.addWeakness("Feo", "No hace falta describir.", this);
+        cha.addWeakness("Cleptomano", "Tienes que robar to lo que veas.", this);
         for (int i = 0; i < 3; i++) {
-            cha.addWeakness("Weak" + i, "Descr" + i);
+            cha.addWeakness("Weak" + i, "Descr" + i, this);
         }
 
 
         //Seed habilidades
-        cha.addSkill("Volar", "Gastando 2 energias volas por todo el mundi.");
-        cha.addSkill("Persuasion", "Si tenes a alguien medio gilipollas adelante lo podes engañar.");
-        cha.addSkill("Domador de pugs", "Gastando 0 de energia puedes invocar a un ejercito de pugs para vencer al enemigo de cuteness.");
+        cha.addSkill("Volar", "Gastando 2 energias volas por todo el mundi.", this);
+        cha.addSkill("Persuasion", "Si tenes a alguien medio gilipollas adelante lo podes engañar.", this);
+        cha.addSkill("Domador de pugs", "Gastando 0 de energia puedes invocar a un ejercito de pugs para vencer al enemigo de cuteness.", this);
         for (int i = 0; i < 10; i++) {
-            cha.addSkill("Skill " + i, "Descr " + i);
+            cha.addSkill("Skill " + i, "Descr " + i, this);
         }
 
         //Seed inventario
-        cha.addItem("Pildora", 5, 0.1, 0);
-        cha.addItem("Caja misteriosa", 1, 10, 50);
-        cha.addItem("Llave random random", 1, 0.1, 0);
-        cha.addItem("Pocion de salud", 3, 0.5, 10);
-        cha.addItem("Pocion de stamina", 2, 0.5, 10);
+        cha.addItem("Pildora", 5, 0.1, 0, this);
+        cha.addItem("Caja misteriosa", 1, 10, 50, this);
+        cha.addItem("Llave random random", 1, 0.1, 0, this);
+        cha.addItem("Pocion de salud", 3, 0.5, 10, this);
+        cha.addItem("Pocion de stamina", 2, 0.5, 10, this);
         for (int i = 0; i < 10; i++) {
-            cha.addItem("Item " + i, i, i, i);
+            cha.addItem("Item " + i, i, i, i, this);
         }
 
         //seed armas
-        cha.addWeapon("Hacha to Pro", "1/2/3", Aptitude.VIG, "Propiedad del super hacha noob", 0, 2, 1.5, 0);
-        cha.addWeapon("Baston de mago", "1/1/1", Aptitude.LOG, "Incrementa en 2 el dano de hechizos", 0, 1, 1, 100);
+        cha.addWeapon("Hacha to Pro", "1/2/3", Aptitude.VIG, "Propiedad del super hacha noob", 0, 2, 1.5, 0, this);
+        cha.addWeapon("Baston de mago", "1/1/1", Aptitude.LOG, "Incrementa en 2 el dano de hechizos", 0, 1, 1, 100, this);
 
         //seed armadura
-        cha.addWearable("Caperusa roja", "Mision secundaria visitar el bosque", 1, 30);
-        cha.addWearable("Calzas termicas", "Para aguantar el frio", 0.5, 10);
+        cha.addWearable("Caperusa roja", "Mision secundaria visitar el bosque", 1, 30, this);
+        cha.addWearable("Calzas termicas", "Para aguantar el frio", 0.5, 10, this);
 
     }
 
     public void setCha(Character cha) {
         this.cha = cha;
-        showCharacter();
     }
 }

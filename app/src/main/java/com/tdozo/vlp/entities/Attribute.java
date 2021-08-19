@@ -1,10 +1,15 @@
 package com.tdozo.vlp.entities;
 
 
+import android.content.Context;
+
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
+
+import com.tdozo.vlp.database.CharacterDao;
+import com.tdozo.vlp.database.DatabaseVLP;
 
 import java.io.Serializable;
 
@@ -57,5 +62,17 @@ public class Attribute implements Serializable {
 
     public String getDescription() {
         return description;
+    }
+
+    public void createOrUpdate(Context context) {
+        DatabaseVLP.databaseWriteExecutor.execute(() -> {
+            CharacterDao characterDao = DatabaseVLP.getDatabase(context).characterDao();
+            if (getId() == 0) { //Crear
+                characterDao.insertAttribute(this);
+            } else //Actualizar
+            {
+                characterDao.updateAttribute(this);
+            }
+        });
     }
 }

@@ -10,15 +10,15 @@ import com.tdozo.vlp.entities.InventoryWearables;
 
 import java.util.List;
 
-public class ViewModel {
+public class CharacterViewModel {
     Character cha;
     DatabaseVLP db;
 
-    public ViewModel(Context context) {
+    public CharacterViewModel(Context context) {
         db = DatabaseVLP.getDatabase(context);
     }
 
-    public void getCha(MainActivity mainActivity) {
+    public void getCharacter(MainActivity mainActivity) {
         DatabaseVLP.databaseWriteExecutor.execute(() -> {
             List<Character> characters = db.characterDao().loadCharacters();
             if (characters.size() > 0) {
@@ -29,7 +29,7 @@ public class ViewModel {
                 loadWeapons();
                 loadWearables();
                 mainActivity.setCha(cha);
-                mainActivity.showCharacter();
+                mainActivity.runOnUiThread(mainActivity::showCharacter);
             } else {
                 mainActivity.newCharacter();
             }
@@ -47,18 +47,18 @@ public class ViewModel {
     private void loadInventory() {
         Inventory inventory = db.characterDao().loadInventoryByCharacterId(cha.getId());
         inventory.setItems(db.characterDao().loadItemsByCharacterId(cha.getId()));
-        cha.setInventory(db.characterDao().loadInventoryByCharacterId(cha.getId()));
+        cha.setInventory(inventory);
     }
 
     private void loadWeapons() {
         InventoryWeapons inventory = db.characterDao().loadInventoryWeaponsByCharacterId(cha.getId());
         inventory.setWeapons(db.characterDao().loadWeaponsByCharacterId(cha.getId()));
-        cha.setInventory(db.characterDao().loadInventoryByCharacterId(cha.getId()));
+        cha.setWeapons(inventory);
     }
 
     private void loadWearables() {
         InventoryWearables inventory = db.characterDao().loadInventoryWearablesByCharacterId(cha.getId());
         inventory.setWearables(db.characterDao().loadWearablesByCharacterId(cha.getId()));
-        cha.setInventory(db.characterDao().loadInventoryByCharacterId(cha.getId()));
+        cha.setWearables(inventory);
     }
 }

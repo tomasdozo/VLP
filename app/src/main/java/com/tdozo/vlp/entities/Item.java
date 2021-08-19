@@ -1,8 +1,13 @@
 package com.tdozo.vlp.entities;
 
+import android.content.Context;
+
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Index;
+
+import com.tdozo.vlp.database.CharacterDao;
+import com.tdozo.vlp.database.DatabaseVLP;
 
 @Entity(indices = {@Index("inventory_id"),
 }, foreignKeys = {@ForeignKey(entity = Inventory.class,
@@ -42,12 +47,15 @@ public class Item extends Stuff {
         return super.getWeight() * quantity;
     }
 
-    public void createOrUpdate() { //todo
-        if (getId() == 0) { //Crear
-
-        } else //Actualizar
-        {
-
-        }
+    public void createOrUpdate(Context context) {
+        DatabaseVLP.databaseWriteExecutor.execute(() -> {
+            CharacterDao characterDao = DatabaseVLP.getDatabase(context).characterDao();
+            if (getId() == 0) { //Crear
+                characterDao.insertItem(this);
+            } else //Actualizar
+            {
+                characterDao.updateItem(this);
+            }
+        });
     }
 }

@@ -1,8 +1,13 @@
 package com.tdozo.vlp.entities;
 
+import android.content.Context;
+
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Index;
+
+import com.tdozo.vlp.database.CharacterDao;
+import com.tdozo.vlp.database.DatabaseVLP;
 
 @Entity(indices = {@Index("wearables_id"),
 }, foreignKeys = {@ForeignKey(entity = InventoryWearables.class,
@@ -29,12 +34,15 @@ public class Wearable extends Stuff {
         return property;
     }
 
-    public void createOrUpdate() {
-        if (getId() == 0) { //Crear
-
-        } else //Actualizar
-        {
-
-        }
+    public void createOrUpdate(Context context) {
+        DatabaseVLP.databaseWriteExecutor.execute(() -> {
+            CharacterDao characterDao = DatabaseVLP.getDatabase(context).characterDao();
+            if (getId() == 0) { //Crear
+                characterDao.insertWearable(this);
+            } else //Actualizar
+            {
+                characterDao.updateWearable(this);
+            }
+        });
     }
 }

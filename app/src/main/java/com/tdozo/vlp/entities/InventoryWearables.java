@@ -1,10 +1,15 @@
 package com.tdozo.vlp.entities;
 
 
+import android.content.Context;
+
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+
+import com.tdozo.vlp.database.CharacterDao;
+import com.tdozo.vlp.database.DatabaseVLP;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -67,17 +72,26 @@ public class InventoryWearables implements Serializable {
         weight = aux;
     }
 
-    public void addItem(String name, double weight, int value, String properties) {
+    public void addWearable(String name, double weight, int value, String properties, Context context) {
         this.weight += weight;
-        this.wearables.add(new Wearable(name, weight, value, properties, char_id));
-        //todo persist
+        Wearable wearable = new Wearable(name, weight, value, properties, char_id);
+        this.wearables.add(wearable);
+        wearable.createOrUpdate(context);
+        update(context);
     }
 
-    public void create() { //todo
-
+    public void create(Context context) {
+        DatabaseVLP.databaseWriteExecutor.execute(() -> {
+            CharacterDao characterDao = DatabaseVLP.getDatabase(context).characterDao();
+            characterDao.insertInventoryWearables(this);
+        });
     }
 
-    public void update() { //todo
-
+    public void update(Context context) {
+        DatabaseVLP.databaseWriteExecutor.execute(() -> {
+            CharacterDao characterDao = DatabaseVLP.getDatabase(context).characterDao();
+            characterDao.updateInventoryWearables(this);
+        });
     }
+
 }

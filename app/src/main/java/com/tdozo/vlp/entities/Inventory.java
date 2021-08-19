@@ -1,10 +1,15 @@
 package com.tdozo.vlp.entities;
 
 
+import android.content.Context;
+
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+
+import com.tdozo.vlp.database.CharacterDao;
+import com.tdozo.vlp.database.DatabaseVLP;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -67,18 +72,25 @@ public class Inventory implements Serializable {
         weight = aux;
     }
 
-    public void addItem(String name, double quantity, double weight, int value) {
+    public void addItem(String name, double quantity, double weight, int value, Context context) {
         weight += weight * quantity;
-
-        this.items.add(new Item(name, quantity, weight, value, char_id));
-        //todo persist. metodo createOrUpdate?
+        Item item = new Item(name, quantity, weight, value, char_id);
+        this.items.add(item);
+        item.createOrUpdate(context);
+        update(context);
     }
 
-    public void create() { //todo
-
+    public void create(Context context) {
+        DatabaseVLP.databaseWriteExecutor.execute(() -> {
+            CharacterDao characterDao = DatabaseVLP.getDatabase(context).characterDao();
+            characterDao.insertInventory(this);
+        });
     }
 
-    public void update() { //todo
-
+    public void update(Context context) {
+        DatabaseVLP.databaseWriteExecutor.execute(() -> {
+            CharacterDao characterDao = DatabaseVLP.getDatabase(context).characterDao();
+            characterDao.updateInventory(this);
+        });
     }
 }

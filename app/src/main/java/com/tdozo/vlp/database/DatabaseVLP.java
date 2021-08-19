@@ -21,7 +21,7 @@ import java.util.concurrent.Executors;
 @Database(entities = {Attribute.class, Character.class, Inventory.class, InventoryWeapons.class, InventoryWearables.class, Item.class, Weapon.class, Wearable.class}, version = 1, exportSchema = false)
 public abstract class DatabaseVLP extends RoomDatabase {
     private static final int NUMBER_OF_THREADS = 4;
-    static final ExecutorService databaseWriteExecutor =
+    public static final ExecutorService databaseWriteExecutor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
     // marking the instance as volatile to ensure atomic access to the variable
     private static volatile DatabaseVLP INSTANCE;

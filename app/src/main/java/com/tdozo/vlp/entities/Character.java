@@ -1,10 +1,15 @@
 package com.tdozo.vlp.entities;
 
 
+import android.content.Context;
+
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import com.tdozo.vlp.CharacterActivity;
+import com.tdozo.vlp.database.CharacterDao;
+import com.tdozo.vlp.database.DatabaseVLP;
 import com.tdozo.vlp.enums.Aptitude;
 import com.tdozo.vlp.enums.Energy;
 import com.tdozo.vlp.enums.EnergyType;
@@ -18,12 +23,6 @@ import java.util.List;
 
 @Entity
 public class Character implements Serializable {
-    @Ignore
-    private List<Attribute> skills;
-    @Ignore
-    private List<Attribute> weakness;
-    @Ignore
-    private InventoryWeapons weapons;
 
     @PrimaryKey(autoGenerate = true)
     private int id;
@@ -38,6 +37,13 @@ public class Character implements Serializable {
     private Aptitude aptitude;
     private Race race;
     private int baseWeight;
+
+    @Ignore
+    private List<Attribute> skills;
+    @Ignore
+    private List<Attribute> weakness;
+    @Ignore
+    private InventoryWeapons weapons;
     @Ignore
     private InventoryWearables wearables;
     @Ignore
@@ -52,9 +58,6 @@ public class Character implements Serializable {
         health = Health.HEALTHY;
         sanity = Sanity.SANE;
         baseWeight = 0;
-        weapons = new InventoryWeapons(id);
-        wearables = new InventoryWearables(id);
-        inventory = new Inventory(id);
     }
 
     public int getId() {
@@ -197,29 +200,28 @@ public class Character implements Serializable {
         this.baseWeight = baseWeight;
     }
 
-    public void addSkill(String name, String description) {
-        skills.add(new Attribute(name, description, true, id));
-        //todo persist
+    public void addSkill(String name, String description, Context context) {
+        Attribute attribute = new Attribute(name, description, true, id);
+        skills.add(attribute);
+        attribute.createOrUpdate(context);
     }
 
-    public void addWeakness(String name, String description) {
-        weakness.add(new Attribute(name, description, false, id));
-        //todo persist
+    public void addWeakness(String name, String description, Context context) {
+        Attribute attribute = new Attribute(name, description, false, id);
+        weakness.add(attribute);
+        attribute.createOrUpdate(context);
     }
 
-    public void addItem(String name, double quantity, double weight, int value) {
-        inventory.addItem(name, quantity, weight, value);
-        //todo persist
+    public void addItem(String name, double quantity, double weight, int value, Context context) {
+        inventory.addItem(name, quantity, weight, value, context);
     }
 
-    public void addWeapon(String name, String damage, Aptitude apt, String properties, int capacity, int hardness, double weight, int value) {
-        weapons.addItem(name, weight, value, properties, damage, apt, capacity, hardness);
-        //todo persist
+    public void addWeapon(String name, String damage, Aptitude apt, String properties, int capacity, int hardness, double weight, int value, Context context) {
+        weapons.addItem(name, weight, value, properties, damage, apt, capacity, hardness, context);
     }
 
-    public void addWearable(String name, String properties, double weight, int value) {
-        wearables.addItem(name, weight, value, properties);
-        //todo persist
+    public void addWearable(String name, String properties, double weight, int value, Context context) {
+        wearables.addWearable(name, weight, value, properties, context);
     }
 
     public void removeWeapon(Weapon weapon) {
@@ -245,5 +247,31 @@ public class Character implements Serializable {
     public void removeWeakness(Attribute skill) {
         weakness.remove(skill);
         //todo persist
+    }
+
+    public void update(Context context) {
+        DatabaseVLP.databaseWriteExecutor.execute(() -> {
+            DatabaseVLP.getDatabase(context).characterDao().updateCharacter(this);
+            inventory.update(context);
+            weapons.update(context);
+            wearables.update(context);
+
+        });
+    }
+
+    public void create(CharacterActivity activity) {
+        DatabaseVLP.databaseWriteExecutor.execute(() -> {
+            CharacterDao characterDao = DatabaseVLP.getDatabase(activity).characterDao();
+
+            id = (int) characterDao.insertCharacter(this);
+            weapons = new InventoryWeapons(id);
+            wearables = new InventoryWearables(id);
+            inventory = new Inventory(id);
+            inventory.create(activity);
+            weapons.create(activity);
+            wearables.create(activity);
+
+            activity.saved();
+        });
     }
 }

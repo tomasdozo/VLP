@@ -1,11 +1,15 @@
 package com.tdozo.vlp.entities;
 
 
+import android.content.Context;
+
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import com.tdozo.vlp.database.CharacterDao;
+import com.tdozo.vlp.database.DatabaseVLP;
 import com.tdozo.vlp.enums.Aptitude;
 
 import java.io.Serializable;
@@ -75,18 +79,26 @@ public class InventoryWeapons implements Serializable {
         weight = aux;
     }
 
-    public void addItem(String name, double weight, int value, String properties, String damage, Aptitude apt, int capacity, int hardness) {
+    public void addItem(String name, double weight, int value, String properties, String damage, Aptitude apt, int capacity, int hardness, Context context) {
         weight += weight;
-        this.weapons.add(new Weapon(name, weight, value, properties, damage, apt, capacity, hardness, char_id));
-        //todo persist
+        Weapon weapon = new Weapon(name, weight, value, properties, damage, apt, capacity, hardness, char_id);
+        this.weapons.add(weapon);
+        weapon.createOrUpdate(context);
+        update(context);
 
     }
 
-    public void create() { //todo
-
+    public void create(Context context) {
+        DatabaseVLP.databaseWriteExecutor.execute(() -> {
+            CharacterDao characterDao = DatabaseVLP.getDatabase(context).characterDao();
+            characterDao.insertInventoryWeapons(this);
+        });
     }
 
-    public void update() { //todo
-
+    public void update(Context context) {
+        DatabaseVLP.databaseWriteExecutor.execute(() -> {
+            CharacterDao characterDao = DatabaseVLP.getDatabase(context).characterDao();
+            characterDao.updateInventoryWeapons(this);
+        });
     }
 }

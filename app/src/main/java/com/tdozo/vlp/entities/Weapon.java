@@ -1,10 +1,14 @@
 package com.tdozo.vlp.entities;
 
 
+import android.content.Context;
+
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Index;
 
+import com.tdozo.vlp.database.CharacterDao;
+import com.tdozo.vlp.database.DatabaseVLP;
 import com.tdozo.vlp.enums.Aptitude;
 
 @Entity(indices = {@Index("weapons_id"),
@@ -64,12 +68,15 @@ public class Weapon extends Stuff {
         this.hardness = hardness;
     }
 
-    public void createOrUpdate() { //todo
-        if (getId() == 0) { //Crear
-
-        } else //Actualizar
-        {
-
-        }
+    public void createOrUpdate(Context context) {
+        DatabaseVLP.databaseWriteExecutor.execute(() -> {
+            CharacterDao characterDao = DatabaseVLP.getDatabase(context).characterDao();
+            if (getId() == 0) { //Crear
+                characterDao.insertWeapon(this);
+            } else //Actualizar
+            {
+                characterDao.updateWeapon(this);
+            }
+        });
     }
 }

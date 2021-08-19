@@ -10,7 +10,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.tdozo.vlp.database.ViewModel;
 import com.tdozo.vlp.entities.Character;
 import com.tdozo.vlp.enums.Aptitude;
 import com.tdozo.vlp.enums.EnergyType;
@@ -26,9 +25,7 @@ public class CharacterActivity extends AppCompatActivity {
     Button save;
     Button delete;
     Character cha;
-
     Toast toast;
-    private ViewModel viewModel;
 
 
     @Override
@@ -40,8 +37,6 @@ public class CharacterActivity extends AppCompatActivity {
         toast = Toast.makeText(this, "Llene todos los campos", Toast.LENGTH_SHORT);
 
         Character character = (Character) getIntent().getSerializableExtra("Character");
-
-        loadDatabase();
 
         if (character != null) {
             cha = character;
@@ -60,11 +55,8 @@ public class CharacterActivity extends AppCompatActivity {
 
     }
 
-    private void loadDatabase() {
-        viewModel = new ViewModel(this);
-    }
-
     private void deleteCharacter() {
+        //Todo
         deleteFile("Character");
         startActivity(new Intent(CharacterActivity.this, MainActivity.class));
         finish();
@@ -85,9 +77,7 @@ public class CharacterActivity extends AppCompatActivity {
                 cha.setName(name.getText().toString().trim());
                 cha.setBaseWeight(Integer.parseInt(baseWeight.getText().toString()));
                 cha.setDescription(description.getText().toString().trim());
-                saveCharacter();
-                finish();
-                startActivity(new Intent(CharacterActivity.this, MainActivity.class));
+                cha.create(this);
             } else {
                 toast.show();
             }
@@ -134,6 +124,11 @@ public class CharacterActivity extends AppCompatActivity {
         });
     }
 
+    public void saved() {
+        finish();
+        startActivity(new Intent(CharacterActivity.this, MainActivity.class));
+    }
+
     private void loadViews() {
         name = findViewById(R.id.name);
         race = findViewById(R.id.race);
@@ -173,15 +168,6 @@ public class CharacterActivity extends AppCompatActivity {
     }
 
     private void saveCharacter() {
-        /*
-        try {
-            FileOutputStream fos = openFileOutput("Character", Context.MODE_PRIVATE);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(cha);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        */
-
+        //Todo
     }
 }
