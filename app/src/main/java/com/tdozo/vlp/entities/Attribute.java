@@ -68,7 +68,7 @@ public class Attribute implements Serializable {
         DatabaseVLP.databaseWriteExecutor.execute(() -> {
             CharacterDao characterDao = DatabaseVLP.getDatabase(context).characterDao();
             if (getId() == 0) { //Crear
-                characterDao.insertAttribute(this);
+                setId((int) characterDao.insertAttribute(this));
             } else //Actualizar
             {
                 characterDao.updateAttribute(this);

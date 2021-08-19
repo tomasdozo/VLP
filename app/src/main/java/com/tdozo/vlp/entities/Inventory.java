@@ -73,7 +73,7 @@ public class Inventory implements Serializable {
     }
 
     public void addItem(String name, double quantity, double weight, int value, Context context) {
-        weight += weight * quantity;
+        this.weight += weight * quantity;
         Item item = new Item(name, quantity, weight, value, char_id);
         this.items.add(item);
         item.createOrUpdate(context);

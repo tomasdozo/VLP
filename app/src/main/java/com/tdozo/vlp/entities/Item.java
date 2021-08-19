@@ -51,7 +51,7 @@ public class Item extends Stuff {
         DatabaseVLP.databaseWriteExecutor.execute(() -> {
             CharacterDao characterDao = DatabaseVLP.getDatabase(context).characterDao();
             if (getId() == 0) { //Crear
-                characterDao.insertItem(this);
+                setId((int) characterDao.insertItem(this));
             } else //Actualizar
             {
                 characterDao.updateItem(this);

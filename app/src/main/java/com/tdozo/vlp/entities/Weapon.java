@@ -72,7 +72,7 @@ public class Weapon extends Stuff {
         DatabaseVLP.databaseWriteExecutor.execute(() -> {
             CharacterDao characterDao = DatabaseVLP.getDatabase(context).characterDao();
             if (getId() == 0) { //Crear
-                characterDao.insertWeapon(this);
+                setId((int) characterDao.insertWeapon(this));
             } else //Actualizar
             {
                 characterDao.updateWeapon(this);

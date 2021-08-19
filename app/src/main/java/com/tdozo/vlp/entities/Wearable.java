@@ -38,7 +38,7 @@ public class Wearable extends Stuff {
         DatabaseVLP.databaseWriteExecutor.execute(() -> {
             CharacterDao characterDao = DatabaseVLP.getDatabase(context).characterDao();
             if (getId() == 0) { //Crear
-                characterDao.insertWearable(this);
+                setId((int) characterDao.insertWearable(this));
             } else //Actualizar
             {
                 characterDao.updateWearable(this);

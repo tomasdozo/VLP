@@ -80,7 +80,7 @@ public class InventoryWeapons implements Serializable {
     }
 
     public void addItem(String name, double weight, int value, String properties, String damage, Aptitude apt, int capacity, int hardness, Context context) {
-        weight += weight;
+        this.weight += weight;
         Weapon weapon = new Weapon(name, weight, value, properties, damage, apt, capacity, hardness, char_id);
         this.weapons.add(weapon);
         weapon.createOrUpdate(context);

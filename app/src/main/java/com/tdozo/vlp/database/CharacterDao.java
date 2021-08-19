@@ -37,7 +37,7 @@ public interface CharacterDao {
     List<Character> loadCharacters();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertItem(Item item);
+    long insertItem(Item item);
 
     @Update
     void updateItem(Item item);
@@ -49,7 +49,7 @@ public interface CharacterDao {
     List<Item> loadItemsByCharacterId(int id);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertWeapon(Weapon weapon);
+    long insertWeapon(Weapon weapon);
 
     @Update
     void updateWeapon(Weapon weapon);
@@ -61,7 +61,7 @@ public interface CharacterDao {
     List<Weapon> loadWeaponsByCharacterId(int id);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertWearable(Wearable wearable);
+    long insertWearable(Wearable wearable);
 
     @Update
     void updateWearable(Wearable wearable);
@@ -73,7 +73,7 @@ public interface CharacterDao {
     List<Wearable> loadWearablesByCharacterId(int id);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAttribute(Attribute attribute);
+    long insertAttribute(Attribute attribute);
 
     @Update
     void updateAttribute(Attribute attribute);
