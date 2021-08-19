@@ -47,18 +47,21 @@ public class CharacterViewModel {
     private void loadInventory() {
         Inventory inventory = db.characterDao().loadInventoryByCharacterId(cha.getId());
         inventory.setItems(db.characterDao().loadItemsByCharacterId(cha.getId()));
+        inventory.calculateWeight();
         cha.setInventory(inventory);
     }
 
     private void loadWeapons() {
         InventoryWeapons inventory = db.characterDao().loadInventoryWeaponsByCharacterId(cha.getId());
         inventory.setWeapons(db.characterDao().loadWeaponsByCharacterId(cha.getId()));
+        inventory.calculateWeight();
         cha.setWeapons(inventory);
     }
 
     private void loadWearables() {
         InventoryWearables inventory = db.characterDao().loadInventoryWearablesByCharacterId(cha.getId());
         inventory.setWearables(db.characterDao().loadWearablesByCharacterId(cha.getId()));
+        inventory.calculateWeight();
         cha.setWearables(inventory);
     }
 }
