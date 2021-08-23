@@ -19,6 +19,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".CharacterActivity"
+            android:exported="true" />
+        <activity
+            android:name=".CharacterViewActivity"
+            android:exported="true" />
     </application>
+
 
 </manifest>
