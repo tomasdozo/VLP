@@ -262,7 +262,7 @@ public class Character implements Serializable {
     public void updateAndClose(CharacterActivity activity) {
         DatabaseVLP.databaseWriteExecutor.execute(() -> {
             DatabaseVLP.getDatabase(activity).characterDao().updateCharacter(this);
-            activity.finishActivity();
+            activity.finish();
         });
     }
 
@@ -278,15 +278,15 @@ public class Character implements Serializable {
             weapons.create(activity);
             wearables.create(activity);
 
-            activity.finishActivity();
+            activity.finish();
         });
     }
 
-    public void delete(CharacterActivity activity) {
+    public void deleteAndClose(CharacterActivity activity) {
         DatabaseVLP.databaseWriteExecutor.execute(() -> {
             CharacterDao characterDao = DatabaseVLP.getDatabase(activity).characterDao();
             characterDao.deleteCharacter(this);
-            activity.finishActivity();
+            activity.finish();
         });
     }
 }

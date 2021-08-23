@@ -1,6 +1,5 @@
 package com.tdozo.vlp;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -61,8 +60,7 @@ public class CharacterActivity extends AppCompatActivity {
                 .setTitle(getString(R.string.Remove))
                 .setMessage("¿Esta seguro que desea eliminar su personaje?")
                 .setNegativeButton(R.string.Remove, (dialog, which) ->
-                        cha.delete(this)).show());
-
+                        cha.deleteAndClose(this)).show());
 
         save.setOnClickListener(v -> {
             if (isComplete()) {
@@ -80,6 +78,7 @@ public class CharacterActivity extends AppCompatActivity {
             cha.setEnergyType(EnergyType.values()[which]);
             energyType.setText(EnergyType.values()[which].getName());
         }).show());
+
         energyType.setOnLongClickListener(v -> {
             if (cha.getEnergyType() != null) {
                 new MaterialAlertDialogBuilder(this).setTitle(cha.getEnergyType().getName()).setMessage(cha.getEnergyType().getDescription()).show();
@@ -117,10 +116,6 @@ public class CharacterActivity extends AppCompatActivity {
         });
     }
 
-    public void finishActivity() {
-        finish();
-        startActivity(new Intent(CharacterActivity.this, MainActivity.class));
-    }
 
     private void loadViews() {
         name = findViewById(R.id.name);

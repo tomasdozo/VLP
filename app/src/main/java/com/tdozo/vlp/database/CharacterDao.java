@@ -1,5 +1,6 @@
 package com.tdozo.vlp.database;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -34,7 +35,7 @@ public interface CharacterDao {
     Character loadCharacterById(int id);
 
     @Query("SELECT * FROM character")
-    List<Character> loadCharacters();
+    LiveData<List<Character>> loadLiveCharacters();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insertItem(Item item);
