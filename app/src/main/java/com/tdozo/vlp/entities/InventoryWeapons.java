@@ -66,9 +66,11 @@ public class InventoryWeapons implements Serializable {
     }
 
 
-    public void removeItem(Weapon weapon) {
+    public void removeItem(Weapon weapon, Context context) {
         weight -= weapon.getWeight();
         weapons.remove(weapon);
+        weapon.delete(context);
+        update(context);
     }
 
     public void calculateWeight() {

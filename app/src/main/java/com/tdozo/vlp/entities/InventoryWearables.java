@@ -59,9 +59,11 @@ public class InventoryWearables implements Serializable {
         return wearables;
     }
 
-    public void removeItem(Wearable wearable) {
+    public void removeItem(Wearable wearable, Context context) {
         weight -= wearable.getWeight();
         wearables.remove(wearable);
+        wearable.delete(context);
+        update(context);
     }
 
     public void calculateWeight() {

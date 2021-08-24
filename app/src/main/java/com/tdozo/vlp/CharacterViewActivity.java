@@ -357,7 +357,10 @@ public class CharacterViewActivity extends AppCompatActivity {
 
             row.setOnClickListener(v -> {
                 View view = getLayoutInflater().inflate(R.layout.dialog_view_wearable, null);
-                ((TextView) view.findViewById(R.id.view_wearable_property)).setText(wearable.getProperty());
+                if (wearable.getProperty().equals(""))
+                    view.findViewById(R.id.layout_properties).setVisibility(View.GONE);
+                else
+                    ((TextView) view.findViewById(R.id.view_wearable_property)).setText(wearable.getProperty());
                 ((TextView) view.findViewById(R.id.view_wearable_weight)).setText(String.valueOf(wearable.getWeight()));
                 ((TextView) view.findViewById(R.id.view_wearable_value)).setText(String.valueOf(wearable.getValue()));
 
@@ -431,7 +434,10 @@ public class CharacterViewActivity extends AppCompatActivity {
                 View view = getLayoutInflater().inflate(R.layout.dialog_view_weapon, null);
                 ((TextView) view.findViewById(R.id.view_weapon_damage)).setText(weapon.getDamage());
                 ((TextView) view.findViewById(R.id.view_weapon_aptitude)).setText(weapon.getAptitude().getName());
-                ((TextView) view.findViewById(R.id.view_weapon_property)).setText(weapon.getProperties());
+                if (weapon.getProperties().equals(""))
+                    view.findViewById(R.id.layout_properties).setVisibility(View.GONE);
+                else
+                    ((TextView) view.findViewById(R.id.view_weapon_property)).setText(weapon.getProperties());
                 ((TextView) view.findViewById(R.id.view_weapon_capacity)).setText(String.valueOf(weapon.getCapacity()));
                 ((TextView) view.findViewById(R.id.view_weapon_hardness)).setText(String.valueOf(weapon.getHardness()));
                 ((TextView) view.findViewById(R.id.view_weapon_weight)).setText(String.valueOf(weapon.getWeight()));
@@ -493,6 +499,7 @@ public class CharacterViewActivity extends AppCompatActivity {
                         item.setValue(Integer.parseInt(value.getText().toString()));
                         item.setQuantity(Double.parseDouble(quantity.getText().toString()));
                         cha.getInventory().calculateWeight();
+                        cha.getInventory().update(this);
                         item.createOrUpdate(this);
                         showCoinsXpLoad();
                         showInventory();
@@ -524,7 +531,7 @@ public class CharacterViewActivity extends AppCompatActivity {
 
 
         ImageView btn = new ImageView(this);
-        btn.setLayoutParams(new TableRow.LayoutParams(60, 60));
+        btn.setLayoutParams(new TableRow.LayoutParams(47, 47));
         btn.setBackground(AppCompatResources.getDrawable(this, R.drawable.add_btn));
         btn.setScaleType(ImageView.ScaleType.FIT_XY);
 

@@ -24,12 +24,10 @@ public class Inventory implements Serializable {
     @Ignore
     private List<Item> items;
 
-    public void setItems(List<Item> items) {
-        this.items = items;
-    }
-
     @PrimaryKey
     private int char_id;
+
+    private double weight;
 
     public Inventory(int char_id) {
         weight = 0;
@@ -41,7 +39,9 @@ public class Inventory implements Serializable {
         return char_id;
     }
 
-    private double weight;
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
 
     public void setChar_id(int char_id) {
         this.char_id = char_id;
@@ -59,9 +59,11 @@ public class Inventory implements Serializable {
         return items;
     }
 
-    public void removeItem(Item item) {
+    public void removeItem(Item item, Context context) {
         weight -= item.getTotalWeight();
         items.remove(item);
+        item.delete(context);
+        update(context);
     }
 
     public void calculateWeight() {

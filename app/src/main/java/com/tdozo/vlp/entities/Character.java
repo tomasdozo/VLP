@@ -225,18 +225,17 @@ public class Character implements Serializable {
     }
 
     public void removeWeapon(Weapon weapon, Context context) {
-        weapon.delete(context);
-        weapons.removeItem(weapon);
+        weapons.removeItem(weapon, context);
     }
 
     public void removeWearable(Wearable wearable, Context context) {
-        wearable.delete(context);
-        wearables.removeItem(wearable);
+        wearables.removeItem(wearable, context);
+
     }
 
     public void removeItem(Item item, Context context) {
-        item.delete(context);
-        inventory.removeItem(item);
+        inventory.removeItem(item, context);
+
     }
 
     public void removeSkill(Attribute skill, Context context) {
@@ -252,10 +251,6 @@ public class Character implements Serializable {
     public void update(Context context) {
         DatabaseVLP.databaseWriteExecutor.execute(() -> {
             DatabaseVLP.getDatabase(context).characterDao().updateCharacter(this);
-            inventory.update(context);
-            weapons.update(context);
-            wearables.update(context);
-
         });
     }
 

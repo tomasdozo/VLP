@@ -12,6 +12,7 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/layout_properties"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -40,11 +41,15 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
             <TextView
                 android:id="@+id/textView25"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:text="@string/Weight"
                 android:textColor="@color/primaryText"
                 android:textSize="16sp" />
@@ -53,22 +58,20 @@
                 android:id="@+id/view_wearable_weight"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="3"
+                android:layout_weight="1"
+                android:textAlignment="center"
                 android:textColor="@color/colorAccent"
                 android:textSize="16sp" />
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:orientation="horizontal">
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
 
             <TextView
                 android:id="@+id/textView26"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:text="@string/Value"
                 android:textColor="@color/primaryText"
                 android:textSize="16sp" />
@@ -76,10 +79,18 @@
             <TextView
                 android:id="@+id/view_wearable_value"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="3"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAlignment="center"
                 android:textColor="@color/colorAccent"
                 android:textSize="16sp" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
         </LinearLayout>
+
     </LinearLayout>
 </ScrollView>

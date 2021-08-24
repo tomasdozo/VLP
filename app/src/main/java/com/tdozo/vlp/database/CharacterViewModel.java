@@ -17,6 +17,7 @@ import java.util.List;
 public class CharacterViewModel {
     LiveData<List<Character>> characters;
     DatabaseVLP db;
+    private static final boolean fixWeight = false;
 
     public CharacterViewModel(Context context) {
         db = DatabaseVLP.getDatabase(context);
@@ -55,21 +56,30 @@ public class CharacterViewModel {
     private void loadInventory(Character cha) {
         Inventory inventory = db.characterDao().loadInventoryByCharacterId(cha.getId());
         inventory.setItems(db.characterDao().loadItemsByCharacterId(cha.getId()));
-        inventory.calculateWeight();
+        if (fixWeight) {
+            inventory.calculateWeight();
+            db.characterDao().updateInventory(inventory);
+        }
         cha.setInventory(inventory);
     }
 
     private void loadWeapons(Character cha) {
         InventoryWeapons inventory = db.characterDao().loadInventoryWeaponsByCharacterId(cha.getId());
         inventory.setWeapons(db.characterDao().loadWeaponsByCharacterId(cha.getId()));
-        inventory.calculateWeight();
+        if (fixWeight) {
+            inventory.calculateWeight();
+            db.characterDao().updateInventoryWeapons(inventory);
+        }
         cha.setWeapons(inventory);
     }
 
     private void loadWearables(Character cha) {
         InventoryWearables inventory = db.characterDao().loadInventoryWearablesByCharacterId(cha.getId());
         inventory.setWearables(db.characterDao().loadWearablesByCharacterId(cha.getId()));
-        inventory.calculateWeight();
+        if (fixWeight) {
+            inventory.calculateWeight();
+            db.characterDao().updateInventoryWearables(inventory);
+        }
         cha.setWearables(inventory);
     }
 }
