@@ -10,7 +10,7 @@
         android:id="@+id/textView3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/colorPrimary"
         android:padding="10dp"
         android:text="@string/New_Character"
         android:textAlignment="center"
@@ -46,7 +46,7 @@
                 android:layout_weight="1"
                 android:text="@string/Name"
                 android:textAlignment="viewStart"
-                android:textColor="@color/secondaryText"
+                android:textColor="@color/black"
                 android:textSize="24sp" />
 
             <EditText
@@ -75,7 +75,7 @@
                 android:layout_weight="1"
                 android:text="@string/Race"
                 android:textAlignment="viewStart"
-                android:textColor="@color/secondaryText"
+                android:textColor="@color/black"
                 android:textSize="24sp" />
 
             <Button
@@ -93,7 +93,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/Description"
-            android:textColor="@color/secondaryText"
+            android:textColor="@color/black"
             android:textSize="24sp" />
 
         <EditText
@@ -124,7 +124,7 @@
                 android:layout_weight="1"
                 android:text="@string/Energy_Type"
                 android:textAlignment="viewStart"
-                android:textColor="@color/secondaryText"
+                android:textColor="@color/black"
                 android:textSize="24sp" />
 
             <Button
@@ -150,7 +150,7 @@
                 android:layout_weight="1"
                 android:text="@string/Aptitude"
                 android:textAlignment="viewStart"
-                android:textColor="@color/secondaryText"
+                android:textColor="@color/black"
                 android:textSize="24sp" />
 
             <Button
@@ -176,7 +176,7 @@
                 android:layout_weight="1"
                 android:text="@string/Base_Weight"
                 android:textAlignment="viewStart"
-                android:textColor="@color/secondaryText"
+                android:textColor="@color/black"
                 android:textSize="24sp" />
 
             <EditText
@@ -200,23 +200,10 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/delete"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/design_default_color_error"
-                android:text="@string/Remove"
-                android:textSize="24sp" />
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-            <Button
                 android:id="@+id/save"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/colorPrimaryDark"
+                android:backgroundTint="@color/colorAccent"
                 android:text="@string/Save"
                 android:textSize="24sp" />
 

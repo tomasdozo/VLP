@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.tdozo.vlp.database.CharacterViewModel;
 import com.tdozo.vlp.entities.Character;
 
@@ -44,19 +45,29 @@ public class MainActivity extends AppCompatActivity {
         TextView name_view = view.findViewById(R.id.name);
         TextView race_view = view.findViewById(R.id.race);
         View edit_btn = view.findViewById(R.id.edit);
+        View delete_btn = view.findViewById(R.id.delete);
 
         name_view.setText(cha.getName());
-        race_view.setText(cha.getRace().getName());
+        race_view.setText(getString(R.string.race_apitutde, getString(cha.getRace().getName()), getString(cha.getAptitude().getName())));
 
-        name_view.setOnClickListener(r -> viewModel.loadCharacter(cha, this));
+        //race_view.setText(cha.getRace().getName()+ " | " + cha.getAptitude().getName());
 
-        race_view.setOnClickListener(r -> viewModel.loadCharacter(cha, this));
+        view.setOnClickListener(r -> viewModel.loadCharacter(cha, this));
+        //name_view.setOnClickListener(r -> viewModel.loadCharacter(cha, this));
+
+        //race_view.setOnClickListener(r -> viewModel.loadCharacter(cha, this));
 
         edit_btn.setOnClickListener((r) -> {
             Intent intent = new Intent(this, CharacterActivity.class);
             intent.putExtra("Character", cha);
             startActivity(intent);
         });
+
+        delete_btn.setOnClickListener(v -> new MaterialAlertDialogBuilder(this)
+                .setTitle(getString(R.string.Remove))
+                .setMessage("¿Esta seguro que desea eliminar su personaje?")
+                .setNegativeButton(R.string.Remove, (dialog, which) ->
+                        cha.delete(this)).show());
         return view;
     }
 

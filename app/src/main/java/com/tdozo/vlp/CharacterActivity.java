@@ -1,7 +1,6 @@
 package com.tdozo.vlp;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -22,7 +21,6 @@ public class CharacterActivity extends AppCompatActivity {
     Button aptitude;
     EditText baseWeight;
     Button save;
-    Button delete;
     Character cha;
     Toast toast;
 
@@ -47,7 +45,6 @@ public class CharacterActivity extends AppCompatActivity {
             baseWeight.setText(String.valueOf(cha.getBaseWeight()));
         } else {
             cha = new Character();
-            delete.setVisibility(View.GONE);
         }
 
         setOnClickListeners();
@@ -55,13 +52,6 @@ public class CharacterActivity extends AppCompatActivity {
     }
 
     private void setOnClickListeners() {
-
-        delete.setOnClickListener(v -> new MaterialAlertDialogBuilder(this)
-                .setTitle(getString(R.string.Remove))
-                .setMessage("¿Esta seguro que desea eliminar su personaje?")
-                .setNegativeButton(R.string.Remove, (dialog, which) ->
-                        cha.deleteAndClose(this)).show());
-
         save.setOnClickListener(v -> {
             if (isComplete()) {
                 cha.setName(name.getText().toString().trim());
@@ -125,7 +115,6 @@ public class CharacterActivity extends AppCompatActivity {
         aptitude = findViewById(R.id.aptitude);
         baseWeight = findViewById(R.id.baseWeight);
         save = findViewById(R.id.save);
-        delete = findViewById(R.id.delete);
     }
 
     private boolean isComplete() {

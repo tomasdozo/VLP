@@ -131,4 +131,5 @@
     <string name="VLP">VLP</string>
     <string name="Characters">Personajes</string>
     <string name="Edit">Edit</string>
+    <string name="race_apitutde">%1$s | %2$s</string>
 </resources>

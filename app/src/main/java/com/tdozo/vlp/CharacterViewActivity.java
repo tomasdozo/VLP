@@ -295,7 +295,7 @@ public class CharacterViewActivity extends AppCompatActivity {
             TextView view = new TextView(getBaseContext());
             view.setText(skill.getName());
             view.setGravity(Gravity.CENTER);
-            view.setTextColor(getColor(R.color.primaryText));
+            view.setTextColor(getColor(R.color.black));
             view.setTextSize(16);
             view.setPadding(5, 5, 5, 5);
             view.setBackground(AppCompatResources.getDrawable(this, R.drawable.border_thin));
@@ -319,7 +319,7 @@ public class CharacterViewActivity extends AppCompatActivity {
             TextView view = new TextView(getBaseContext());
             view.setText(weakness.getName());
             view.setGravity(Gravity.CENTER);
-            view.setTextColor(getColor(R.color.primaryText));
+            view.setTextColor(getColor(R.color.black));
             view.setTextSize(16);
             view.setPadding(5, 5, 5, 5);
             view.setBackground(AppCompatResources.getDrawable(this, R.drawable.border_thin));
@@ -470,7 +470,7 @@ public class CharacterViewActivity extends AppCompatActivity {
             col0.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 3.0f));
             col0.setGravity(Gravity.CENTER);
             col0.setPadding(5, 5, 5, 5);
-            col0.setTextColor(getColor(R.color.primaryText));
+            col0.setTextColor(getColor(R.color.black));
             col0.setTextSize(16);
             col0.setBackground(AppCompatResources.getDrawable(this, R.drawable.border_thin));
             row.addView(col0);
@@ -481,7 +481,7 @@ public class CharacterViewActivity extends AppCompatActivity {
             col1.setText(String.valueOf(item.getQuantity()));
             col1.setLayoutParams(param);
             col1.setGravity(Gravity.CENTER);
-            col1.setTextColor(getColor(R.color.primaryText));
+            col1.setTextColor(getColor(R.color.black));
             col1.setTextSize(16);
             col1.setBackground(AppCompatResources.getDrawable(this, R.drawable.border_thin));
             row.addView(col1);

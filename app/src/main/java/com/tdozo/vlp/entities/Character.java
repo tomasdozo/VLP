@@ -1,13 +1,13 @@
 package com.tdozo.vlp.entities;
 
 
+import android.app.Activity;
 import android.content.Context;
 
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-import com.tdozo.vlp.CharacterActivity;
 import com.tdozo.vlp.database.CharacterDao;
 import com.tdozo.vlp.database.DatabaseVLP;
 import com.tdozo.vlp.enums.Aptitude;
@@ -249,19 +249,17 @@ public class Character implements Serializable {
     }
 
     public void update(Context context) {
-        DatabaseVLP.databaseWriteExecutor.execute(() -> {
-            DatabaseVLP.getDatabase(context).characterDao().updateCharacter(this);
-        });
+        DatabaseVLP.databaseWriteExecutor.execute(() -> DatabaseVLP.getDatabase(context).characterDao().updateCharacter(this));
     }
 
-    public void updateAndClose(CharacterActivity activity) {
+    public void updateAndClose(Activity activity) {
         DatabaseVLP.databaseWriteExecutor.execute(() -> {
             DatabaseVLP.getDatabase(activity).characterDao().updateCharacter(this);
             activity.finish();
         });
     }
 
-    public void createAndClose(CharacterActivity activity) {
+    public void createAndClose(Activity activity) {
         DatabaseVLP.databaseWriteExecutor.execute(() -> {
             CharacterDao characterDao = DatabaseVLP.getDatabase(activity).characterDao();
 
@@ -277,11 +275,10 @@ public class Character implements Serializable {
         });
     }
 
-    public void deleteAndClose(CharacterActivity activity) {
+    public void delete(Activity activity) {
         DatabaseVLP.databaseWriteExecutor.execute(() -> {
             CharacterDao characterDao = DatabaseVLP.getDatabase(activity).characterDao();
             characterDao.deleteCharacter(this);
-            activity.finish();
         });
     }
 }

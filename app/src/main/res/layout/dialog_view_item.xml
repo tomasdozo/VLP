@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/Weight"
-            android:textColor="@color/primaryText"
+            android:textColor="@color/black"
             android:textSize="16sp" />
 
         <TextView
@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:text="@string/Value"
-            android:textColor="@color/primaryText"
+            android:textColor="@color/black"
             android:textSize="16sp" />
 
         <EditText
@@ -61,7 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:text="@string/Quantity"
-            android:textColor="@color/primaryText"
+            android:textColor="@color/black"
             android:textSize="16sp" />
 
         <EditText
