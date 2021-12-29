@@ -6,7 +6,9 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.RawQuery;
 import androidx.room.Update;
+import androidx.sqlite.db.SupportSQLiteQuery;
 
 import com.tdozo.vlp.entities.Attribute;
 import com.tdozo.vlp.entities.Character;
@@ -125,5 +127,6 @@ public interface CharacterDao {
     @Query("SELECT * FROM inventoryWeapons where char_id = :id")
     InventoryWeapons loadInventoryWeaponsByCharacterId(int id);
 
-
+    @RawQuery
+    int checkpoint(SupportSQLiteQuery supportSQLiteQuery);
 }

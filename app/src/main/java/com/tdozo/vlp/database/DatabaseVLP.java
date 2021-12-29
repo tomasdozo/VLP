@@ -31,7 +31,7 @@ public abstract class DatabaseVLP extends RoomDatabase {
             synchronized (DatabaseVLP.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            DatabaseVLP.class, "vlp_database")
+                            DatabaseVLP.class, "vlp_database").setJournalMode(JournalMode.TRUNCATE)
                             .build();
                 }
             }
