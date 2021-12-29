@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
     public void backup() {
         Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
-        intent.setType("application/db");
+        intent.setType("application/octet-stream");
         intent.putExtra(Intent.EXTRA_TITLE, "backup_vlp.db");
 
         startActivityForResult(intent, CREATE_FILE);
@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
     public void restore() {
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
-        intent.setType("application/*");
+        intent.setType("application/octet-stream");
 
         startActivityForResult(intent, OPEN_FILE);
     }
